@@ -1,0 +1,35 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatDialogRef } from '@angular/material/dialog';
+import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationType } from 'src/app/enum/notification-type.enum';
+import { Subscription } from 'rxjs';
+
+@Component({
+  selector: 'app-reception-vehicule-ajouter',
+  // standalone: true,
+  // imports: [CommonModule],
+  templateUrl: './reception-vehicule-ajouter.component.html',
+  styleUrl: './reception-vehicule-ajouter.component.css'
+})
+export class ReceptionVehiculeAjouterComponent implements OnInit, OnDestroy {
+
+  private subscriptions: Subscription[] = [];
+
+  constructor(
+    public dialogRef: MatDialogRef<ReceptionVehiculeAjouterComponent>
+  ) {}
+
+
+  ngOnInit(): void {
+
+  }
+
+
+
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+}

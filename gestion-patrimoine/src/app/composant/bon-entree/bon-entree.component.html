@@ -1,0 +1,80 @@
+<form class="form" #ajouterBonEntreeForm="ngForm" (ngSubmit)="ajouterBonEntree(ajouterBonEntreeForm)">
+
+    <div class="row g-4 mb-3">
+        <!-- <div class="col-3 mx-auto form-group">
+            <label>Identifiant BE</label>
+            <input type="text" name="identifiantBE" required [(ngModel)]="bonEntree!.identifiantBE" class="form-control">
+        </div> -->
+
+        <div class="col-3 mx-auto form-group">
+            <label>N° BE</label>
+            <input type="text" name="numeroBE" required ngModel class="form-control">
+        </div>
+
+        <div class="col-3 mx-auto form-group">
+            <label>Libelle BE</label>
+            <input type="text" name="libelleBonEntree" required ngModel class="form-control">
+        </div>
+
+        <div class="col-3 mx-auto form-group">
+            <label>Date BE</label>
+            <input type="date" name="dateBonEntree" id="datepicker" ngbDatepicker #dp="ngbDatepicker" (click)="dp.toggle()" required ngModel class="form-control">
+        </div>
+    </div>
+
+
+    <div class="row g-4 mb-3">
+        
+
+        <div class="col-3 mx-auto">
+            <label>Bordereau livraison</label>
+            <select name="identifiantBL" required ngModel class="form-select form-control">
+                <option *ngFor="let bl of bordereauLivraisons" [ngValue]="bl">
+                    {{ bl.identifiantBL}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-3 mx-5">
+            <label>Section</label>
+            <select name="codeSection" required ngModel class="form-select form-control">
+                <option *ngFor="let st of sections" [ngValue]="st">
+                    {{ st.codeSection }}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-3 mx-5">
+            <label>Agent</label>
+            <select name="matriculeAgent" required ngModel class="form-select form-control">
+                <option *ngFor="let ag of agents" [ngValue]="ag">
+                    {{ ag.matriculeAgent }}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-3">
+        <div class="col-3 mx-5 form-group">
+            <label>Observation BE</label>
+            <textarea name="observationBonEntree" required ngModel class="form-control"></textarea>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-myprimary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour ajouter">
+                Valider
+            </button>
+
+            <button type="button" disabled class="btn btn-mysecondary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour retourner">
+                Ajouter article
+            </button>
+
+            <button type="button" class="btn btn-mysecondary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour retourner">
+                Retour
+            </button>
+        </div>
+    </div>
+
+</form>

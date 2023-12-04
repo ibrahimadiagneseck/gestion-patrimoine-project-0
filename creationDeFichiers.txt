@@ -1,0 +1,358 @@
+TYPEUNITEDOUANIERE
+UNITEHIERARCHIQUE
+FOURNISSEURS
+TYPEVEHICULE
+BORDEREAULIVRAISON
+UNITEDOUANIERE
+BONPOUR
+ARTICLEBONPOUR
+BONDESORTIE
+TYPEMATERIEL
+ARTICLEBONSORTIE
+BONENTREE
+ARTICLEBONENTRE
+MATERIELS
+CONTROLE
+MAINTENANCE
+FONCTIONAGENT
+AGENT
+TICKETS
+TYPEARME
+MARQUEARME
+CARBURANT
+VIDANGE 
+CHANGEMENTPIECE
+ARMES
+
+
+
+type_unite_douaniere
+unite_hierarchique
+fournisseurs
+type_vehicule
+bordereau_livraison
+unite_douaniere
+bon_pour
+article_bon_pour
+bon_de_sortie
+type_materiel
+article_bon_sortie
+bon_entree
+article_bon_entree
+materiels
+controle
+maintenance
+fonction_agent
+agent
+tickets
+type_arme
+marque_arme
+carburant
+vidange
+changement_piece
+armes
+
+
+TypeUniteDouaniereController
+UniteHierarchiqueController
+FournisseursController
+TypeVehiculeController
+BordereauLivraisonController
+UniteDouaniereController
+BonPourController
+ArticleBonPourController
+BonDeSortieController
+TypeMaterielController
+ArticleBonSortieController
+BonEntreeController
+ArticleBonEntreeController
+MaterielsController
+ControleController
+MaintenanceController
+FonctionAgentController
+AgentController
+TicketsController
+TypeArmeController
+MarqueArmeController
+CarburantController
+VidangeController
+ChangementPieceController
+ArmesController
+
+
+TypeUniteDouaniereServiceImpl
+UniteHierarchiqueServiceImpl
+FournisseursServiceImpl
+TypeVehiculeServiceImpl
+BordereauLivraisonServiceImpl
+UniteDouaniereServiceImpl
+BonPourServiceImpl
+ArticleBonPourServiceImpl
+BonDeSortieServiceImpl
+TypeMaterielServiceImpl
+ArticleBonSortieServiceImpl
+BonEntreeServiceImpl
+ArticleBonEntreeServiceImpl
+MaterielsServiceImpl
+ControleServiceImpl
+MaintenanceServiceImpl
+FonctionAgentServiceImpl
+AgentServiceImpl
+TicketsServiceImpl
+TypeArmeServiceImpl
+MarqueArmeServiceImpl
+CarburantServiceImpl
+VidangeServiceImpl
+ChangementPieceServiceImpl
+ArmesServiceImpl
+
+
+TypeUniteDouaniereService
+UniteHierarchiqueService
+FournisseursService
+TypeVehiculeService
+BordereauLivraisonService
+UniteDouaniereService
+BonPourService
+ArticleBonPourService
+BonDeSortieService
+TypeMaterielService
+ArticleBonSortieService
+BonEntreeService
+ArticleBonEntreeService
+MaterielsService
+ControleService
+MaintenanceService
+FonctionAgentService
+AgentService
+TicketsService
+TypeArmeService
+MarqueArmeService
+CarburantService
+VidangeService
+ChangementPieceService
+ArmesService
+
+
+TypeUniteDouaniereRepository
+UniteHierarchiqueRepository
+FournisseursRepository
+TypeVehiculeRepository
+BordereauLivraisonRepository
+UniteDouaniereRepository
+BonPourRepository
+ArticleBonPourRepository
+BonDeSortieRepository
+TypeMaterielRepository
+ArticleBonSortieRepository
+BonEntreeRepository
+ArticleBonEntreeRepository
+MaterielsRepository
+ControleRepository
+MaintenanceRepository
+FonctionAgentRepository
+AgentRepository
+TicketsRepository
+TypeArmeRepository
+MarqueArmeRepository
+CarburantRepository
+VidangeRepository
+ChangementPieceRepository
+ArmesRepository
+
+
+
+
+
+
+
+$files = @(
+    "TypeUniteDouaniere.java",
+    "UniteHierarchique.java",
+    "Fournisseurs.java",
+    "TypeVehicule.java",
+    "BordereauLivraison.java",
+    "UniteDouaniere.java",
+    "BonPour.java",
+    "ArticleBonPour.java",
+    "BonDeSortie.java",
+    "TypeMateriel.java",
+    "ArticleBonSortie.java",
+    "BonEntree.java",
+    "ArticleBonEntree.java",
+    "Materiels.java",
+    "Controle.java",
+    "Maintenance.java",
+    "FonctionAgent.java",
+    "Agent.java",
+    "Tickets.java",
+    "TypeArme.java",
+    "MarqueArme.java",
+    "Carburant.java",
+    "Vidange.java",
+    "ChangementPiece.java",
+    "Armes.java"
+)
+
+foreach ($file in $files) {
+    $filePath = ".\" + $file
+    New-Item -Path $filePath -ItemType "file"
+    Write-Host "Created file: " $filePath
+}
+
+
+
+
+
+
+$files = @(
+    "TypeUniteDouaniereController.java",
+    "UniteHierarchiqueController.java",
+    "FournisseursController.java",
+    "TypeVehiculeController.java",
+    "BordereauLivraisonController.java",
+    "UniteDouaniereController.java",
+    "BonPourController.java",
+    "ArticleBonPourController.java",
+    "BonDeSortieController.java",
+    "TypeMaterielController.java",
+    "ArticleBonSortieController.java",
+    "BonEntreeController.java",
+    "ArticleBonEntreeController.java",
+    "MaterielsController.java",
+    "ControleController.java",
+    "MaintenanceController.java",
+    "FonctionAgentController.java",
+    "AgentController.java",
+    "TicketsController.java",
+    "TypeArmeController.java",
+    "MarqueArmeController.java",
+    "CarburantController.java",
+    "VidangeController.java",
+    "ChangementPieceController.java",
+    "ArmesController.java"
+)
+
+foreach ($file in $files) {
+    $filePath = ".\" + $file
+    New-Item -Path $filePath -ItemType "file"
+    Write-Host "Created file: " $filePath
+}
+
+
+
+
+
+
+
+$files = @(
+    "TypeUniteDouaniereServiceImpl.java",
+    "UniteHierarchiqueServiceImpl.java",
+    "FournisseursServiceImpl.java",
+    "TypeVehiculeServiceImpl.java",
+    "BordereauLivraisonServiceImpl.java",
+    "UniteDouaniereServiceImpl.java",
+    "BonPourServiceImpl.java",
+    "ArticleBonPourServiceImpl.java",
+    "BonDeSortieServiceImpl.java",
+    "TypeMaterielServiceImpl.java",
+    "ArticleBonSortieServiceImpl.java",
+    "BonEntreeServiceImpl.java",
+    "ArticleBonEntreeServiceImpl.java",
+    "MaterielsServiceImpl.java",
+    "ControleServiceImpl.java",
+    "MaintenanceServiceImpl.java",
+    "FonctionAgentServiceImpl.java",
+    "AgentServiceImpl.java",
+    "TicketsServiceImpl.java",
+    "TypeArmeServiceImpl.java",
+    "MarqueArmeServiceImpl.java",
+    "CarburantServiceImpl.java",
+    "VidangeServiceImpl.java",
+    "ChangementPieceServiceImpl.java",
+    "ArmesServiceImpl.java"
+)
+
+foreach ($file in $files) {
+    $filePath = ".\" + $file
+    New-Item -Path $filePath -ItemType "file"
+    Write-Host "Created file: " $filePath
+}
+
+
+
+
+
+
+$files = @(
+    "TypeUniteDouaniereService.java",
+    "UniteHierarchiqueService.java",
+    "FournisseursService.java",
+    "TypeVehiculeService.java",
+    "BordereauLivraisonService.java",
+    "UniteDouaniereService.java",
+    "BonPourService.java",
+    "ArticleBonPourService.java",
+    "BonDeSortieService.java",
+    "TypeMaterielService.java",
+    "ArticleBonSortieService.java",
+    "BonEntreeService.java",
+    "ArticleBonEntreeService.java",
+    "MaterielsService.java",
+    "ControleService.java",
+    "MaintenanceService.java",
+    "FonctionAgentService.java",
+    "AgentService.java",
+    "TicketsService.java",
+    "TypeArmeService.java",
+    "MarqueArmeService.java",
+    "CarburantService.java",
+    "VidangeService.java",
+    "ChangementPieceService.java",
+    "ArmesService.java"
+)
+
+foreach ($file in $files) {
+    $filePath = ".\" + $file
+    New-Item -Path $filePath -ItemType "file"
+    Write-Host "Created file: " $filePath
+}
+
+
+
+
+
+
+$files = @(
+    "TypeUniteDouaniereRepository.java",
+    "UniteHierarchiqueRepository.java",
+    "FournisseursRepository.java",
+    "TypeVehiculeRepository.java",
+    "BordereauLivraisonRepository.java",
+    "UniteDouaniereRepository.java",
+    "BonPourRepository.java",
+    "ArticleBonPourRepository.java",
+    "BonDeSortieRepository.java",
+    "TypeMaterielRepository.java",
+    "ArticleBonSortieRepository.java",
+    "BonEntreeRepository.java",
+    "ArticleBonEntreeRepository.java",
+    "MaterielsRepository.java",
+    "ControleRepository.java",
+    "MaintenanceRepository.java",
+    "FonctionAgentRepository.java",
+    "AgentRepository.java",
+    "TicketsRepository.java",
+    "TypeArmeRepository.java",
+    "MarqueArmeRepository.java",
+    "CarburantRepository.java",
+    "VidangeRepository.java",
+    "ChangementPieceRepository.java",
+    "ArmesRepository.java"
+)
+
+foreach ($file in $files) {
+    $filePath = ".\" + $file
+    New-Item -Path $filePath -ItemType "file"
+    Write-Host "Created file: " $filePath
+}

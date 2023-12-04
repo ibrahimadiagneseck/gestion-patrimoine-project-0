@@ -1,0 +1,242 @@
+
+TYPEUNITEDOUANIERE
+## CodeTypeUniteDouaniere: varchar(5)
+- LibelleTypeUniteDouaniere: varchar(50)
+
+
+UNITEHIERARCHIQUE
+## CodeUniteHierarchique: varchar(3)
+- LibelleUniteHierarchique: varchar(100)
+- SigleUniteHierarchique: varchar(8)
+
+
+FOURNISSEURS
+## CodeFournisseur: varchar(10)
+- RaisonSociale: varchar(512)
+- NumeroTelephone: int
+- NINEA: varchar(20)
+- Adresse: varchar(255)
+- SecteurActivite: varchar(255)
+
+
+TYPEVEHICULE
+## CodeTypeVehicule: varchar(10)
+- LibelleTypeVehicule: varchar(50)
+
+
+BORDEREAULIVRAISON
+## NumeroBL: varchar(100)
+- LieuDeLivraison: varchar(255)
+- DescriptionBL: varchar(512)
+- DateBL: Date
+- ConformiteBL: varchar(3)
+# CodeFournisseur: varchar(10)
+
+
+
+
+UNITEDOUANIERE
+## CodeUniteDouaniere: varchar(3)
+- NomUniteDouaniere: varchar(50)
+- EffectifUniteDouaniere: int
+- NombreArme: int
+- NombreAutomobile: int
+- NombreMateriel: int
+# CodeUniteHierarchique: varchar(3)
+# CodeTypeUniteDouaniere: varchar(5)
+
+
+BONPOUR
+## NumeroBonPour: varchar(10)
+- NumeroCourrierOrigine: int
+- DateCourrierOrigine: Date
+- EtatBonPour: varchar(10)
+- ObjectCourrierOrigine: varchar(100)
+- NumeroArriveDLF: int
+- DateArriveDLF: Date
+- NumeroArriveBLM: int
+- DateArriveBLM: Date
+- NumeroArriveSection: int
+- DateArriveSection: Date
+# CodeUniteDouaniere: varchar(3)
+
+
+ARTICLEBONPOUR
+## NumeroBonPour: varchar(10)
+## CodeArticleBonPour: varchar(10)
+- LibelleArticleBonPour: varchar(100)
+- QuantiteDemandee: int
+- CategorieBonPour: varchar(50)
+
+
+BONDESORTIE
+## NumeroBonDeSortie: varchar(10)
+- LibelleBonDeSortie: varchar(100)
+- DateBonDeSortie: Date
+- ObservationBonDeSortie: varchar(100)
+# CodeUniteDouaniere: varchar(3)
+
+
+TYPEMATERIEL
+## CodeTypeMateriel: varchar(5)
+- LibelleTypeMateriel: varchar(100)
+
+
+ARTICLEBONSORTIE
+## NumeroBonDeSortie: varchar(10)
+## CodeArticleBonSortie: varchar(10)
+- LibelleArticleBonSortie: varchar(100)
+- QuantiteAccordee: int
+- DateArticleBonSortie: timestamp
+# NumeroBonPour: varchar(10)
+# CodeArticleBonPour: varchar(10)
+
+
+
+BONENTREE
+## NumeroBonEntre: varchar(10)
+- LibelleBonEntre: varchar(100)
+- DateBonEntree: Date
+- ObservationBonEntre: varchar(100)
+# NumeroBL: varchar(100)
+
+
+ARTICLEBONENTRE
+## NumeroBonEntre: varchar(10)
+## CodeArticleBonEntre: varchar(10)
+- LibelleArticleBonEntre: varchar(100)
+- QuantiteEntree: int
+
+
+MATERIELS
+## CodeMateriel: varchar(5)
+- LibelleMateriel: varchar(100)
+- QuantiteDisponible: int 
+# NumeroBonDeSortie: varchar(10)
+# CodeArticleBonSortie: varchar(5)
+# CodeTypeMateriel: varchar(5)
+# NumeroBonEntre: varchar(10)
+# CodeArticleBonEntre: varchar(10)
+
+
+CONTROLE
+## NumeroImmatriculation: varchar(30)
+- DateControle: Date
+- ObservationControle: varchar(100)
+
+
+MAINTENANCE
+## NumeroImmatriculation: varchar(30)
+## DateMaintenance: timestamp
+- TypeMaintenance: varchar(15)
+- MotifReparation: varchar(15)
+- RapportIncident: varchar(255)
+
+
+FONCTIONAGENT
+## CodeFonctionAgent: varchar(10)
+- LibelleFonctionAgent: varchar(100)
+
+
+AGENT
+## MatriculeAgent: varchar(7)
+## CodeAgent: varchar(5)
+- NomAgent:  varchar(100)
+- PrenomAgent: varchar(100)
+- CorpsAgent:  varchar(100)
+- NumeroTelephoneAgent: int
+# CodeFonctionAgent: varchar(20)
+# CodeUniteDouaniere: varchar(3)
+
+
+TICKETS
+## NumeroTicket: int
+## CodeAgent: varchar(5)
+- NombreTicket: int
+- LitrageTotal: int
+- TypeEnergie: int
+- NumeroOrdreMission: int
+- Iteneraire: varchar(100)
+- MotifOrdreMission: varchar(100)
+
+
+TYPEARME
+## CodeTypeArme: varchar(10)
+- LibelleTypeArme: varchar(100)
+
+
+MARQUEARME
+## CodeMarqueArme: varchar(10)
+- LibelleMarque: varchar(100)
+
+
+CARBURANT
+## NumeroCarte: varchar(30)
+## CodeAgent: varchar(5)
+- CodeChargement: varchar(30)
+- MontantMensuel: int
+- DateChargement: Date
+- StationChargement: varchar(10)
+
+
+
+VIDANGE 
+## NumeroImmatriculation: varchar(30)
+## DateVidange: timestamp
+- ReferenceHuile: varchar(100)
+- LibelleHuile: varchar(50)
+- DateArriveHuile: Date
+- QuantiteMiseVehicule: int
+
+
+CHANGEMENTPIECE
+## NumeroImmatriculation: varchar(30)
+## DateChangementPiece: Date
+- NombrePiecesRechangees: int
+- ReferencePieces: varchar(100)
+- ObservationChangement: varchar(100)
+
+
+
+VEHICULE
+## NumeroImmatriculation: varchar(30)
+- Genre: varchar(30)
+- Marque: varchar(30)
+- Modele: varchar(30)
+- NumeroSerie: varchar(30)
+- EtatVehicule: varchar(10)
+- Energie: varchar(10)
+- Provenance: varchar(30)
+- NumeroCarteGrise: varchar(30)
+- DateMiseEnCirculation: Date
+- DateSortieVehicule: Date
+- NatureDotationVehicule: varchar(50)
+# NumeroBonEntre: varchar(10)
+# CodeArticleBonEntre: varchar(10)
+# NumeroBonDeSortie: varchar(10)
+# CodeArticleBonSortie: varchar(10)
+# CodeTypeVehicuel: varchar(10)
+
+
+
+ARMES
+## NumeroArme: varchar(30)
+- PaysFabrication: varchar(30)
+- DateRecuperationArme: Date
+- EtatArme: varchar(10)
+- Calibre: varchar(10)
+- NumeroSerieArme: varchar(10)
+- LibelleSerieArme: varchar(30)
+# CodeTypeArme: varchar(10)
+# CodeMarqueArme: int
+# NumeroBonDeSortie: varchar(10)
+# CodeArticleBonSortie: varchar(5)
+# NumeroBonEntre: varchar(10)
+# CodeArticleBonEntre: varchar(10)
+
+
+
+
+
+
+
