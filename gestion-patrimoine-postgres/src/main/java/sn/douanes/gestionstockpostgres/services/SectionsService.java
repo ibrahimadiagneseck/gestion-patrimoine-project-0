@@ -10,7 +10,7 @@ public interface SectionsService {
     Sections updateSections(Sections s);
     void deleteSections(Sections s);
     void deleteSectionsById(String id);
-    Sections getSections(String id);
+    Sections getSectionsById(String id);
     List<Sections> getAllSectionss();
 
 

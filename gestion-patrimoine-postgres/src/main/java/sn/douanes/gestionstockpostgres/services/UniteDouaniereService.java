@@ -12,7 +12,7 @@ public interface UniteDouaniereService {
     UniteDouaniere updateUniteDouaniere(UniteDouaniere u);
     void deleteUniteDouaniere(UniteDouaniere u);
     void deleteUniteDouaniereById(String id);
-    UniteDouaniere getUniteDouaniere(String id);
+    UniteDouaniere getUniteDouaniereById(String id);
     List<UniteDouaniere> getAllUniteDouanieres();
 
 

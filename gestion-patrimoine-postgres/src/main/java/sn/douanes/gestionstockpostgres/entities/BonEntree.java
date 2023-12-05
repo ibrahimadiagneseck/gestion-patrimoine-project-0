@@ -1,6 +1,5 @@
 package sn.douanes.gestionstockpostgres.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -40,23 +40,23 @@ public class BonEntree {
 
 
     @Column(name = "date_enregistrement")
-    private Timestamp dateEnregistrement;
+    private SimpleDateFormat dateEnregistrement;
 
 
     @ManyToOne
     @JoinColumn(name = "identifiant_b_l")
     private BordereauLivraison identifiantBL;
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "matricule_agent", referencedColumnName = "matricule_agent"),
-            @JoinColumn(name = "code_corps_agent", referencedColumnName = "code_corps_agent")
-    })
-    private Agent matriculeAgent;
+//    @ManyToOne
+//    @JoinColumns({
+//            @JoinColumn(name = "matricule_agent", referencedColumnName = "matricule_agent"),
+//            @JoinColumn(name = "code_corps_agent", referencedColumnName = "code_corps_agent")
+//    })
+//    private Agent matriculeAgent;
 
 
-    @ManyToOne
-    @JoinColumn(name = "code_section")
-    private Sections codeSection;
+//    @ManyToOne
+//    @JoinColumn(name = "code_section")
+//    private Sections codeSection;
 
 }

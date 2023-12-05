@@ -36,8 +36,8 @@ public class UniteDouaniereServiceImpl implements UniteDouaniereService {
     }
 
     @Override
-    public UniteDouaniere getUniteDouaniere(String id) {
-        return uniteDouaniereRepository.findById(id).get();
+    public UniteDouaniere getUniteDouaniereById(String id) {
+        return uniteDouaniereRepository.findById(id).isPresent() ? uniteDouaniereRepository.findById(id).get() : null;
     }
 
     @Override

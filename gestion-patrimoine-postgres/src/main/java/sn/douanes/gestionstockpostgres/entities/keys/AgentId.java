@@ -1,9 +1,5 @@
 package sn.douanes.gestionstockpostgres.entities.keys;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
 import sn.douanes.gestionstockpostgres.entities.CorpsAgent;
 
 import java.io.Serializable;
@@ -12,12 +8,12 @@ public class AgentId implements Serializable {
 
     private String matriculeAgent;
 
-    private String codeCorpsAgent;
+    private CorpsAgent codeCorpsAgent;
 
     public AgentId() {
     }
 
-    public AgentId(String matriculeAgent, String codeCorpsAgent) {
+    public AgentId(String matriculeAgent, CorpsAgent codeCorpsAgent) {
         this.matriculeAgent = matriculeAgent;
         this.codeCorpsAgent = codeCorpsAgent;
     }

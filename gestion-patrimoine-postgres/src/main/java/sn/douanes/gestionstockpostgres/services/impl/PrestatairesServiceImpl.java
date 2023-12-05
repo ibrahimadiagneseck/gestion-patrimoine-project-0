@@ -36,8 +36,8 @@ public class PrestatairesServiceImpl implements PrestatairesService {
     }
 
     @Override
-    public Prestataires getPrestataires(String id) {
-        return prestatairesRepository.findById(id).get();
+    public Prestataires getPrestatairesById(String id) {
+        return prestatairesRepository.findById(id).isPresent() ? prestatairesRepository.findById(id).get() : null;
     }
 
     @Override

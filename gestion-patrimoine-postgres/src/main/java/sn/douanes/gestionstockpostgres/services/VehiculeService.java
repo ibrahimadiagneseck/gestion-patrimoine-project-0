@@ -11,7 +11,7 @@ public interface VehiculeService {
     Vehicule updateVehicule(Vehicule v);
     void deleteVehicule(Vehicule v);
     void deleteVehiculeById(String id);
-    Vehicule getVehicule(String id);
+    Vehicule getVehiculeById(String id);
     List<Vehicule> getAllVehicules();
 
 }

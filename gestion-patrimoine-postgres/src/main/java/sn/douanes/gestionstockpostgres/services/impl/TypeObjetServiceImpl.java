@@ -36,8 +36,8 @@ public class TypeObjetServiceImpl implements TypeObjetService {
     }
 
     @Override
-    public TypeObjet getTypeObjet(String id) {
-        return typeObjetRepository.findById(id).get();
+    public TypeObjet getTypeObjetById(String id) {
+        return typeObjetRepository.findById(id).isPresent() ? typeObjetRepository.findById(id).get() : null;
     }
 
     @Override

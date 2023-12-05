@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sn.douanes.gestionstockpostgres.entities.Agent;
+import sn.douanes.gestionstockpostgres.entities.CorpsAgent;
 import sn.douanes.gestionstockpostgres.entities.Vehicule;
+import sn.douanes.gestionstockpostgres.entities.keys.AgentId;
 import sn.douanes.gestionstockpostgres.repositories.AgentRepository;
 import sn.douanes.gestionstockpostgres.services.AgentService;
 
@@ -32,13 +34,13 @@ public class AgentServiceImpl implements AgentService {
     }
 
     @Override
-    public void deleteAgentById(String id) {
-        agentRepository.deleteById(id);
+    public void deleteAgentById(String matriculeAgent, CorpsAgent codeCorpsAgent) {
+        agentRepository.deleteById(new AgentId(matriculeAgent, codeCorpsAgent));
     }
 
     @Override
-    public Agent getAgent(String id) {
-        return agentRepository.findById(id).get();
+    public Agent getAgentById(String matriculeAgent, CorpsAgent codeCorpsAgent) {
+        return agentRepository.findById(new AgentId(matriculeAgent, codeCorpsAgent)).isPresent() ? agentRepository.findById(new AgentId(matriculeAgent, codeCorpsAgent)).get() : null;
     }
 
     @Override

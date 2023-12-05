@@ -7,4 +7,5 @@ import sn.douanes.gestionstockpostgres.entities.Prestataires;
 
 @Repository
 public interface PrestatairesRepository extends JpaRepository<Prestataires, String> {
+
 }

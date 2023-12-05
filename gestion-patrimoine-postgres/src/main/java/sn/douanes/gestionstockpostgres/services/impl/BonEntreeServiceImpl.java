@@ -1,6 +1,7 @@
 package sn.douanes.gestionstockpostgres.services.impl;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -42,8 +43,8 @@ public class BonEntreeServiceImpl implements BonEntreeService {
     }
 
     @Override
-    public BonEntree getBonEntree(String id) {
-        return bonEntreeRepository.findById(id).get();
+    public BonEntree getBonEntreeById(String id) {
+        return bonEntreeRepository.findById(id).isPresent() ? bonEntreeRepository.findById(id).get() : null;
     }
 
     @Override
@@ -55,24 +56,21 @@ public class BonEntreeServiceImpl implements BonEntreeService {
     public BonEntree ajouterBonEntree(String numeroBE, String libelleBonEntree, Date dateBonEntree, String observationBonEntree, BordereauLivraison identifiantBL, Agent matriculeAgent, Sections codeSection) {
         BonEntree bonEntree = new BonEntree();
 
-        bonEntree.setDateEnregistrement(new Timestamp(System.currentTimeMillis()));
+        bonEntree.setDateEnregistrement(new SimpleDateFormat("yyyyMMddHHmmssSSS"));
         bonEntree.setIdentifiantBE(genererIdentifiantBE(codeSection.getCodeSection(), bonEntree.getDateEnregistrement()));
         bonEntree.setNumeroBE(numeroBE);
         bonEntree.setLibelleBonEntree(libelleBonEntree);
         bonEntree.setDateBonEntree(dateBonEntree);
         bonEntree.setObservationBonEntree(observationBonEntree);
         bonEntree.setIdentifiantBL(identifiantBL);
-        bonEntree.setMatriculeAgent(matriculeAgent);
-        bonEntree.setCodeSection(codeSection);
-
 
         bonEntreeRepository.save(bonEntree);
         return bonEntree;
     }
 
 
-    private String genererIdentifiantBE(String codeSection, Timestamp dateEnregistrement) {
-        // = new Timestamp(System.currentTimeMillis())
+    private String genererIdentifiantBE(String codeSection, SimpleDateFormat dateEnregistrement) {
+        // Timestamp t = new Timestamp(System.currentTimeMillis())
         return "BE" + codeSection + dateEnregistrement;
     }
 

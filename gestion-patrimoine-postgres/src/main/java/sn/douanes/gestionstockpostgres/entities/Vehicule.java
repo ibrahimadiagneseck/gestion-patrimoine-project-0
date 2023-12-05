@@ -1,6 +1,5 @@
 package sn.douanes.gestionstockpostgres.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -71,15 +70,15 @@ public class Vehicule {
     })
     private ArticleBonEntree identifiantBE;
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "matricule_agent", referencedColumnName = "matricule_agent"),
-            @JoinColumn(name = "code_corps_agent", referencedColumnName = "code_corps_agent")
-    })
-    private Agent matriculeAgent;
+//    @ManyToOne
+//    @JoinColumns({
+//            @JoinColumn(name = "matricule_agent", referencedColumnName = "matricule_agent"),
+//            @JoinColumn(name = "code_corps_agent", referencedColumnName = "code_corps_agent")
+//    })
+//    private Agent matriculeAgent;
 
-    @ManyToOne
-    @JoinColumn(name = "code_type_objet")
-    private TypeObjet codeTypeObjet;
+//    @ManyToOne
+//    @JoinColumn(name = "code_type_objet")
+//    private TypeObjet codeTypeObjet;
 
 }

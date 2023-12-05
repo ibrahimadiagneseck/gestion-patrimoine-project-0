@@ -36,8 +36,8 @@ public class CorpsAgentServiceImpl implements CorpsAgentService {
     }
 
     @Override
-    public CorpsAgent getCorpsAgent(String id) {
-        return corpsAgentRepository.findById(id).get();
+    public CorpsAgent getCorpsAgentById(String id) {
+        return corpsAgentRepository.findById(id).isPresent() ? corpsAgentRepository.findById(id).get() : null;
     }
 
     @Override

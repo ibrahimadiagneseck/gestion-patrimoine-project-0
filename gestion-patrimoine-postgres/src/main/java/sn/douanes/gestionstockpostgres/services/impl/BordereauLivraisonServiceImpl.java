@@ -36,8 +36,8 @@ public class BordereauLivraisonServiceImpl implements BordereauLivraisonService 
     }
 
     @Override
-    public BordereauLivraison getBordereauLivraison(String id) {
-        return bordereauLivraisonRepository.findById(id).get();
+    public BordereauLivraison getBordereauLivraisonById(String id) {
+        return bordereauLivraisonRepository.findById(id).isPresent() ? bordereauLivraisonRepository.findById(id).get() : null;
     }
 
     @Override

@@ -36,8 +36,8 @@ public class SectionsServiceImpl implements SectionsService {
     }
 
     @Override
-    public Sections getSections(String id) {
-        return sectionsRepository.findById(id).get();
+    public Sections getSectionsById(String id) {
+        return sectionsRepository.findById(id).isPresent() ? sectionsRepository.findById(id).get() : null;
     }
 
     @Override

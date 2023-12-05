@@ -46,44 +46,44 @@ public class ProjectSecurityConfig {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests((requests)->requests
-//                                .requestMatchers("/accueil").hasRole("USER")
-//                                .requestMatchers("/gestion-utilisateur/*").hasRole("USER")
-//                                .requestMatchers("/gestion-vehicule").hasRole("USER")
+                                .requestMatchers("/accueil").hasRole("USER")
+                                .requestMatchers("/gestion-utilisateur/*").hasRole("USER")
+                                .requestMatchers("/gestion-vehicule").hasRole("USER")
 
-//                                .requestMatchers("/Vehicules").hasRole("USER")
-//                                .requestMatchers("/AjouterVehicule").hasRole("USER")
-//                                .requestMatchers("/ModifierVehicule").hasRole("USER")
-//                                .requestMatchers("/SupprimerVehicule/*").hasRole("USER")
-//
-//                                .requestMatchers("/ArticleBonEntrees").hasRole("USER")
-//                                .requestMatchers("/AjouterArticleBonEntree").hasRole("USER")
-//                                .requestMatchers("/ModifierArticleBonEntree").hasRole("USER")
-//                                .requestMatchers("/SupprimerArticleBonEntree/*").hasRole("USER")
-//
-//                                .requestMatchers("/BonEntrees").hasRole("USER")
-//                                .requestMatchers("/AjouterBonEntree").hasRole("USER")
-//                                .requestMatchers("/ModifierBonEntree").hasRole("USER")
-//                                .requestMatchers("/SupprimerBonEntree/*").hasRole("USER")
-//
-//                                .requestMatchers("/Sections").hasRole("USER")
-//                                .requestMatchers("/AjouterSections").hasRole("USER")
-//                                .requestMatchers("/ModifierSections").hasRole("USER")
-//                                .requestMatchers("/SupprimerSections/*").hasRole("USER")
-//
-//
-//                                .requestMatchers("/Agents").hasRole("USER")
-//                                .requestMatchers("/AjouterAgent").hasRole("USER")
-//                                .requestMatchers("/ModifierAgent").hasRole("USER")
-//                                .requestMatchers("/SupprimerAgent/*").hasRole("USER")
-//
-//
-//                                .requestMatchers("/BordereauLivraisons").hasRole("USER")
-//                                .requestMatchers("/AjouterBordereauLivraison").hasRole("USER")
-//                                .requestMatchers("/ModifierBordereauLivraison").hasRole("USER")
-//                                .requestMatchers("/SupprimerBordereauLivraison/*").hasRole("USER")
+                                .requestMatchers("/Vehicules").hasRole("USER")
+                                .requestMatchers("/AjouterVehicule").hasRole("USER")
+                                .requestMatchers("/ModifierVehicule").hasRole("USER")
+                                .requestMatchers("/SupprimerVehicule/*").hasRole("USER")
+
+                                .requestMatchers("/ArticleBonEntrees").hasRole("USER")
+                                .requestMatchers("/AjouterArticleBonEntree").hasRole("USER")
+                                .requestMatchers("/ModifierArticleBonEntree").hasRole("USER")
+                                .requestMatchers("/SupprimerArticleBonEntree/*").hasRole("USER")
+
+                                .requestMatchers("/BonEntrees").hasRole("USER")
+                                .requestMatchers("/AjouterBonEntree").hasRole("USER")
+                                .requestMatchers("/ModifierBonEntree").hasRole("USER")
+                                .requestMatchers("/SupprimerBonEntree/*").hasRole("USER")
+
+                                .requestMatchers("/Sections").hasRole("USER")
+                                .requestMatchers("/AjouterSections").hasRole("USER")
+                                .requestMatchers("/ModifierSections").hasRole("USER")
+                                .requestMatchers("/SupprimerSections/*").hasRole("USER")
 
 
-                                .requestMatchers("/**").permitAll()
+                                .requestMatchers("/Agents").hasRole("USER")
+                                .requestMatchers("/AjouterAgent").hasRole("USER")
+                                .requestMatchers("/ModifierAgent").hasRole("USER")
+                                .requestMatchers("/SupprimerAgent/*").hasRole("USER")
+
+
+                                .requestMatchers("/BordereauLivraisons").hasRole("USER")
+                                .requestMatchers("/AjouterBordereauLivraison").hasRole("USER")
+                                .requestMatchers("/ModifierBordereauLivraison").hasRole("USER")
+                                .requestMatchers("/SupprimerBordereauLivraison/*").hasRole("USER")
+
+
+                                // .requestMatchers("/**").permitAll()
 
 //                        .requestMatchers("/myAccount").hasRole("USER")
 //                        .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")

@@ -10,7 +10,7 @@ public interface PrestatairesService {
     Prestataires updatePrestataires(Prestataires p);
     void deletePrestataires(Prestataires p);
     void deletePrestatairesById(String id);
-    Prestataires getPrestataires(String id);
+    Prestataires getPrestatairesById(String id);
     List<Prestataires> getAllPrestataires();
 
 

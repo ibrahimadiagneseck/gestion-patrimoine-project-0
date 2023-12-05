@@ -10,7 +10,7 @@ public interface TypeObjetService {
     TypeObjet updateTypeObjet(TypeObjet t);
     void deleteTypeObjet(TypeObjet t);
     void deleteTypeObjetById(String id);
-    TypeObjet getTypeObjet(String id);
+    TypeObjet getTypeObjetById(String id);
     List<TypeObjet> getAllTypeObjets();
 
 
