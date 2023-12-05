@@ -10,7 +10,7 @@ public interface PaysService {
     Pays updatePays(Pays p);
     void deletePays(Pays p);
     void deletePaysById(String id);
-    Pays getPays(String id);
+    Pays getPaysById(String id);
     List<Pays> getAllPays();
 
 

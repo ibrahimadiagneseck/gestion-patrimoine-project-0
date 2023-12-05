@@ -1,14 +1,10 @@
 package sn.douanes.gestionstockpostgres.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Collection;
-import java.util.List;
 
 
 @Entity
@@ -27,7 +23,7 @@ public class UniteDouaniere {
     private String codeUniteDouaniere;
 
 
-    @Column(name = "nom_unite_douaniere", length = 255)
+    @Column(name = "nom_unite_douaniere")
     private String nomUniteDouaniere;
 
     @Column(name = "effectif_unite_douaniere")

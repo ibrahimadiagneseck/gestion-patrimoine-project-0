@@ -10,7 +10,7 @@ public interface TypeUniteDouaniereService {
     TypeUniteDouaniere updateTypeUniteDouaniere(TypeUniteDouaniere t);
     void deleteTypeUniteDouaniere(TypeUniteDouaniere t);
     void deleteTypeUniteDouaniereById(String id);
-    TypeUniteDouaniere getTypeUniteDouaniere(String id);
+    TypeUniteDouaniere getTypeUniteDouaniereById(String id);
     List<TypeUniteDouaniere> getAllTypeUniteDouanieres();
 
 

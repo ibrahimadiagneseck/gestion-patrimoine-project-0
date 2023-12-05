@@ -7,4 +7,5 @@ import sn.douanes.gestionstockpostgres.entities.FonctionAgent;
 
 @Repository
 public interface FonctionAgentRepository extends JpaRepository<FonctionAgent, String> {
+
 }

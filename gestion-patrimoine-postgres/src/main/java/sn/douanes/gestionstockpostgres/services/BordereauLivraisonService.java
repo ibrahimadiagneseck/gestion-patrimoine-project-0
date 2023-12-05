@@ -10,7 +10,7 @@ public interface BordereauLivraisonService {
     BordereauLivraison updateBordereauLivraison(BordereauLivraison b);
     void deleteBordereauLivraison(BordereauLivraison b);
     void deleteBordereauLivraisonById(String id);
-    BordereauLivraison getBordereauLivraison(String id);
+    BordereauLivraison getBordereauLivraisonById(String id);
     List<BordereauLivraison> getAllBordereauLivraisons();
 
 

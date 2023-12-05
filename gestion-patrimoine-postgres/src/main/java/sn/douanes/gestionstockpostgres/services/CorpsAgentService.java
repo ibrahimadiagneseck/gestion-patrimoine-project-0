@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface CorpsAgentService {
 
-    CorpsAgent saveCorpsAgent(CorpsAgent a);
-    CorpsAgent updateCorpsAgent(CorpsAgent a);
-    void deleteCorpsAgent(CorpsAgent a);
+    CorpsAgent saveCorpsAgent(CorpsAgent c);
+    CorpsAgent updateCorpsAgent(CorpsAgent c);
+    void deleteCorpsAgent(CorpsAgent c);
     void deleteCorpsAgentById(String id);
-    CorpsAgent getCorpsAgent(String id);
+    CorpsAgent getCorpsAgentById(String id);
     List<CorpsAgent> getAllCorpsAgents();
 
 

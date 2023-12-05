@@ -373,7 +373,6 @@ DROP TABLE IF EXISTS pays;
 
 
 
-
 CREATE TABLE fonction_agent (
     code_fonction_agent VARCHAR(10),
     libelle_fonction_agent VARCHAR(100),
@@ -408,8 +407,23 @@ CREATE TABLE prestataires (
     ninea VARCHAR(20),
     raison_sociale VARCHAR(512),
     numero_telephone INT,
+    adresse_email  VARCHAR(100)
     adresse VARCHAR(512),
     PRIMARY KEY (ninea)
+);
+
+CREATE TABLE secteur_activite (
+    code_secteur_activite VARCHAR(10),
+    libelle_secteur_activite VARCHAR(255),
+    PRIMARY KEY (code_secteur_activite)
+);
+
+CREATE TABLE prestataires_secteur (
+    ninea VARCHAR(20),
+    code_secteur_activite VARCHAR(10),
+    PRIMARY KEY (ninea, code_secteur_activite),
+    CONSTRAINT FK_prestataires_secteur_prestataires FOREIGN KEY (ninea) REFERENCES prestataires(ninea),
+    CONSTRAINT FK_prestataires_secteur_secteur_activite FOREIGN KEY (code_secteur_activite) REFERENCES secteur_activite(code_secteur_activite)
 );
 
 CREATE TABLE unite_douaniere (
@@ -456,10 +470,10 @@ CREATE TABLE agent (
     CONSTRAINT FK_agent_fonction_agent FOREIGN KEY (code_fonction_agent) REFERENCES fonction_agent(code_fonction_agent),
     CONSTRAINT FK_agent_unite_douaniere FOREIGN KEY (code_unite_douaniere) REFERENCES unite_douaniere(code_unite_douaniere),
     CONSTRAINT FK_agent_corps_agent FOREIGN KEY (code_corps_agent) REFERENCES corps_agent(code_corps_agent)
-);
+);  
 
 
-CREATE TABLE bordereau_livraison ( -- exemple : BLSA202311121243214 (SA+heure en timestamp)
+CREATE TABLE bordereau_livraison ( -- exemple : BLSA202311121243214 (SA+heure en SimpleDateFormat)
     identifiant_b_l VARCHAR(25),
     numero_b_l VARCHAR(100),
     description_b_l VARCHAR(512),
@@ -470,7 +484,7 @@ CREATE TABLE bordereau_livraison ( -- exemple : BLSA202311121243214 (SA+heure en
     code_section VARCHAR(3),
     ninea VARCHAR(20),
     matricule_agent VARCHAR(7),
-    date_enregistrement TIMESTAMP,
+    date_enregistrement SimpleDateFormat,
     code_corps_agent VARCHAR(3),
     PRIMARY KEY (identifiant_b_l),
     CONSTRAINT FK_bordereau_livraison_sections FOREIGN KEY (code_section) REFERENCES sections(code_section),
@@ -479,21 +493,21 @@ CREATE TABLE bordereau_livraison ( -- exemple : BLSA202311121243214 (SA+heure en
 );
 
 
-CREATE TABLE bon_entree ( -- exemple : BESG202311121243214 (SG+heure en timestamp)
+CREATE TABLE bon_entree ( -- exemple : BESG202311121243214 (SG+heure en SimpleDateFormat)
     identifiant_b_e VARCHAR(25),
     numero_b_e VARCHAR(100),
     libelle_bon_entree VARCHAR(255),
     date_bon_entree DATE,
     observation_bon_entree VARCHAR(255),
     identifiant_b_l VARCHAR(25),
-    date_enregistrement TIMESTAMP,
-    matricule_agent VARCHAR(7),
-    code_corps_agent VARCHAR(3),
-    code_section VARCHAR(3),
+    date_enregistrement SimpleDateFormat,
+    -- matricule_agent VARCHAR(7),
+    -- code_corps_agent VARCHAR(3),
+    -- code_section VARCHAR(3),
     PRIMARY KEY (identifiant_b_e),
     CONSTRAINT FK_bon_entree_bordereau_livraison FOREIGN KEY (identifiant_b_l) REFERENCES bordereau_livraison(identifiant_b_l),
-    CONSTRAINT FK_bon_entree_agent FOREIGN KEY (matricule_agent, code_corps_agent) REFERENCES agent(matricule_agent, code_corps_agent),
-    CONSTRAINT FK_bon_entree_sections FOREIGN KEY (code_section) REFERENCES sections(code_section)
+    -- CONSTRAINT FK_bon_entree_agent FOREIGN KEY (matricule_agent, code_corps_agent) REFERENCES agent(matricule_agent, code_corps_agent),
+    -- CONSTRAINT FK_bon_entree_sections FOREIGN KEY (code_section) REFERENCES sections(code_section)
 );
 
 
@@ -503,13 +517,13 @@ CREATE TABLE article_bon_entree (
     code_type_objet VARCHAR(5),
     libelle_article_bon_entree VARCHAR(255),
     quantite_entree INT,
-    date_enregistrement TIMESTAMP,
-    matricule_agent VARCHAR(7),
-    code_corps_agent VARCHAR(3),
+    date_enregistrement SimpleDateFormat,
+    -- matricule_agent VARCHAR(7),
+    -- code_corps_agent VARCHAR(3),
     PRIMARY KEY (identifiant_b_e, code_article_bon_entree),
     CONSTRAINT FK_article_bon_entree_bon_entree FOREIGN KEY (identifiant_b_e) REFERENCES bon_entree(identifiant_b_e),
     CONSTRAINT FK_article_bon_entree_type_objet FOREIGN KEY (code_type_objet) REFERENCES type_objet(code_type_objet),
-    CONSTRAINT FK_article_bon_entree_agent FOREIGN KEY (matricule_agent, code_corps_agent) REFERENCES agent(matricule_agent, code_corps_agent)
+    -- CONSTRAINT FK_article_bon_entree_agent FOREIGN KEY (matricule_agent, code_corps_agent) REFERENCES agent(matricule_agent, code_corps_agent)
 );
 
 
@@ -535,17 +549,17 @@ CREATE TABLE vehicule (
     code_type_vehicule VARCHAR(25),
     code_marque VARCHAR(25),
     code_unite_douaniere VARCHAR(3),
-    matricule_agent VARCHAR(7),
-    code_corps_agent VARCHAR(3),
-    code_type_objet VARCHAR(5),
+    -- matricule_agent VARCHAR(7),
+    -- code_corps_agent VARCHAR(3),
+    -- code_type_objet VARCHAR(5),
     PRIMARY KEY (numero_serie),
     CONSTRAINT FK_vehicule_pays FOREIGN KEY (code_pays) REFERENCES pays(code_pays),
     CONSTRAINT FK_vehicule_article_bon_entree FOREIGN KEY (identifiant_b_e, code_article_bon_entree) REFERENCES article_bon_entree(identifiant_b_e, code_article_bon_entree),
     CONSTRAINT FK_vehicule_type_vehicule FOREIGN KEY (code_type_vehicule) REFERENCES type_vehicule(code_type_vehicule),
     CONSTRAINT FK_vehicule_marque_vehicule FOREIGN KEY (code_marque) REFERENCES marque_vehicule(code_marque),
     CONSTRAINT FK_vehicule_unite_douaniere FOREIGN KEY (code_unite_douaniere) REFERENCES unite_douaniere(code_unite_douaniere),
-    CONSTRAINT FK_vehicule_agent FOREIGN KEY (matricule_agent, code_corps_agent) REFERENCES agent(matricule_agent, code_corps_agent),
-    CONSTRAINT FK_vehicule_type_objet FOREIGN KEY (code_type_objet) REFERENCES type_objet(code_type_objet)
+    -- CONSTRAINT FK_vehicule_agent FOREIGN KEY (matricule_agent, code_corps_agent) REFERENCES agent(matricule_agent, code_corps_agent),
+    -- CONSTRAINT FK_vehicule_type_objet FOREIGN KEY (code_type_objet) REFERENCES type_objet(code_type_objet)
 );
 
 

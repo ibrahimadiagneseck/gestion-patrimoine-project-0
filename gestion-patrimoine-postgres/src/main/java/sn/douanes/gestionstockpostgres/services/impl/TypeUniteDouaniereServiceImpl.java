@@ -36,8 +36,8 @@ public class TypeUniteDouaniereServiceImpl implements TypeUniteDouaniereService 
     }
 
     @Override
-    public TypeUniteDouaniere getTypeUniteDouaniere(String id) {
-        return typeUniteDouaniereRepository.findById(id).get();
+    public TypeUniteDouaniere getTypeUniteDouaniereById(String id) {
+        return typeUniteDouaniereRepository.findById(id).isPresent() ? typeUniteDouaniereRepository.findById(id).get() : null;
     }
 
     @Override

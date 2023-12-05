@@ -7,4 +7,5 @@ import sn.douanes.gestionstockpostgres.entities.TypeUniteDouaniere;
 
 @Repository
 public interface TypeUniteDouaniereRepository extends JpaRepository<TypeUniteDouaniere, String> {
+
 }

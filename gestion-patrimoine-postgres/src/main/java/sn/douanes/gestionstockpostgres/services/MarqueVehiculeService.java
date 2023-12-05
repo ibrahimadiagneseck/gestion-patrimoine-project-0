@@ -10,7 +10,7 @@ public interface MarqueVehiculeService {
     MarqueVehicule updateMarqueVehicule(MarqueVehicule m);
     void deleteMarqueVehicule(MarqueVehicule m);
     void deleteMarqueVehiculeById(String id);
-    MarqueVehicule getMarqueVehicule(String id);
+    MarqueVehicule getMarqueVehiculeById(String id);
     List<MarqueVehicule> getAllMarqueVehicules();
 
 

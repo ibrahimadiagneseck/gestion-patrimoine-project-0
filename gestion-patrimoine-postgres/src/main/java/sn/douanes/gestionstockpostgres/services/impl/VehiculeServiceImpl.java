@@ -36,8 +36,8 @@ public class VehiculeServiceImpl implements VehiculeService {
     }
 
     @Override
-    public Vehicule getVehicule(String id) {
-        return vehiculeRepository.findById(id).get();
+    public Vehicule getVehiculeById(String id) {
+        return vehiculeRepository.findById(id).isPresent() ? vehiculeRepository.findById(id).get() : null;
     }
 
     @Override

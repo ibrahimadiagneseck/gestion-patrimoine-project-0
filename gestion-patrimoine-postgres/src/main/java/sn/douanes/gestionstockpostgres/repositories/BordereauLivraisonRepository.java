@@ -7,4 +7,5 @@ import sn.douanes.gestionstockpostgres.entities.BordereauLivraison;
 
 @Repository
 public interface BordereauLivraisonRepository extends JpaRepository<BordereauLivraison, String> {
+
 }

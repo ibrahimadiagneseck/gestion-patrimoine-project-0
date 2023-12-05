@@ -36,8 +36,8 @@ public class PaysServiceImpl implements PaysService {
     }
 
     @Override
-    public Pays getPays(String id) {
-        return paysRepository.findById(id).get();
+    public Pays getPaysById(String id) {
+        return paysRepository.findById(id).isPresent() ? paysRepository.findById(id).get() : null;
     }
 
     @Override

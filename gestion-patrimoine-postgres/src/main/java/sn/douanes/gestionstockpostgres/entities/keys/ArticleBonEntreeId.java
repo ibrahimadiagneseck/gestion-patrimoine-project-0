@@ -1,8 +1,6 @@
 package sn.douanes.gestionstockpostgres.entities.keys;
 
-import lombok.AllArgsConstructor;
 import sn.douanes.gestionstockpostgres.entities.BonEntree;
-import sn.douanes.gestionstockpostgres.entities.CorpsAgent;
 
 import java.io.Serializable;
 

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sn.douanes.gestionstockpostgres.entities.ArticleBonEntree;
+import sn.douanes.gestionstockpostgres.entities.BonEntree;
+import sn.douanes.gestionstockpostgres.entities.keys.ArticleBonEntreeId;
 import sn.douanes.gestionstockpostgres.repositories.ArticleBonEntreeRepository;
 import sn.douanes.gestionstockpostgres.services.ArticleBonEntreeService;
 
@@ -31,20 +33,18 @@ public class ArticleBonEntreeServiceImpl implements ArticleBonEntreeService {
     }
 
     @Override
-    public void deleteArticleBonEntreeById(String id) {
-        articleBonEntreeRepository.deleteById(id);
+    public void deleteArticleBonEntreeById(BonEntree identifiantBE, Integer codeArticleBonEntree) {
+        articleBonEntreeRepository.deleteById(new ArticleBonEntreeId(identifiantBE, codeArticleBonEntree));
     }
 
     @Override
-    public ArticleBonEntree getArticleBonEntree(String id) {
-        return articleBonEntreeRepository.findById(id).get();
+    public ArticleBonEntree getArticleBonEntreeById(BonEntree identifiantBE, Integer codeArticleBonEntree) {
+        return articleBonEntreeRepository.findById(new ArticleBonEntreeId(identifiantBE, codeArticleBonEntree)).get();
     }
 
     @Override
     public List<ArticleBonEntree> getAllArticleBonEntrees() {
         return articleBonEntreeRepository.findAll();
     }
-
-
 
 }

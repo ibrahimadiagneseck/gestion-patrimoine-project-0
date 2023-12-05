@@ -36,8 +36,8 @@ public class MarqueVehiculeServiceImpl implements MarqueVehiculeService {
     }
 
     @Override
-    public MarqueVehicule getMarqueVehicule(String id) {
-        return marqueVehiculeRepository.findById(id).get();
+    public MarqueVehicule getMarqueVehiculeById(String id) {
+        return marqueVehiculeRepository.findById(id).isPresent() ? marqueVehiculeRepository.findById(id).get() : null;
     }
 
     @Override

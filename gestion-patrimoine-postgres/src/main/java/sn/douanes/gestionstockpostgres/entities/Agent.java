@@ -33,7 +33,7 @@ public class Agent {
     @Column(name = "nom_agent", length = 100)
     private String nomAgent;
 
-    @Column(name = "prenom_agent", length = 255)
+    @Column(name = "prenom_agent")
     private String prenomAgent;
 
 

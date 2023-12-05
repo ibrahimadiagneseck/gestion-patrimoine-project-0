@@ -10,7 +10,7 @@ public interface TypeVehiculeService {
     TypeVehicule updateTypeVehicule(TypeVehicule t);
     void deleteTypeVehicule(TypeVehicule t);
     void deleteTypeVehiculeById(String id);
-    TypeVehicule getTypeVehicule(String id);
+    TypeVehicule getTypeVehiculeById(String id);
     List<TypeVehicule> getAllTypeVehicules();
 
 

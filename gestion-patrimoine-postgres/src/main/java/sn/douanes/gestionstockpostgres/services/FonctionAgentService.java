@@ -10,7 +10,7 @@ public interface FonctionAgentService {
     FonctionAgent updateFonctionAgent(FonctionAgent f);
     void deleteFonctionAgent(FonctionAgent f);
     void deleteFonctionAgentById(String id);
-    FonctionAgent getFonctionAgent(String id);
+    FonctionAgent getFonctionAgentById(String id);
     List<FonctionAgent> getAllFonctionAgents();
 
 

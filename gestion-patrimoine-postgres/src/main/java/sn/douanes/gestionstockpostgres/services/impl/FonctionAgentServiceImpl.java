@@ -36,8 +36,8 @@ public class FonctionAgentServiceImpl implements FonctionAgentService {
     }
 
     @Override
-    public FonctionAgent getFonctionAgent(String id) {
-        return fonctionAgentRepository.findById(id).get();
+    public FonctionAgent getFonctionAgentById(String id) {
+        return fonctionAgentRepository.findById(id).isPresent() ? fonctionAgentRepository.findById(id).get() : null;
     }
 
     @Override

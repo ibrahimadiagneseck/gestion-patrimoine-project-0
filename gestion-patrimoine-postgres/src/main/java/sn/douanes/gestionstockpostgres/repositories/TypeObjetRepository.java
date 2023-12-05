@@ -8,4 +8,5 @@ import sn.douanes.gestionstockpostgres.entities.TypeVehicule;
 
 @Repository
 public interface TypeObjetRepository extends JpaRepository<TypeObjet, String> {
+
 }
