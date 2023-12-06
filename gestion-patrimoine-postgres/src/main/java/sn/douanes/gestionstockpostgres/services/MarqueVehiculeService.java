@@ -14,4 +14,6 @@ public interface MarqueVehiculeService {
     List<MarqueVehicule> getAllMarqueVehicules();
 
 
+    MarqueVehicule ajouterMarqueVehicule(String codeMarque, String libelleMarque);
+
 }

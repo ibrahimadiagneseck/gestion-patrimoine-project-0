@@ -2,28 +2,31 @@ package sn.douanes.gestionstockpostgres.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import sn.douanes.gestionstockpostgres.entities.HttpResponse;
+import sn.douanes.gestionstockpostgres.entities.Sections;
 import sn.douanes.gestionstockpostgres.entities.Tickets;
 import sn.douanes.gestionstockpostgres.services.TicketsService;
 
+import static org.springframework.http.HttpStatus.OK;
+
 
 @RestController
+//@RequestMapping(path = { "/", "/user"})
+@RequestMapping( "/")
+@CrossOrigin("http://localhost:4200")
 public class TicketsController {
 
     @Autowired
     TicketsService ticketsService;
 
+
     @GetMapping("/Tickets")
-    @ResponseBody
-    public List<Tickets> getAllTickets() {
-        return ticketsService.getAllTickets();
+    public ResponseEntity<List<Tickets>> getAllTickets() {
+        List<Tickets> tickets = ticketsService.getAllTickets();
+        return new ResponseEntity<>(tickets, OK);
     }
 
     @PostMapping("/AjouterTickets")
@@ -41,5 +44,14 @@ public class TicketsController {
 
     @DeleteMapping("SupprimerTickets/{id}")
     public void SupprimerTickets(@PathVariable("id") Long  numero_ticket ) {ticketsService.deleteTicketsById( numero_ticket );}
+
+
+    private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
+        return new ResponseEntity<>(
+                new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus
+        );
+    }
+
+
 
 }

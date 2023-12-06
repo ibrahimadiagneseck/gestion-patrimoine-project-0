@@ -13,50 +13,38 @@ import static org.springframework.http.HttpStatus.OK;
 
 
 @RestController
-@RequestMapping(path = { "/", "/BonEntree"})
-//@RequestMapping("/")
+//@RequestMapping(path = { "/", "/user"})
+@RequestMapping( "/")
 @CrossOrigin("http://localhost:4200")
 public class BonEntreeController {
 
     @Autowired
     BonEntreeService bonEntreeService;
 
+
     @GetMapping("/BonEntrees")
     public ResponseEntity<List<BonEntree>> getAllBonEntrees() {
-        List<BonEntree> bonEntrees = bonEntreeService.getAllBonEntrees();
-        return new ResponseEntity<>(bonEntrees, OK);
+        List<BonEntree> bonEntree = bonEntreeService.getAllBonEntrees();
+        return new ResponseEntity<>(bonEntree, OK);
     }
-
-
-//    @PostMapping("/AjouterBonEntree")
-//    @ResponseBody
-//    public BonEntree AjouterBonEntree(@RequestBody BonEntree b) {
-//        return bonEntreeService.saveBonEntree(b);
-//    }
-
-//    @PostMapping("/AjouterBonEntree")
-//    public ResponseEntity<BonEntree> ajouterBonEntree(
-//                                                      @RequestParam("numeroBE") String numeroBE,
-//                                                      @RequestParam("libelleBonEntree") String libelleBonEntree,
-//                                                      @RequestParam("dateBonEntree") Date dateBonEntree,
-//                                                      @RequestParam("observationBonEntree") String observationBonEntree,
-//                                                      @RequestParam("identifiantBL") BordereauLivraison identifiantBL,
-//                                                      @RequestParam("matriculeAgent") Agent matriculeAgent,
-//                                                      @RequestParam("codeSection") Sections codeSection
-//
-//    ) {
-//        BonEntree bonEntree = bonEntreeService.ajouterBonEntree(numeroBE,  libelleBonEntree,  dateBonEntree, observationBonEntree, identifiantBL,  matriculeAgent,  codeSection);
-//        return new ResponseEntity<>(bonEntree, OK);
-//    }
 
 
     @PostMapping("/AjouterBonEntree")
     @ResponseBody
-    public ResponseEntity<BonEntree> ajouterBonEntree(
-            @RequestBody BonEntree b
+    public BonEntree AjouterBonEntree(@RequestBody BonEntree bonEntree) {
+        return bonEntreeService.saveBonEntree(bonEntree);
+    }
 
+
+    @PostMapping("/AjouterRequestParamBonEntree")
+    public ResponseEntity<BonEntree> ajouterBonEntree (
+        @RequestParam("numeroBE") String numeroBE,
+        @RequestParam("libelleBonEntree") String libelleBonEntree,
+        @RequestParam("dateBonEntree") Date dateBonEntree,
+        @RequestParam("observationBonEntree") String observationBonEntree,
+        @RequestParam("identifiantBL") BordereauLivraison identifiantBL
     ) {
-        BonEntree bonEntree = bonEntreeService.ajouterBonEntree(b.getNumeroBE(),  b.getLibelleBonEntree(),  b.getDateBonEntree(), b.getObservationBonEntree(), b.getIdentifiantBL(),  b.getMatriculeAgent(),  b.getCodeSection());
+        BonEntree bonEntree = bonEntreeService.ajouterBonEntree(numeroBE,  libelleBonEntree,  dateBonEntree, observationBonEntree, identifiantBL);
         return new ResponseEntity<>(bonEntree, OK);
     }
 

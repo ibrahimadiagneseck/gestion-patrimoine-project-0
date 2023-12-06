@@ -29,5 +29,4 @@ public class TypeUniteDouaniere {
     @Column(name = "libelle_type_unite_douaniere", length = 100)
     private String libelleTypeUniteDouaniere;
 
-
 }

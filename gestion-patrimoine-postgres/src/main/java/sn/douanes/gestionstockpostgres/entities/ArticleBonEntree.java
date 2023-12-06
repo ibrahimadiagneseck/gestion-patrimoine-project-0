@@ -44,12 +44,12 @@ public class ArticleBonEntree {
     private TypeObjet codeTypeObjet;
 
 
-//    @ManyToOne
-//    @JoinColumns({
-//            @JoinColumn(name = "matricule_agent", referencedColumnName = "matricule_agent"),
-//            @JoinColumn(name = "code_corps_agent", referencedColumnName = "code_corps_agent")
-//    })
-//    private Agent matriculeAgent;
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "matricule_agent", referencedColumnName = "matricule_agent"),
+            @JoinColumn(name = "code_corps_agent", referencedColumnName = "code_corps_agent")
+    })
+    private Agent matriculeAgent;
 
 
 }

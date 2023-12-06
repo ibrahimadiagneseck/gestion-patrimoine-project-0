@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sn.douanes.gestionstockpostgres.entities.Agent;
-import sn.douanes.gestionstockpostgres.entities.CorpsAgent;
-import sn.douanes.gestionstockpostgres.entities.Vehicule;
+import sn.douanes.gestionstockpostgres.entities.*;
 import sn.douanes.gestionstockpostgres.entities.keys.AgentId;
 import sn.douanes.gestionstockpostgres.repositories.AgentRepository;
 import sn.douanes.gestionstockpostgres.services.AgentService;
@@ -48,6 +46,32 @@ public class AgentServiceImpl implements AgentService {
         return agentRepository.findAll();
     }
 
+
+    @Override
+    public Agent ajouterAgent(
+            String matriculeAgent,
+            String codeAgent,
+            String nomAgent,
+            String prenomAgent,
+            Integer numeroTelephoneAgent,
+            FonctionAgent fonctionAgent,
+            UniteDouaniere uniteDouaniere,
+            CorpsAgent codeCorpsAgent
+    ) {
+
+        Agent agent = new Agent();
+
+        agent.setMatriculeAgent(matriculeAgent);
+        agent.setCodeAgent(codeAgent);
+        agent.setNomAgent(nomAgent);
+        agent.setPrenomAgent(prenomAgent);
+        agent.setNumeroTelephoneAgent(numeroTelephoneAgent);
+        agent.setFonctionAgent(fonctionAgent);
+        agent.setUniteDouaniere(uniteDouaniere);
+        agent.setCodeCorpsAgent(codeCorpsAgent);
+
+        return agentRepository.save(agent);
+    }
 
 
 }

@@ -3,10 +3,12 @@ package sn.douanes.gestionstockpostgres.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sn.douanes.gestionstockpostgres.entities.Prestataires;
+import sn.douanes.gestionstockpostgres.entities.SecteurActivite;
 import sn.douanes.gestionstockpostgres.repositories.PrestatairesRepository;
 import sn.douanes.gestionstockpostgres.services.PrestatairesService;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -45,6 +47,27 @@ public class PrestatairesServiceImpl implements PrestatairesService {
         return prestatairesRepository.findAll();
     }
 
+
+    @Override
+    public Prestataires ajouterPrestataires(
+            String ninea,
+            String raisonSociale,
+            Integer numeroTelephone,
+            String adresseEmail,
+            String adresse
+    ) {
+
+        Prestataires prestataires = new Prestataires();
+
+        prestataires.setNinea(ninea);
+        prestataires.setRaisonSociale(raisonSociale);
+        prestataires.setNumeroTelephone(numeroTelephone);
+        prestataires.setAdresseEmail(adresseEmail);
+        prestataires.setAdresse(adresse);
+
+
+        return prestatairesRepository.save(prestataires);
+    }
 
 
 }

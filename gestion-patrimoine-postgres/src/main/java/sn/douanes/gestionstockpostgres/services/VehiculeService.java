@@ -1,8 +1,9 @@
 package sn.douanes.gestionstockpostgres.services;
 
 
-import sn.douanes.gestionstockpostgres.entities.Vehicule;
+import sn.douanes.gestionstockpostgres.entities.*;
 
+import java.util.Date;
 import java.util.List;
 
 public interface VehiculeService {
@@ -13,5 +14,9 @@ public interface VehiculeService {
     void deleteVehiculeById(String id);
     Vehicule getVehiculeById(String id);
     List<Vehicule> getAllVehicules();
+
+
+    Vehicule ajouterVehicule(String numeroSerie, String numeroImmatriculation, String genre, String modele, String etatVehicule, String typeEnergie, String numeroCarteGrise, Date dateMiseEnCirculation, Pays codePays, TypeVehicule codeTypeVehicule, MarqueVehicule codeMarque, UniteDouaniere codeUniteDouaniere, ArticleBonEntree identifiantBE);
+
 
 }

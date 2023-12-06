@@ -46,5 +46,21 @@ public class SecteurActiviteServiceImpl implements SecteurActiviteService {
     }
 
 
+    @Override
+    public SecteurActivite ajouterSecteurActivite(
+            String codeSecteurActivite,
+            String libelleSecteurActivite
+    ) {
+
+        SecteurActivite secteurActivite = new SecteurActivite();
+
+        secteurActivite.setCodeSecteurActivite(codeSecteurActivite);
+        secteurActivite.setLibelleSecteurActivite(libelleSecteurActivite);
+
+        return secteurActiviteRepository.save(secteurActivite);
+    }
+
+
+
 
 }

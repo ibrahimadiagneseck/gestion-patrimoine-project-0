@@ -518,12 +518,12 @@ CREATE TABLE article_bon_entree (
     libelle_article_bon_entree VARCHAR(255),
     quantite_entree INT,
     date_enregistrement SimpleDateFormat,
-    -- matricule_agent VARCHAR(7),
+    matricule_agent VARCHAR(7),
     -- code_corps_agent VARCHAR(3),
     PRIMARY KEY (identifiant_b_e, code_article_bon_entree),
     CONSTRAINT FK_article_bon_entree_bon_entree FOREIGN KEY (identifiant_b_e) REFERENCES bon_entree(identifiant_b_e),
     CONSTRAINT FK_article_bon_entree_type_objet FOREIGN KEY (code_type_objet) REFERENCES type_objet(code_type_objet),
-    -- CONSTRAINT FK_article_bon_entree_agent FOREIGN KEY (matricule_agent, code_corps_agent) REFERENCES agent(matricule_agent, code_corps_agent)
+    CONSTRAINT FK_article_bon_entree_agent FOREIGN KEY (matricule_agent, code_corps_agent) REFERENCES agent(matricule_agent, code_corps_agent)
 );
 
 

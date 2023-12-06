@@ -16,4 +16,5 @@ public interface PrestatairesSecteurService {
     List<PrestatairesSecteur> getAllPrestatairesSecteur();
 
 
+    PrestatairesSecteur ajouterPrestatairesSecteur(Prestataires ninea, SecteurActivite codeSecteurActivite);
 }

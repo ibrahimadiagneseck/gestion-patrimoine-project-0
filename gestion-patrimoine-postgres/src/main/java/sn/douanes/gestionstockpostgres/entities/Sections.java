@@ -25,11 +25,8 @@ public class Sections {
     @Column(name = "libelle_section", length = 100)
     private String libelleSection;
 
-
     @ManyToOne
     @JoinColumn(name = "code_unite_douaniere")
     private UniteDouaniere codeUniteDouaniere;
-
-
 
 }

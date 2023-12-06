@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sn.douanes.gestionstockpostgres.entities.TypeUniteDouaniere;
 import sn.douanes.gestionstockpostgres.entities.UniteDouaniere;
 import sn.douanes.gestionstockpostgres.repositories.UniteDouaniereRepository;
 import sn.douanes.gestionstockpostgres.services.UniteDouaniereService;
@@ -45,6 +46,37 @@ public class UniteDouaniereServiceImpl implements UniteDouaniereService {
         return uniteDouaniereRepository.findAll();
     }
 
+
+    @Override
+    public UniteDouaniere ajouterUniteDouaniere(
+            String codeUniteDouaniere,
+            String nomUniteDouaniere,
+            Integer effectifUniteDouaniere,
+            Integer nombreArme,
+            Integer nombreAutomobile,
+            Integer nombreMateriel,
+            TypeUniteDouaniere codeTypeUniteDouaniere
+    ) {
+
+        UniteDouaniere uniteDouaniere = new UniteDouaniere();
+
+        uniteDouaniere.setCodeUniteDouaniere(codeUniteDouaniere);
+        uniteDouaniere.setNomUniteDouaniere(nomUniteDouaniere);
+        uniteDouaniere.setEffectifUniteDouaniere(effectifUniteDouaniere);
+        uniteDouaniere.setNombreArme(nombreArme);
+        uniteDouaniere.setNombreAutomobile(nombreAutomobile);
+        uniteDouaniere.setNombreMateriel(nombreMateriel);
+        uniteDouaniere.setCodeTypeUniteDouaniere(codeTypeUniteDouaniere);
+
+
+        return uniteDouaniereRepository.save(uniteDouaniere);
+    }
+
+
+    private String genererIdentifiantBE(BordereauLivraison bordereauLivraison, SimpleDateFormat dateEnregistrement) {
+        // Timestamp t = new Timestamp(System.currentTimeMillis())
+        return "BE" + bordereauLivraison.getCodeSection() + dateEnregistrement;
+    }
 
 
 }

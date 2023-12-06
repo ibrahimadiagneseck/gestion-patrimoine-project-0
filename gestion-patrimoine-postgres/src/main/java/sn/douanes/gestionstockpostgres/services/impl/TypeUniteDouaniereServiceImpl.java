@@ -46,5 +46,19 @@ public class TypeUniteDouaniereServiceImpl implements TypeUniteDouaniereService 
     }
 
 
+    @Override
+    public TypeUniteDouaniere ajouterTypeUniteDouaniere(
+            String codeTypeUniteDouaniere,
+            String libelleTypeUniteDouaniere
+    ) {
+
+        TypeUniteDouaniere typeUniteDouaniere = new TypeUniteDouaniere();
+
+        typeUniteDouaniere.setCodeTypeUniteDouaniere(codeTypeUniteDouaniere);
+        typeUniteDouaniere.setLibelleTypeUniteDouaniere(codeTypeUniteDouaniere);
+
+        return typeUniteDouaniereRepository.save(typeUniteDouaniere);
+    }
+
 
 }

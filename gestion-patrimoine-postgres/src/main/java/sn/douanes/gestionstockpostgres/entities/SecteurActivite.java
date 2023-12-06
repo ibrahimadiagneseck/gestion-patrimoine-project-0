@@ -29,4 +29,5 @@ public class SecteurActivite {
     @ManyToMany(mappedBy = "secteursActivite")
     private Set<Prestataires> prestataires;
 
+
 }

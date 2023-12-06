@@ -46,5 +46,18 @@ public class MarqueVehiculeServiceImpl implements MarqueVehiculeService {
     }
 
 
+    @Override
+    public MarqueVehicule ajouterMarqueVehicule(
+            String codeMarque, String libelleMarque
+    ) {
+
+        MarqueVehicule marqueVehicule = new MarqueVehicule();
+
+        marqueVehicule.setCodeMarque(codeMarque);
+        marqueVehicule.setLibelleMarque(libelleMarque);
+
+        return marqueVehiculeRepository.save(marqueVehicule);
+    }
+
 
 }

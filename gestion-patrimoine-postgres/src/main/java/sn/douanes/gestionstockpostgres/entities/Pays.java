@@ -23,4 +23,5 @@ public class Pays {
 
     @Column(name = "libelle_pays", length = 100)
     private String libellePays;
+
 }

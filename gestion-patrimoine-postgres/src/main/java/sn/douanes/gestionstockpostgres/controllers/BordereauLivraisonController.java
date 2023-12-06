@@ -2,9 +2,12 @@ package sn.douanes.gestionstockpostgres.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sn.douanes.gestionstockpostgres.entities.BonPour;
 import sn.douanes.gestionstockpostgres.entities.BordereauLivraison;
+import sn.douanes.gestionstockpostgres.entities.HttpResponse;
 import sn.douanes.gestionstockpostgres.entities.Sections;
 import sn.douanes.gestionstockpostgres.services.BordereauLivraisonService;
 
@@ -41,5 +44,13 @@ public class BordereauLivraisonController {
 
     @DeleteMapping("SupprimerBordereauLivraison/{id}")
     public void SupprimerBordereauLivraison(@PathVariable("id") String identifiantBL) {bordereauLivraisonService.deleteBordereauLivraisonById(identifiantBL);}
+
+
+    private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
+        return new ResponseEntity<>(
+                new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus
+        );
+    }
+
 
 }

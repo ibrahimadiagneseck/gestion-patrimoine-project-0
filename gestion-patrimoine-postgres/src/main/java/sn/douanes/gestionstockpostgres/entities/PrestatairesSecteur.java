@@ -28,5 +28,4 @@ public class PrestatairesSecteur {
     @JoinColumn(name = "code_secteur_activite")
     private SecteurActivite codeSecteurActivite;
 
-
 }

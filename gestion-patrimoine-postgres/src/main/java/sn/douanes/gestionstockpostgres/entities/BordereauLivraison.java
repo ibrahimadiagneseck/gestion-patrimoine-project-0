@@ -67,6 +67,4 @@ public class BordereauLivraison {
     @Column(name = "date_enregistrement")
     private SimpleDateFormat dateEnregistrement;
 
-
-
 }

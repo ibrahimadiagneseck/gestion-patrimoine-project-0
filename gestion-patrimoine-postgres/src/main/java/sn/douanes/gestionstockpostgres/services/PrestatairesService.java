@@ -1,8 +1,10 @@
 package sn.douanes.gestionstockpostgres.services;
 
 import sn.douanes.gestionstockpostgres.entities.Prestataires;
+import sn.douanes.gestionstockpostgres.entities.SecteurActivite;
 
 import java.util.List;
+import java.util.Set;
 
 public interface PrestatairesService {
 
@@ -13,5 +15,7 @@ public interface PrestatairesService {
     Prestataires getPrestatairesById(String id);
     List<Prestataires> getAllPrestataires();
 
+
+    Prestataires ajouterPrestataires(String ninea, String raisonSociale, Integer numeroTelephone, String adresseEmail, String adresse);
 
 }

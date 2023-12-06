@@ -2,28 +2,30 @@ package sn.douanes.gestionstockpostgres.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import sn.douanes.gestionstockpostgres.entities.Agent;
 import sn.douanes.gestionstockpostgres.entities.Armes;
+import sn.douanes.gestionstockpostgres.entities.HttpResponse;
 import sn.douanes.gestionstockpostgres.services.ArmesService;
+
+import static org.springframework.http.HttpStatus.OK;
 
 
 @RestController
+//@RequestMapping(path = { "/", "/user"})
+@RequestMapping( "/")
+@CrossOrigin("http://localhost:4200")
 public class ArmesController {
 
     @Autowired
     ArmesService armesService;
 
     @GetMapping("/Armes")
-    @ResponseBody
-    public List<Armes> getAllArmes() {
-        return armesService.getAllArmes();
+    public ResponseEntity<List<Armes>> getAllArmes() {
+        List<Armes> armes = armesService.getAllArmes();
+        return new ResponseEntity<>(armes, OK);
     }
 
     @PostMapping("/AjouterArmes")
@@ -41,5 +43,13 @@ public class ArmesController {
 
     @DeleteMapping("SupprimerArmes/{id}")
     public void SupprimerArmes(@PathVariable("id") String numeroArme ) {armesService.deleteArmesById(numeroArme);}
+
+
+    private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
+        return new ResponseEntity<>(
+                new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus
+        );
+    }
+
 
 }

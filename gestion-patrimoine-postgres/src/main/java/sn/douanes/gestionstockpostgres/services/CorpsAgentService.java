@@ -14,5 +14,7 @@ public interface CorpsAgentService {
     List<CorpsAgent> getAllCorpsAgents();
 
 
+    CorpsAgent ajouterCorpsAgent(String codeCorpsAgent, String libelleCorpsAgent);
+
 }
 

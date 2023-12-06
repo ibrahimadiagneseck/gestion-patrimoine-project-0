@@ -45,4 +45,32 @@ public class Prestataires {
     )
     private Set<SecteurActivite> secteursActivite;
 
+
+
+//    // Création d'un prestataire
+//    Prestataires prestataire = new Prestataires();
+//    prestataire.setNinea("123456789");
+//    prestataire.setRaisonSociale("Nom de l'entreprise");
+//    prestataire.setNumeroTelephone("0123456789");
+//    prestataire.setAdresseEmail("exemple@email.com");
+//    prestataire.setAdresse("Adresse de l'entreprise");
+//
+//    // Création des secteurs d'activité
+//    SecteurActivite secteur1 = new SecteurActivite();
+//    secteur1.setCodeSecteurActivite("Code1");
+//    secteur1.setLibelleSecteurActivite("Libellé 1");
+//
+//    SecteurActivite secteur2 = new SecteurActivite();
+//    secteur2.setCodeSecteurActivite("Code2");
+//    secteur2.setLibelleSecteurActivite("Libellé 2");
+//
+//    // Ajout des secteurs d'activité au prestataire
+//    Set<SecteurActivite> secteursActivite = new HashSet<>();
+//    secteursActivite.add(secteur1);
+//    secteursActivite.add(secteur2);
+//
+//    prestataire.setSecteursActivite(secteursActivite);
+
+
+
 }

@@ -26,5 +26,4 @@ public class FonctionAgent {
     @Column(name = "libelle_fonction_agent", length = 100)
     private String libelleFonctionAgent;
 
-
 }

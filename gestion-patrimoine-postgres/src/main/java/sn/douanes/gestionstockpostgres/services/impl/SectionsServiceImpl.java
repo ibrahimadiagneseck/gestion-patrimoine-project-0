@@ -3,6 +3,7 @@ package sn.douanes.gestionstockpostgres.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sn.douanes.gestionstockpostgres.entities.Sections;
+import sn.douanes.gestionstockpostgres.entities.UniteDouaniere;
 import sn.douanes.gestionstockpostgres.repositories.SectionsRepository;
 import sn.douanes.gestionstockpostgres.services.SectionsService;
 
@@ -45,6 +46,22 @@ public class SectionsServiceImpl implements SectionsService {
         return sectionsRepository.findAll();
     }
 
+
+    @Override
+    public Sections ajouterSections(
+            String codeSection,
+            String libelleSection,
+            UniteDouaniere codeUniteDouaniere
+    ) {
+
+        Sections sections = new Sections();
+
+        sections.setCodeSection(codeSection);
+        sections.setLibelleSection(libelleSection);
+        sections.setCodeUniteDouaniere(codeUniteDouaniere);
+
+        return sectionsRepository.save(sections);
+    }
 
 
 }

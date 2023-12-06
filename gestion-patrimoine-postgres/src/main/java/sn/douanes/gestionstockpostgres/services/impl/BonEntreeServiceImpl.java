@@ -53,25 +53,34 @@ public class BonEntreeServiceImpl implements BonEntreeService {
     }
 
     @Override
-    public BonEntree ajouterBonEntree(String numeroBE, String libelleBonEntree, Date dateBonEntree, String observationBonEntree, BordereauLivraison identifiantBL, Agent matriculeAgent, Sections codeSection) {
+    public BonEntree ajouterBonEntree(
+            String numeroBE,
+            String libelleBonEntree,
+            Date dateBonEntree,
+            String observationBonEntree,
+            BordereauLivraison identifiantBL
+    ) {
+
         BonEntree bonEntree = new BonEntree();
 
         bonEntree.setDateEnregistrement(new SimpleDateFormat("yyyyMMddHHmmssSSS"));
-        bonEntree.setIdentifiantBE(genererIdentifiantBE(codeSection.getCodeSection(), bonEntree.getDateEnregistrement()));
+        bonEntree.setIdentifiantBE(genererIdentifiantBE(bonEntree.getIdentifiantBL(), bonEntree.getDateEnregistrement()));
+
         bonEntree.setNumeroBE(numeroBE);
         bonEntree.setLibelleBonEntree(libelleBonEntree);
         bonEntree.setDateBonEntree(dateBonEntree);
         bonEntree.setObservationBonEntree(observationBonEntree);
         bonEntree.setIdentifiantBL(identifiantBL);
 
-        bonEntreeRepository.save(bonEntree);
-        return bonEntree;
+
+        return bonEntreeRepository.save(bonEntree);
     }
 
 
-    private String genererIdentifiantBE(String codeSection, SimpleDateFormat dateEnregistrement) {
+    private String genererIdentifiantBE(BordereauLivraison bordereauLivraison, SimpleDateFormat dateEnregistrement) {
         // Timestamp t = new Timestamp(System.currentTimeMillis())
-        return "BE" + codeSection + dateEnregistrement;
+        return "BE" + bordereauLivraison.getCodeSection() + dateEnregistrement;
     }
+
 
 }

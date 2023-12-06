@@ -2,28 +2,31 @@ package sn.douanes.gestionstockpostgres.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import sn.douanes.gestionstockpostgres.entities.Fournisseurs;
+import sn.douanes.gestionstockpostgres.entities.HttpResponse;
 import sn.douanes.gestionstockpostgres.entities.Maintenance;
 import sn.douanes.gestionstockpostgres.services.MaintenanceService;
 
+import static org.springframework.http.HttpStatus.OK;
+
 
 @RestController
+//@RequestMapping(path = { "/", "/user"})
+@RequestMapping( "/")
+@CrossOrigin("http://localhost:4200")
 public class MaintenanceController {
 
     @Autowired
     MaintenanceService maintenanceService;
 
+
     @GetMapping("/Maintenances")
-    @ResponseBody
-    public List<Maintenance> getAllMaintenances() {
-        return maintenanceService.getAllMaintenances();
+    public ResponseEntity<List<Maintenance>> getAllMaintenances() {
+        List<Maintenance> maintenance = maintenanceService.getAllMaintenances();
+        return new ResponseEntity<>(maintenance, OK);
     }
 
     @PostMapping("/AjouterMaintenance")
@@ -41,5 +44,13 @@ public class MaintenanceController {
 
     @DeleteMapping("SupprimerMaintenance/{id}")
     public void SupprimerMaintenance(@PathVariable("id") String maintenance ) {maintenanceService.deleteMaintenanceById(maintenance);}
+
+
+    private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
+        return new ResponseEntity<>(
+                new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus
+        );
+    }
+
 
 }

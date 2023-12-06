@@ -27,4 +27,5 @@ public class TypeVehicule {
 
     @Column(name = "libelle_type_vehicule", length = 100)
     private String libelleTypeVehicule;
+
 }

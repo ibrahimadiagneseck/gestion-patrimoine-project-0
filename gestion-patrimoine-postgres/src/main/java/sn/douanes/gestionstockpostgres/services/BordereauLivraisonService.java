@@ -1,7 +1,12 @@
 package sn.douanes.gestionstockpostgres.services;
 
+import sn.douanes.gestionstockpostgres.entities.Agent;
 import sn.douanes.gestionstockpostgres.entities.BordereauLivraison;
+import sn.douanes.gestionstockpostgres.entities.Prestataires;
+import sn.douanes.gestionstockpostgres.entities.Sections;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public interface BordereauLivraisonService {
@@ -13,5 +18,5 @@ public interface BordereauLivraisonService {
     BordereauLivraison getBordereauLivraisonById(String id);
     List<BordereauLivraison> getAllBordereauLivraisons();
 
-
+    BordereauLivraison ajouterBordereauLivraison(String numeroBL, String descriptionBL, String lieuDeLivraison, Date dateBL, String conformiteBL, String nomLivreur, Sections codeSection, Prestataires ninea, Agent matriculeAgent);
 }

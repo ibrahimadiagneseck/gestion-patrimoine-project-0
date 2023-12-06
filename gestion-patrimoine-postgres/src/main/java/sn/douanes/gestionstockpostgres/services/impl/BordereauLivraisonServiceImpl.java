@@ -1,10 +1,15 @@
 package sn.douanes.gestionstockpostgres.services.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sn.douanes.gestionstockpostgres.entities.Agent;
 import sn.douanes.gestionstockpostgres.entities.BordereauLivraison;
+import sn.douanes.gestionstockpostgres.entities.Prestataires;
+import sn.douanes.gestionstockpostgres.entities.Sections;
 import sn.douanes.gestionstockpostgres.repositories.BordereauLivraisonRepository;
 import sn.douanes.gestionstockpostgres.services.BordereauLivraisonService;
 
@@ -45,6 +50,43 @@ public class BordereauLivraisonServiceImpl implements BordereauLivraisonService 
         return bordereauLivraisonRepository.findAll();
     }
 
+
+    @Override
+    public BordereauLivraison ajouterBordereauLivraison(
+            String numeroBL,
+            String descriptionBL,
+            String lieuDeLivraison,
+            Date dateBL,
+            String conformiteBL,
+            String nomLivreur,
+            Sections codeSection,
+            Prestataires ninea,
+            Agent matriculeAgent
+    ) {
+
+        BordereauLivraison bordereauLivraison = new BordereauLivraison();
+
+        bordereauLivraison.setDateEnregistrement(new SimpleDateFormat("yyyyMMddHHmmssSSS"));
+        bordereauLivraison.setIdentifiantBL(genererIdentifiantBE(bordereauLivraison.getCodeSection(), bordereauLivraison.getDateEnregistrement()));
+
+        bordereauLivraison.setNumeroBL(numeroBL);
+        bordereauLivraison.setDescriptionBL(descriptionBL);
+        bordereauLivraison.setLieuDeLivraison(lieuDeLivraison);
+        bordereauLivraison.setDateBL(dateBL);
+        bordereauLivraison.setConformiteBL(conformiteBL);
+        bordereauLivraison.setNomLivreur(nomLivreur);
+        bordereauLivraison.setCodeSection(codeSection);
+        bordereauLivraison.setNinea(ninea);
+        bordereauLivraison.setMatriculeAgent(matriculeAgent);
+
+        return bordereauLivraisonRepository.save(bordereauLivraison);
+    }
+
+
+    private String genererIdentifiantBE(Sections sections, SimpleDateFormat dateEnregistrement) {
+        // Timestamp t = new Timestamp(System.currentTimeMillis())
+        return "BL" + sections.getCodeSection() + dateEnregistrement;
+    }
 
 
 }

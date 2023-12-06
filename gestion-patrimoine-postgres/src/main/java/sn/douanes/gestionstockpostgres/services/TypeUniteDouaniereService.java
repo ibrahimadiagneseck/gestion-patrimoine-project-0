@@ -14,4 +14,6 @@ public interface TypeUniteDouaniereService {
     List<TypeUniteDouaniere> getAllTypeUniteDouanieres();
 
 
+    TypeUniteDouaniere ajouterTypeUniteDouaniere(String codeTypeUniteDouaniere, String libelleTypeUniteDouaniere);
+
 }
