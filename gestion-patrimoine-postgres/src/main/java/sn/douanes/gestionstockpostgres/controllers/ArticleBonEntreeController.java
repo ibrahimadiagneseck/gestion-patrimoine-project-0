@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sn.douanes.gestionstockpostgres.entities.Armes;
-import sn.douanes.gestionstockpostgres.entities.ArticleBonEntree;
-import sn.douanes.gestionstockpostgres.entities.HttpResponse;
-import sn.douanes.gestionstockpostgres.entities.Vehicule;
+import sn.douanes.gestionstockpostgres.entities.*;
 import sn.douanes.gestionstockpostgres.services.ArticleBonEntreeService;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -32,8 +29,21 @@ public class ArticleBonEntreeController {
 
     @PostMapping("/AjouterArticleBonEntree")
     @ResponseBody
-    public ArticleBonEntree AjouterArticleBonEntree(@RequestBody ArticleBonEntree a) {
-        return articleBonEntreeService.saveArticleBonEntree(a);
+    public ArticleBonEntree AjouterArticleBonEntree(@RequestBody ArticleBonEntree articleBonEntree) {
+        return articleBonEntreeService.saveArticleBonEntree(articleBonEntree);
+    }
+
+    @PostMapping("/AjouterRequestParamArticleBonEntree")
+    public ResponseEntity<ArticleBonEntree> ajouterArticleBonEntree (
+            @RequestParam("identifiantBE") BonEntree identifiantBE,
+            @RequestParam("codeArticleBonEntree") Integer codeArticleBonEntree,
+            @RequestParam("libelleArticleBonEntree") String libelleArticleBonEntree,
+            @RequestParam("quantiteEntree") Integer quantiteEntree,
+            @RequestParam("codeTypeObjet") TypeObjet codeTypeObjet,
+            @RequestParam("matriculeAgent") Agent matriculeAgent
+    ) {
+        ArticleBonEntree articleBonEntree = articleBonEntreeService.ajouterArticleBonEntree(identifiantBE, codeArticleBonEntree, libelleArticleBonEntree, quantiteEntree, codeTypeObjet, matriculeAgent);
+        return new ResponseEntity<>(articleBonEntree, OK);
     }
 
     @PutMapping("/ModifierArticleBonEntree")
@@ -44,7 +54,12 @@ public class ArticleBonEntreeController {
     }
 
     @DeleteMapping("SupprimerArticleBonEntree/{id}")
-    public void SupprimerArticleBonEntree(@PathVariable("id") String identifiantBECodeArticleBonEntree) {articleBonEntreeService.deleteArticleBonEntreeById(identifiantBECodeArticleBonEntree);}
+    public void SupprimerArticleBonEntree(
+            @PathVariable("identifiantBE") BonEntree identifiantBE,
+            @PathVariable("codeArticleBonEntree") Integer codeArticleBonEntree
+    ) {
+        articleBonEntreeService.deleteArticleBonEntreeById(identifiantBE, codeArticleBonEntree);
+    }
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
         return new ResponseEntity<>(

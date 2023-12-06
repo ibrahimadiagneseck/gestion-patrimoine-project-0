@@ -1,14 +1,12 @@
 package sn.douanes.gestionstockpostgres.controllers;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sn.douanes.gestionstockpostgres.entities.BonPour;
-import sn.douanes.gestionstockpostgres.entities.BordereauLivraison;
-import sn.douanes.gestionstockpostgres.entities.HttpResponse;
-import sn.douanes.gestionstockpostgres.entities.Sections;
+import sn.douanes.gestionstockpostgres.entities.*;
 import sn.douanes.gestionstockpostgres.services.BordereauLivraisonService;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -31,8 +29,24 @@ public class BordereauLivraisonController {
 
     @PostMapping("/AjouterBordereauLivraison")
     @ResponseBody
-    public BordereauLivraison AjouterBordereauLivraison(@RequestBody BordereauLivraison b) {
-        return bordereauLivraisonService.saveBordereauLivraison(b);
+    public BordereauLivraison AjouterBordereauLivraison(@RequestBody BordereauLivraison bordereauLivraison) {
+        return bordereauLivraisonService.saveBordereauLivraison(bordereauLivraison);
+    }
+
+    @PostMapping("/AjouterRequestParamBordereauLivraison")
+    public ResponseEntity<BordereauLivraison> ajouterBordereauLivraison (
+            @RequestParam("numeroBE") String numeroBL,
+            @RequestParam("numeroBE") String descriptionBL,
+            @RequestParam("numeroBE") String lieuDeLivraison,
+            @RequestParam("numeroBE") Date dateBL,
+            @RequestParam("numeroBE") String conformiteBL,
+            @RequestParam("numeroBE") String nomLivreur,
+            @RequestParam("numeroBE") Sections codeSection,
+            @RequestParam("numeroBE") Prestataires ninea,
+            @RequestParam("numeroBE") Agent matriculeAgent
+    ) {
+        BordereauLivraison bordereauLivraison = bordereauLivraisonService.ajouterBordereauLivraison(numeroBL, descriptionBL, lieuDeLivraison, dateBL, conformiteBL, nomLivreur, codeSection, ninea, matriculeAgent);
+        return new ResponseEntity<>(bordereauLivraison, OK);
     }
 
     @PutMapping("/ModifierBordereauLivraison")

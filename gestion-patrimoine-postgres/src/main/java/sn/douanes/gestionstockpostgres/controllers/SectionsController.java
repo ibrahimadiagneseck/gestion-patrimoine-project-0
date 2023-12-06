@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sn.douanes.gestionstockpostgres.entities.HttpResponse;
-import sn.douanes.gestionstockpostgres.entities.Prestataires;
-import sn.douanes.gestionstockpostgres.entities.Sections;
-import sn.douanes.gestionstockpostgres.entities.Vehicule;
+import sn.douanes.gestionstockpostgres.entities.*;
 import sn.douanes.gestionstockpostgres.services.SectionsService;
 
 import java.util.List;
@@ -33,8 +30,18 @@ public class SectionsController {
 
     @PostMapping("/AjouterSections")
     @ResponseBody
-    public Sections AjouterSections(@RequestBody Sections t) {
-        return sectionsService.saveSections(t);
+    public Sections AjouterSections(@RequestBody Sections sections) {
+        return sectionsService.saveSections(sections);
+    }
+
+    @PostMapping("/AjouterRequestParamSections")
+    public ResponseEntity<Sections> ajouterSections (
+            @RequestParam("numeroBE") String codeSection,
+            @RequestParam("numeroBE") String libelleSection,
+            @RequestParam("numeroBE") UniteDouaniere codeUniteDouaniere
+    ) {
+        Sections sections = sectionsService.ajouterSections(codeSection, libelleSection, codeUniteDouaniere);
+        return new ResponseEntity<>(sections, OK);
     }
 
     @PutMapping("/ModifierSections")
@@ -45,7 +52,9 @@ public class SectionsController {
     }
 
     @DeleteMapping("SupprimerSections/{id}")
-    public void SupprimerSections(@PathVariable("id") String codeSection) {sectionsService.deleteSectionsById(codeSection);}
+    public void SupprimerSections(@PathVariable("id") String codeSection) {
+        sectionsService.deleteSectionsById(codeSection);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

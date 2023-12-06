@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sn.douanes.gestionstockpostgres.entities.HttpResponse;
-import sn.douanes.gestionstockpostgres.entities.UniteHierarchique;
-import sn.douanes.gestionstockpostgres.entities.Vehicule;
+import sn.douanes.gestionstockpostgres.entities.*;
 import sn.douanes.gestionstockpostgres.services.VehiculeService;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -31,22 +30,29 @@ public class VehiculeController {
     }
 
 
-//    @PostMapping("/AjouterVehicule")
-//    @ResponseBody
-//    public Vehicule AjouterVehicule(@RequestBody Vehicule v) {
-//        return vehiculeService.saveVehicule(v);
-//    }
-
     @PostMapping("/AjouterVehicule")
-    public ResponseEntity<Vehicule> AjouterVehicule(
-            @RequestParam("firstName") String firstName,
-            @RequestParam("lastName") String lastName,
-            @RequestParam("email") String email,
-            @RequestParam("role") String role,
-            @RequestParam("isActive") String isActive
-    ) {
+    @ResponseBody
+    public Vehicule AjouterVehicule(@RequestBody Vehicule v) {
+        return vehiculeService.saveVehicule(v);
+    }
 
-        Vehicule vehicule = vehiculeService.ajouterVehicule(firstName, lastName, username,email, role, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
+    @PostMapping("/AjouterRequestParamVehicule")
+    public ResponseEntity<Vehicule> ajouterVehicule(
+            @RequestParam("numeroSerie") String numeroSerie,
+            @RequestParam("numeroImmatriculation") String numeroImmatriculation,
+            @RequestParam("genre") String genre,
+            @RequestParam("modele") String modele,
+            @RequestParam("etatVehicule") String etatVehicule,
+            @RequestParam("typeEnergie") String typeEnergie,
+            @RequestParam("numeroCarteGrise") String numeroCarteGrise,
+            @RequestParam("dateMiseEnCirculation") Date dateMiseEnCirculation,
+            @RequestParam("codePays") Pays codePays,
+            @RequestParam("codeTypeVehicule") TypeVehicule codeTypeVehicule,
+            @RequestParam("codeMarque") MarqueVehicule codeMarque,
+            @RequestParam("codeUniteDouaniere") UniteDouaniere codeUniteDouaniere,
+            @RequestParam("identifiantBE") ArticleBonEntree identifiantBE
+    ) {
+        Vehicule vehicule = vehiculeService.ajouterVehicule(numeroSerie, numeroImmatriculation, genre, modele, etatVehicule, typeEnergie, numeroCarteGrise, dateMiseEnCirculation, codePays, codeTypeVehicule, codeMarque, codeUniteDouaniere, identifiantBE);
         return new ResponseEntity<>(vehicule, OK);
     }
 

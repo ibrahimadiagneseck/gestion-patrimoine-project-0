@@ -48,7 +48,8 @@ public class MarqueVehiculeServiceImpl implements MarqueVehiculeService {
 
     @Override
     public MarqueVehicule ajouterMarqueVehicule(
-            String codeMarque, String libelleMarque
+            String codeMarque,
+            String libelleMarque
     ) {
 
         MarqueVehicule marqueVehicule = new MarqueVehicule();

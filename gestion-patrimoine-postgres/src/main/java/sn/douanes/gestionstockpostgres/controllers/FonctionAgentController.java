@@ -32,8 +32,17 @@ public class FonctionAgentController {
 
     @PostMapping("/AjouterFonctionAgent")
     @ResponseBody
-    public FonctionAgent AjouterFonctionAgent(@RequestBody FonctionAgent f) {
-        return fonctionAgentService.saveFonctionAgent(f);
+    public FonctionAgent AjouterFonctionAgent(@RequestBody FonctionAgent fonctionAgent) {
+        return fonctionAgentService.saveFonctionAgent(fonctionAgent);
+    }
+
+    @PostMapping("/AjouterRequestParamFonctionAgent")
+    public ResponseEntity<FonctionAgent> ajouterFonctionAgent (
+            @RequestParam("codeFonctionAgent") String codeFonctionAgent,
+            @RequestParam("libelleFonctionAgent") String libelleFonctionAgent
+    ) {
+        FonctionAgent fonctionAgent = fonctionAgentService.ajouterFonctionAgent(codeFonctionAgent, libelleFonctionAgent);
+        return new ResponseEntity<>(fonctionAgent, OK);
     }
 
     @PutMapping("/ModifierFonctionAgent")

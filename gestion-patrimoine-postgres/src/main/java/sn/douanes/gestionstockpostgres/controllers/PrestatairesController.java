@@ -31,9 +31,22 @@ public class PrestatairesController {
 
     @PostMapping("/AjouterPrestataires")
     @ResponseBody
-    public Prestataires AjouterPrestataires(@RequestBody Prestataires p) {
-        return prestatairesService.savePrestataires(p);
+    public Prestataires AjouterPrestataires(@RequestBody Prestataires prestataires) {
+        return prestatairesService.savePrestataires(prestataires);
     }
+
+    @PostMapping("/AjouterRequestParamPrestataires")
+    public ResponseEntity<Prestataires> ajouterPrestataires (
+            @RequestParam("ninea") String ninea,
+            @RequestParam("raisonSociale") String raisonSociale,
+            @RequestParam("numeroTelephone") Integer numeroTelephone,
+            @RequestParam("adresseEmail") String adresseEmail,
+            @RequestParam("adresse") String adresse
+    ) {
+        Prestataires prestataires = prestatairesService.ajouterPrestataires(ninea, raisonSociale, numeroTelephone, adresseEmail, adresse);
+        return new ResponseEntity<>(prestataires, OK);
+    }
+
 
     @PutMapping("/ModifierPrestataires")
     @ResponseBody

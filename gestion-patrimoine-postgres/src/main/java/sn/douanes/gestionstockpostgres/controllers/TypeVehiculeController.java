@@ -31,8 +31,17 @@ public class TypeVehiculeController {
 
     @PostMapping("/AjouterTypeVehicule")
     @ResponseBody
-    public TypeVehicule AjouterTypeVehicule(@RequestBody TypeVehicule t) {
-        return typeVehiculeService.saveTypeVehicule(t);
+    public TypeVehicule AjouterTypeVehicule(@RequestBody TypeVehicule typeVehicule) {
+        return typeVehiculeService.saveTypeVehicule(typeVehicule);
+    }
+
+    @PostMapping("/AjouterRequestParamTypeVehicule")
+    public ResponseEntity<TypeVehicule> ajouterTypeVehicule (
+            @RequestParam("codeTypeVehicule") String codeTypeVehicule,
+            @RequestParam("libelleTypeVehicule") String libelleTypeVehicule
+    ) {
+        TypeVehicule typeVehicule = typeVehiculeService.ajouterTypeVehicule(codeTypeVehicule, libelleTypeVehicule);
+        return new ResponseEntity<>(typeVehicule, OK);
     }
 
     @PutMapping("/ModifierTypeVehicule")
