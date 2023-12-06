@@ -2,6 +2,7 @@ package sn.douanes.gestionstockpostgres.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sn.douanes.gestionstockpostgres.entities.Sections;
 import sn.douanes.gestionstockpostgres.entities.TypeObjet;
 import sn.douanes.gestionstockpostgres.repositories.TypeObjetRepository;
 import sn.douanes.gestionstockpostgres.services.TypeObjetService;
@@ -45,6 +46,22 @@ public class TypeObjetServiceImpl implements TypeObjetService {
         return typeObjetRepository.findAll();
     }
 
+
+    @Override
+    public TypeObjet ajouterTypeObjet(
+            String codeTypeObjet,
+            String libelleTypeObjet,
+            Sections codeSection
+    ) {
+
+        TypeObjet typeObjet = new TypeObjet();
+
+        typeObjet.setCodeTypeObjet(codeTypeObjet);
+        typeObjet.setLibelleTypeObjet(libelleTypeObjet);
+        typeObjet.setCodeSection(codeSection);
+
+        return typeObjetRepository.save(typeObjet);
+    }
 
 
 }

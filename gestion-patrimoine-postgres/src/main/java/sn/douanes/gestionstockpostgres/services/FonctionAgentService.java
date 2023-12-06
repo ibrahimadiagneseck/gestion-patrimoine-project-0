@@ -2,6 +2,7 @@ package sn.douanes.gestionstockpostgres.services;
 
 import sn.douanes.gestionstockpostgres.entities.FonctionAgent;
 
+import java.util.Date;
 import java.util.List;
 
 public interface FonctionAgentService {
@@ -13,5 +14,7 @@ public interface FonctionAgentService {
     FonctionAgent getFonctionAgentById(String id);
     List<FonctionAgent> getAllFonctionAgents();
 
+
+    FonctionAgent ajouterFonctionAgent(String codeFonctionAgent, String libelleFonctionAgent);
 
 }

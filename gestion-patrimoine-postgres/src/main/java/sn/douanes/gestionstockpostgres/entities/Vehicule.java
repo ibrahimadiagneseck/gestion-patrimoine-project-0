@@ -81,4 +81,5 @@ public class Vehicule {
 //    @JoinColumn(name = "code_type_objet")
 //    private TypeObjet codeTypeObjet;
 
+
 }

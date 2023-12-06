@@ -1,6 +1,7 @@
 package sn.douanes.gestionstockpostgres.services;
 
 
+import sn.douanes.gestionstockpostgres.entities.TypeUniteDouaniere;
 import sn.douanes.gestionstockpostgres.entities.UniteDouaniere;
 
 
@@ -16,7 +17,7 @@ public interface UniteDouaniereService {
     List<UniteDouaniere> getAllUniteDouanieres();
 
 
-
+    UniteDouaniere ajouterUniteDouaniere(String codeUniteDouaniere, String nomUniteDouaniere, Integer effectifUniteDouaniere, Integer nombreArme, Integer nombreAutomobile, Integer nombreMateriel, TypeUniteDouaniere codeTypeUniteDouaniere);
 
 
 }

@@ -24,4 +24,5 @@ public class MarqueVehicule {
 
     @Column(name = "libelle_marque", length = 100)
     private String libelleMarque;
+
 }

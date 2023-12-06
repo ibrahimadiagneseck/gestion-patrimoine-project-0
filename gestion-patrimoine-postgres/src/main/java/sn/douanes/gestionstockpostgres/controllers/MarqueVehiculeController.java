@@ -1,23 +1,33 @@
 package sn.douanes.gestionstockpostgres.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sn.douanes.gestionstockpostgres.entities.HttpResponse;
+import sn.douanes.gestionstockpostgres.entities.MarqueArme;
 import sn.douanes.gestionstockpostgres.entities.MarqueVehicule;
 import sn.douanes.gestionstockpostgres.services.MarqueVehiculeService;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.OK;
+
 
 @RestController
+//@RequestMapping(path = { "/", "/user"})
+@RequestMapping( "/")
+@CrossOrigin("http://localhost:4200")
 public class MarqueVehiculeController {
 
     @Autowired
     MarqueVehiculeService marqueVehiculeService;
 
+
     @GetMapping("/MarqueVehicules")
-    @ResponseBody
-    public List<MarqueVehicule> getAllMarqueVehicules() {
-        return marqueVehiculeService.getAllMarqueVehicules();
+    public ResponseEntity<List<MarqueVehicule>> getAllMarqueVehicules() {
+        List<MarqueVehicule> marqueVehicule = marqueVehiculeService.getAllMarqueVehicules();
+        return new ResponseEntity<>(marqueVehicule, OK);
     }
 
     @PostMapping("/AjouterMarqueVehicule")
@@ -36,5 +46,13 @@ public class MarqueVehiculeController {
     public void SupprimerMarqueVehicule(@PathVariable("id") String codeMarque) {
         marqueVehiculeService.deleteMarqueVehiculeById(codeMarque);
     }
+
+
+    private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
+        return new ResponseEntity<>(
+                new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus
+        );
+    }
+
 
 }

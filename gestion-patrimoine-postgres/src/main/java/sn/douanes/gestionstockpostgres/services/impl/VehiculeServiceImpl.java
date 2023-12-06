@@ -2,10 +2,12 @@ package sn.douanes.gestionstockpostgres.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sn.douanes.gestionstockpostgres.entities.Vehicule;
+import sn.douanes.gestionstockpostgres.entities.*;
 import sn.douanes.gestionstockpostgres.repositories.VehiculeRepository;
 import sn.douanes.gestionstockpostgres.services.VehiculeService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -46,5 +48,41 @@ public class VehiculeServiceImpl implements VehiculeService {
     }
 
 
+    @Override
+    public Vehicule ajouterVehicule(
+            String numeroSerie,
+            String numeroImmatriculation,
+            String genre,
+            String modele,
+            String etatVehicule,
+            String typeEnergie,
+            String numeroCarteGrise,
+            Date dateMiseEnCirculation,
+            Pays codePays,
+            TypeVehicule codeTypeVehicule,
+            MarqueVehicule codeMarque,
+            UniteDouaniere codeUniteDouaniere,
+            ArticleBonEntree identifiantBE
+    ) {
+
+        Vehicule vehicule = new Vehicule();
+
+        vehicule.setNumeroSerie(numeroSerie);
+        vehicule.setNumeroImmatriculation(numeroImmatriculation);
+        vehicule.setGenre(genre);
+        vehicule.setModele(modele);
+        vehicule.setEtatVehicule(etatVehicule);
+        vehicule.setTypeEnergie(typeEnergie);
+        vehicule.setNumeroCarteGrise(numeroCarteGrise);
+        vehicule.setDateMiseEnCirculation(dateMiseEnCirculation);
+        vehicule.setCodePays(codePays);
+        vehicule.setCodeTypeVehicule(codeTypeVehicule);
+        vehicule.setCodeMarque(codeMarque);
+        vehicule.setCodeUniteDouaniere(codeUniteDouaniere);
+        vehicule.setIdentifiantBE(identifiantBE);
+
+        vehiculeRepository.save(vehicule);
+        return vehicule;
+    }
 
 }

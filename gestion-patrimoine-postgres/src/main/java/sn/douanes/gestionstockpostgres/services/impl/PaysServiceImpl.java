@@ -46,5 +46,19 @@ public class PaysServiceImpl implements PaysService {
     }
 
 
+    @Override
+    public Pays ajouterPays(
+            String codePays,
+            String libellePays
+    ) {
+
+        Pays pays = new Pays();
+
+        pays.setCodePays(codePays);
+        pays.setLibellePays(libellePays);
+
+        return paysRepository.save(pays);
+    }
+
 
 }

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sn.douanes.gestionstockpostgres.entities.HttpResponse;
+import sn.douanes.gestionstockpostgres.entities.UniteHierarchique;
 import sn.douanes.gestionstockpostgres.entities.Vehicule;
 import sn.douanes.gestionstockpostgres.services.VehiculeService;
 
@@ -24,17 +25,31 @@ public class VehiculeController {
     VehiculeService vehiculeService;
 
     @GetMapping("/Vehicules")
-    @ResponseBody
     public ResponseEntity<List<Vehicule>> listeVehicules() {
         List<Vehicule> vehicules = vehiculeService.getAllVehicules();
         return new ResponseEntity<>(vehicules, OK);
     }
 
+
+//    @PostMapping("/AjouterVehicule")
+//    @ResponseBody
+//    public Vehicule AjouterVehicule(@RequestBody Vehicule v) {
+//        return vehiculeService.saveVehicule(v);
+//    }
+
     @PostMapping("/AjouterVehicule")
-    @ResponseBody
-    public Vehicule AjouterVehicule(@RequestBody Vehicule v) {
-        return vehiculeService.saveVehicule(v);
+    public ResponseEntity<Vehicule> AjouterVehicule(
+            @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("email") String email,
+            @RequestParam("role") String role,
+            @RequestParam("isActive") String isActive
+    ) {
+
+        Vehicule vehicule = vehiculeService.ajouterVehicule(firstName, lastName, username,email, role, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
+        return new ResponseEntity<>(vehicule, OK);
     }
+
 
     @PutMapping("/ModifierVehicule")
     @ResponseBody
@@ -42,6 +57,7 @@ public class VehiculeController {
         
         return vehiculeService.updateVehicule(v);
     }
+
 
     @DeleteMapping("SupprimerVehicule/{id}")
     public void SupprimerVehicule(@PathVariable("id") String numeroSerie) {

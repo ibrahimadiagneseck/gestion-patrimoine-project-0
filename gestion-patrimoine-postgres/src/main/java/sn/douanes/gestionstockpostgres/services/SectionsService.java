@@ -1,6 +1,7 @@
 package sn.douanes.gestionstockpostgres.services;
 
 import sn.douanes.gestionstockpostgres.entities.Sections;
+import sn.douanes.gestionstockpostgres.entities.UniteDouaniere;
 
 import java.util.List;
 
@@ -13,5 +14,7 @@ public interface SectionsService {
     Sections getSectionsById(String id);
     List<Sections> getAllSectionss();
 
+
+    Sections ajouterSections(String codeSection, String libelleSection, UniteDouaniere codeUniteDouaniere);
 
 }

@@ -17,7 +17,7 @@ public interface BonEntreeService {
     BonEntree getBonEntreeById(String id);
     List<BonEntree> getAllBonEntrees();
 
-    BonEntree ajouterBonEntree(String numeroBE, String libelleBonEntree, Date dateBonEntree, String observationBonEntree, BordereauLivraison identifiantBL, Agent matriculeAgent, Sections codeSection) ;
+    BonEntree ajouterBonEntree(String numeroBE, String libelleBonEntree, Date dateBonEntree, String observationBonEntree, BordereauLivraison identifiantBL);
 
 
 }

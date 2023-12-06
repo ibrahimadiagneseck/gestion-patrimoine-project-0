@@ -46,5 +46,21 @@ public class TypeVehiculeServiceImpl implements TypeVehiculeService {
     }
 
 
+    @Override
+    public TypeVehicule ajouterTypeVehicule(
+            String codeTypeVehicule,
+            String libelleTypeVehicule
+    ) {
+
+        TypeVehicule typeVehicule = new TypeVehicule();
+
+        typeVehicule.setCodeTypeVehicule(codeTypeVehicule);
+        typeVehicule.setLibelleTypeVehicule(libelleTypeVehicule);
+
+
+        return typeVehiculeRepository.save(typeVehicule);
+    }
+
+
 
 }

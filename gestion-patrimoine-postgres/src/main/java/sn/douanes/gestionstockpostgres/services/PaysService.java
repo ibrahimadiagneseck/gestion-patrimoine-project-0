@@ -14,4 +14,6 @@ public interface PaysService {
     List<Pays> getAllPays();
 
 
+    Pays ajouterPays(String codePays, String libellePays);
+
 }

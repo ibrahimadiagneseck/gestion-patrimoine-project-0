@@ -2,28 +2,30 @@ package sn.douanes.gestionstockpostgres.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import sn.douanes.gestionstockpostgres.entities.FonctionAgent;
 import sn.douanes.gestionstockpostgres.entities.Fournisseurs;
+import sn.douanes.gestionstockpostgres.entities.HttpResponse;
 import sn.douanes.gestionstockpostgres.services.FournisseursService;
+
+import static org.springframework.http.HttpStatus.OK;
 
 
 @RestController
+//@RequestMapping(path = { "/", "/user"})
+@RequestMapping( "/")
+@CrossOrigin("http://localhost:4200")
 public class FournisseursController {
 
     @Autowired
     FournisseursService fournisseursService;
 
     @GetMapping("/Fournisseurs")
-    @ResponseBody
-    public List<Fournisseurs> getAllFournisseurs() {
-        return fournisseursService.getAllFournisseurs();
+    public ResponseEntity<List<Fournisseurs>> getAllFournisseurs() {
+        List<Fournisseurs> fournisseurs = fournisseursService.getAllFournisseurs();
+        return new ResponseEntity<>(fournisseurs, OK);
     }
 
     @PostMapping("/AjouterFournisseurs")
@@ -41,5 +43,12 @@ public class FournisseursController {
 
     @DeleteMapping("SupprimerFournisseurs/{id}")
     public void SupprimerFournisseurs(@PathVariable("id") String codeFournisseur) {fournisseursService.deleteFournisseursById(codeFournisseur );}
+
+
+    private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
+        return new ResponseEntity<>(
+                new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus
+        );
+    }
 
 }

@@ -1,8 +1,10 @@
 package sn.douanes.gestionstockpostgres.services;
 
+import sn.douanes.gestionstockpostgres.entities.Prestataires;
 import sn.douanes.gestionstockpostgres.entities.SecteurActivite;
 
 import java.util.List;
+import java.util.Set;
 
 public interface SecteurActiviteService {
 
@@ -13,5 +15,7 @@ public interface SecteurActiviteService {
     SecteurActivite getSecteurActiviteById(String id);
     List<SecteurActivite> getAllSecteurActivites();
 
+
+    SecteurActivite ajouterSecteurActivite(String codeSecteurActivite, String libelleSecteurActivite);
 
 }

@@ -2,28 +2,31 @@ package sn.douanes.gestionstockpostgres.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import sn.douanes.gestionstockpostgres.entities.HttpResponse;
+import sn.douanes.gestionstockpostgres.entities.TypeObjet;
 import sn.douanes.gestionstockpostgres.entities.TypeUniteDouaniere;
 import sn.douanes.gestionstockpostgres.services.TypeUniteDouaniereService;
 
+import static org.springframework.http.HttpStatus.OK;
+
 
 @RestController
+//@RequestMapping(path = { "/", "/user"})
+@RequestMapping( "/")
+@CrossOrigin("http://localhost:4200")
 public class TypeUniteDouaniereController {
 
     @Autowired
     TypeUniteDouaniereService typeUniteDouaniereService;
 
+
     @GetMapping("/TypeUniteDouanieres")
-    @ResponseBody
-    public List<TypeUniteDouaniere> getAllTypeUniteDouanieres() {
-        return typeUniteDouaniereService.getAllTypeUniteDouanieres();
+    public ResponseEntity<List<TypeUniteDouaniere>> getAllTypeUniteDouanieres() {
+        List<TypeUniteDouaniere> typeUniteDouaniere = typeUniteDouaniereService.getAllTypeUniteDouanieres();
+        return new ResponseEntity<>(typeUniteDouaniere, OK);
     }
 
     @PostMapping("/AjouterTypeUniteDouaniere")
@@ -41,5 +44,13 @@ public class TypeUniteDouaniereController {
 
     @DeleteMapping("SupprimerTypeUniteDouaniere/{id}")
     public void SupprimerTypeUniteDouaniere(@PathVariable("id") String codeTypeUniteDouaniere) {typeUniteDouaniereService.deleteTypeUniteDouaniereById(codeTypeUniteDouaniere);}
+
+
+    private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
+        return new ResponseEntity<>(
+                new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus
+        );
+    }
+
 
 }

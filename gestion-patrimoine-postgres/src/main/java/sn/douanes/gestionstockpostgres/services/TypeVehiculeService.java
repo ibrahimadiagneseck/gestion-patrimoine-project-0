@@ -14,4 +14,6 @@ public interface TypeVehiculeService {
     List<TypeVehicule> getAllTypeVehicules();
 
 
+    TypeVehicule ajouterTypeVehicule(String codeTypeVehicule, String libelleTypeVehicule);
+
 }

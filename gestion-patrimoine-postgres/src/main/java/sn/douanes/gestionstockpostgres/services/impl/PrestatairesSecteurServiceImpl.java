@@ -49,5 +49,20 @@ public class PrestatairesSecteurServiceImpl implements PrestatairesSecteurServic
     }
 
 
+    @Override
+    public PrestatairesSecteur ajouterPrestatairesSecteur(
+            Prestataires ninea,
+            SecteurActivite codeSecteurActivite
+    ) {
+
+        PrestatairesSecteur prestatairesSecteur = new PrestatairesSecteur();
+
+        prestatairesSecteur.setNinea(ninea);
+        prestatairesSecteur.setCodeSecteurActivite(codeSecteurActivite);
+
+
+        return prestatairesSecteurRepository.save(prestatairesSecteur);
+    }
+
 
 }

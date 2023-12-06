@@ -1,9 +1,13 @@
 package sn.douanes.gestionstockpostgres.services.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sn.douanes.gestionstockpostgres.entities.BonEntree;
+import sn.douanes.gestionstockpostgres.entities.BordereauLivraison;
 import sn.douanes.gestionstockpostgres.entities.FonctionAgent;
 import sn.douanes.gestionstockpostgres.repositories.FonctionAgentRepository;
 import sn.douanes.gestionstockpostgres.services.FonctionAgentService;
@@ -45,6 +49,21 @@ public class FonctionAgentServiceImpl implements FonctionAgentService {
         return fonctionAgentRepository.findAll();
     }
 
+
+    @Override
+    public FonctionAgent ajouterFonctionAgent(
+            String codeFonctionAgent,
+            String libelleFonctionAgent
+    ) {
+
+        FonctionAgent fonctionAgent = new FonctionAgent();
+
+        fonctionAgent.setCodeFonctionAgent(codeFonctionAgent);
+        fonctionAgent.setLibelleFonctionAgent(libelleFonctionAgent);
+
+
+        return fonctionAgentRepository.save(fonctionAgent);
+    }
 
 
 }

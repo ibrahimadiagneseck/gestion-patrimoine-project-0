@@ -1,8 +1,11 @@
 package sn.douanes.gestionstockpostgres.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sn.douanes.gestionstockpostgres.entities.HttpResponse;
+import sn.douanes.gestionstockpostgres.entities.Prestataires;
 import sn.douanes.gestionstockpostgres.entities.Sections;
 import sn.douanes.gestionstockpostgres.entities.Vehicule;
 import sn.douanes.gestionstockpostgres.services.SectionsService;
@@ -43,5 +46,13 @@ public class SectionsController {
 
     @DeleteMapping("SupprimerSections/{id}")
     public void SupprimerSections(@PathVariable("id") String codeSection) {sectionsService.deleteSectionsById(codeSection);}
+
+
+    private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
+        return new ResponseEntity<>(
+                new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus
+        );
+    }
+
 
 }
