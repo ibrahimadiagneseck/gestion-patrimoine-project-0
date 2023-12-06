@@ -33,9 +33,20 @@ public class PaysController {
 
     @PostMapping("/AjouterPays")
     @ResponseBody
-    public Pays AjouterPays(@RequestBody Pays p) {
-        return paysService.savePays(p);
+    public Pays AjouterPays(@RequestBody Pays pays) {
+        return paysService.savePays(pays);
     }
+
+
+    @PostMapping("/AjouterRequestParamPays")
+    public ResponseEntity<Pays> ajouterPays (
+            @RequestParam("codePays") String codePays,
+            @RequestParam("libellePays") String libellePays
+    ) {
+        Pays pays = paysService.ajouterPays(codePays, libellePays);
+        return new ResponseEntity<>(pays, OK);
+    }
+
 
     @PutMapping("/ModifierPays")
     @ResponseBody

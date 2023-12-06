@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sn.douanes.gestionstockpostgres.entities.HttpResponse;
+import sn.douanes.gestionstockpostgres.entities.TypeUniteDouaniere;
 import sn.douanes.gestionstockpostgres.entities.TypeVehicule;
 import sn.douanes.gestionstockpostgres.entities.UniteDouaniere;
 import sn.douanes.gestionstockpostgres.services.UniteDouaniereService;
@@ -31,8 +32,22 @@ public class UniteDouaniereController {
 
     @PostMapping("/AjouterUniteDouaniere")
     @ResponseBody
-    public UniteDouaniere AjouterUniteDouaniere(@RequestBody UniteDouaniere u) {
-        return uniteDouaniereService.saveUniteDouaniere(u);
+    public UniteDouaniere AjouterUniteDouaniere(@RequestBody UniteDouaniere uniteDouaniere) {
+        return uniteDouaniereService.saveUniteDouaniere(uniteDouaniere);
+    }
+
+    @PostMapping("/AjouterRequestParamUniteDouaniere")
+    public ResponseEntity<UniteDouaniere> ajouterUniteDouaniere (
+            @RequestParam("codeUniteDouaniere") String codeUniteDouaniere,
+            @RequestParam("nomUniteDouaniere") String nomUniteDouaniere,
+            @RequestParam("effectifUniteDouaniere") Integer effectifUniteDouaniere,
+            @RequestParam("nombreArme") Integer nombreArme,
+            @RequestParam("nombreAutomobile") Integer nombreAutomobile,
+            @RequestParam("nombreMateriel") Integer nombreMateriel,
+            @RequestParam("codeTypeUniteDouaniere") TypeUniteDouaniere codeTypeUniteDouaniere
+    ) {
+        UniteDouaniere uniteDouaniere = uniteDouaniereService.ajouterUniteDouaniere(codeUniteDouaniere, nomUniteDouaniere, effectifUniteDouaniere, nombreArme, nombreAutomobile,  nombreMateriel, codeTypeUniteDouaniere);
+        return new ResponseEntity<>(uniteDouaniere, OK);
     }
 
     @PutMapping("/ModifierUniteDouaniere")
@@ -43,7 +58,9 @@ public class UniteDouaniereController {
     }
 
     @DeleteMapping("SupprimerUniteDouaniere/{id}")
-    public void SupprimerUniteDouaniere(@PathVariable("id") String codeUniteDouaniere) {uniteDouaniereService.deleteUniteDouaniereById(codeUniteDouaniere);}
+    public void SupprimerUniteDouaniere(@PathVariable("id") String codeUniteDouaniere) {
+        uniteDouaniereService.deleteUniteDouaniereById(codeUniteDouaniere);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

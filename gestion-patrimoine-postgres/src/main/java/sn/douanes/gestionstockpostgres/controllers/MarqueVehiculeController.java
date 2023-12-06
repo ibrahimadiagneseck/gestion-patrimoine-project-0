@@ -32,8 +32,17 @@ public class MarqueVehiculeController {
 
     @PostMapping("/AjouterMarqueVehicule")
     @ResponseBody
-    public MarqueVehicule AjouterMarqueVehicule(@RequestBody MarqueVehicule t) {
-        return marqueVehiculeService.saveMarqueVehicule(t);
+    public MarqueVehicule AjouterMarqueVehicule(@RequestBody MarqueVehicule marqueVehicule) {
+        return marqueVehiculeService.saveMarqueVehicule(marqueVehicule);
+    }
+
+    @PostMapping("/AjouterRequestParamMarqueVehicule")
+    public ResponseEntity<MarqueVehicule> ajouterMarqueVehicule (
+            @RequestParam("codeMarque") String codeMarque,
+            @RequestParam("libelleMarque") String libelleMarque
+    ) {
+        MarqueVehicule marqueVehicule = marqueVehiculeService.ajouterMarqueVehicule(codeMarque, libelleMarque);
+        return new ResponseEntity<>(marqueVehicule, OK);
     }
 
     @PutMapping("/ModifierMarqueVehicule")

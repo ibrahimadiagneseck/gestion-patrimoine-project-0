@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sn.douanes.gestionstockpostgres.entities.HttpResponse;
+import sn.douanes.gestionstockpostgres.entities.Sections;
 import sn.douanes.gestionstockpostgres.entities.TypeMateriel;
 import sn.douanes.gestionstockpostgres.entities.TypeObjet;
 import sn.douanes.gestionstockpostgres.services.TypeObjetService;
@@ -32,8 +33,18 @@ public class TypeObjetController {
 
     @PostMapping("/AjouterTypeObjet")
     @ResponseBody
-    public TypeObjet AjouterTypeObjet(@RequestBody TypeObjet t) {
-        return typeObjetService.saveTypeObjet(t);
+    public TypeObjet AjouterTypeObjet(@RequestBody TypeObjet typeObjet) {
+        return typeObjetService.saveTypeObjet(typeObjet);
+    }
+
+    @PostMapping("/AjouterRequestParamTypeObjet")
+    public ResponseEntity<TypeObjet> ajouterTypeObjet (
+            @RequestParam("codeTypeObjet") String codeTypeObjet,
+            @RequestParam("libelleTypeObjet") String libelleTypeObjet,
+            @RequestParam("codeSection") Sections codeSection
+    ) {
+        TypeObjet typeObjet = typeObjetService.ajouterTypeObjet(codeTypeObjet, libelleTypeObjet, codeSection);
+        return new ResponseEntity<>(typeObjet, OK);
     }
 
     @PutMapping("/ModifierTypeObjet")

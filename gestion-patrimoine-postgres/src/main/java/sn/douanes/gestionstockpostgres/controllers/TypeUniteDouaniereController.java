@@ -31,8 +31,17 @@ public class TypeUniteDouaniereController {
 
     @PostMapping("/AjouterTypeUniteDouaniere")
     @ResponseBody
-    public TypeUniteDouaniere AjouterTypeUniteDouaniere(@RequestBody TypeUniteDouaniere t) {
-        return typeUniteDouaniereService.saveTypeUniteDouaniere(t);
+    public TypeUniteDouaniere AjouterTypeUniteDouaniere(@RequestBody TypeUniteDouaniere typeUniteDouaniere) {
+        return typeUniteDouaniereService.saveTypeUniteDouaniere(typeUniteDouaniere);
+    }
+
+    @PostMapping("/AjouterRequestParamTypeUniteDouaniere")
+    public ResponseEntity<TypeUniteDouaniere> ajouterTypeUniteDouaniere (
+            @RequestParam("codeTypeUniteDouaniere") String codeTypeUniteDouaniere,
+            @RequestParam("libelleTypeUniteDouaniere") String libelleTypeUniteDouaniere
+    ) {
+        TypeUniteDouaniere typeUniteDouaniere = typeUniteDouaniereService.ajouterTypeUniteDouaniere(codeTypeUniteDouaniere, libelleTypeUniteDouaniere);
+        return new ResponseEntity<>(typeUniteDouaniere, OK);
     }
 
     @PutMapping("/ModifierTypeUniteDouaniere")

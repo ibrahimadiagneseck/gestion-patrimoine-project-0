@@ -30,8 +30,17 @@ public class CorpsAgentController {
 
     @PostMapping("/AjouterCorpsAgent")
     @ResponseBody
-    public CorpsAgent AjouterCorpsAgent(@RequestBody CorpsAgent c) {
-        return corpsAgentService.saveCorpsAgent(c);
+    public CorpsAgent AjouterCorpsAgent(@RequestBody CorpsAgent corpsAgent) {
+        return corpsAgentService.saveCorpsAgent(corpsAgent);
+    }
+
+    @PostMapping("/AjouterRequestParamCorpsAgent")
+    public ResponseEntity<CorpsAgent> ajouterCorpsAgent (
+            @RequestParam("codeCorpsAgent") String codeCorpsAgent,
+            @RequestParam("libelleCorpsAgent") String libelleCorpsAgent
+    ) {
+        CorpsAgent corpsAgent = corpsAgentService.ajouterCorpsAgent(codeCorpsAgent, libelleCorpsAgent);
+        return new ResponseEntity<>(corpsAgent, OK);
     }
 
     @PutMapping("/ModifierCorpsAgent")

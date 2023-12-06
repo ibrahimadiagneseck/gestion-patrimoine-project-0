@@ -73,10 +73,5 @@ public class UniteDouaniereServiceImpl implements UniteDouaniereService {
     }
 
 
-    private String genererIdentifiantBE(BordereauLivraison bordereauLivraison, SimpleDateFormat dateEnregistrement) {
-        // Timestamp t = new Timestamp(System.currentTimeMillis())
-        return "BE" + bordereauLivraison.getCodeSection() + dateEnregistrement;
-    }
-
 
 }
