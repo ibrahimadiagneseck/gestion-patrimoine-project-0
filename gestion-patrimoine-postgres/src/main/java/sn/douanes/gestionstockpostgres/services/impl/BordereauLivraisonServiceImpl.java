@@ -1,7 +1,8 @@
 package sn.douanes.gestionstockpostgres.services.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +67,8 @@ public class BordereauLivraisonServiceImpl implements BordereauLivraisonService 
 
         BordereauLivraison bordereauLivraison = new BordereauLivraison();
 
-        bordereauLivraison.setDateEnregistrement(new SimpleDateFormat("yyyyMMddHHmmssSSS"));
-        bordereauLivraison.setIdentifiantBL(genererIdentifiantBE(bordereauLivraison.getCodeSection(), bordereauLivraison.getDateEnregistrement()));
+        bordereauLivraison.setDateEnregistrement(new Timestamp(System.currentTimeMillis()));
+        bordereauLivraison.setIdentifiantBL(genererIdentifiantBE(bordereauLivraison.getCodeSection(), genererDateEnregistrement(bordereauLivraison.getDateEnregistrement())));
 
         bordereauLivraison.setNumeroBL(numeroBL);
         bordereauLivraison.setDescriptionBL(descriptionBL);
@@ -83,10 +84,21 @@ public class BordereauLivraisonServiceImpl implements BordereauLivraisonService 
     }
 
 
-    private String genererIdentifiantBE(Sections sections, SimpleDateFormat dateEnregistrement) {
+    private String genererIdentifiantBE(Sections sections, String dateEnregistrement) {
         // Timestamp t = new Timestamp(System.currentTimeMillis())
         return "BL" + sections.getCodeSection() + dateEnregistrement;
     }
+
+    private String genererDateEnregistrement(Timestamp dateEnregistrement) {
+        // Timestamp t = new Timestamp(System.currentTimeMillis())
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        return dateEnregistrement.toLocalDateTime().format(formatter);
+    }
+
+
+
+
+
 
 
 }

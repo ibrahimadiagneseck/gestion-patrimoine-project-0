@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import sn.douanes.gestionstockpostgres.entities.keys.ArticleBonEntreeId;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 
 @Entity
@@ -37,7 +36,7 @@ public class ArticleBonEntree {
     private Integer quantiteEntree;
 
     @Column(name = "date_enregistrement")
-    private SimpleDateFormat dateEnregistrement;
+    private Timestamp dateEnregistrement;
 
     @ManyToOne
     @JoinColumn(name = "code_type_objet")

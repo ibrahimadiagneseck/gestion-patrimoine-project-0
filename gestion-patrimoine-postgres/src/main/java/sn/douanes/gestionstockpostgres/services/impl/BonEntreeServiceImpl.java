@@ -1,16 +1,14 @@
 package sn.douanes.gestionstockpostgres.services.impl;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sn.douanes.gestionstockpostgres.entities.Agent;
 import sn.douanes.gestionstockpostgres.entities.BonEntree;
 import sn.douanes.gestionstockpostgres.entities.BordereauLivraison;
-import sn.douanes.gestionstockpostgres.entities.Sections;
 import sn.douanes.gestionstockpostgres.repositories.BonEntreeRepository;
 import sn.douanes.gestionstockpostgres.services.BonEntreeService;
 
@@ -63,8 +61,7 @@ public class BonEntreeServiceImpl implements BonEntreeService {
 
         BonEntree bonEntree = new BonEntree();
 
-        bonEntree.setDateEnregistrement(new SimpleDateFormat("yyyyMMddHHmmssSSS"));
-        bonEntree.setIdentifiantBE(genererIdentifiantBE(bonEntree.getIdentifiantBL(), bonEntree.getDateEnregistrement()));
+        bonEntree.setIdentifiantBE(genererIdentifiantBE(bonEntree.getIdentifiantBL(), genererDateEnregistrement(bonEntree.getIdentifiantBL().getDateEnregistrement())));
 
         bonEntree.setNumeroBE(numeroBE);
         bonEntree.setLibelleBonEntree(libelleBonEntree);
@@ -77,10 +74,16 @@ public class BonEntreeServiceImpl implements BonEntreeService {
     }
 
 
-    private String genererIdentifiantBE(BordereauLivraison bordereauLivraison, SimpleDateFormat dateEnregistrement) {
+    private String genererIdentifiantBE(BordereauLivraison bordereauLivraison, String dateEnregistrement) {
         // Timestamp t = new Timestamp(System.currentTimeMillis())
         return "BE" + bordereauLivraison.getCodeSection() + dateEnregistrement;
     }
 
+
+    private String genererDateEnregistrement(Timestamp dateEnregistrement) {
+        // Timestamp t = new Timestamp(System.currentTimeMillis())
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        return dateEnregistrement.toLocalDateTime().format(formatter);
+    }
 
 }

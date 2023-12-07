@@ -1,6 +1,6 @@
 package sn.douanes.gestionstockpostgres.services.impl;
 
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +63,7 @@ public class ArticleBonEntreeServiceImpl implements ArticleBonEntreeService {
 
         ArticleBonEntree articleBonEntree = new ArticleBonEntree();
 
-        articleBonEntree.setDateEnregistrement(new SimpleDateFormat("yyyyMMddHHmmssSSS"));
+        articleBonEntree.setDateEnregistrement(new Timestamp(System.currentTimeMillis()));
 
         articleBonEntree.setIdentifiantBE(identifiantBE);
         articleBonEntree.setCodeArticleBonEntree(codeArticleBonEntree);

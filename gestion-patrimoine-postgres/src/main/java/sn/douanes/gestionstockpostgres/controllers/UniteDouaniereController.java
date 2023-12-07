@@ -24,7 +24,7 @@ public class UniteDouaniereController {
     UniteDouaniereService uniteDouaniereService;
 
 
-    @GetMapping("/TypeVehicules")
+    @GetMapping("/UniteDouanieres")
     public ResponseEntity<List<UniteDouaniere>> getAllUniteDouanieres() {
         List<UniteDouaniere> uniteDouaniere = uniteDouaniereService.getAllUniteDouanieres();
         return new ResponseEntity<>(uniteDouaniere, OK);

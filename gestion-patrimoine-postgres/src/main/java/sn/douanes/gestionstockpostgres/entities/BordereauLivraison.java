@@ -7,8 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 
 @Entity
@@ -65,6 +64,6 @@ public class BordereauLivraison {
 
 
     @Column(name = "date_enregistrement")
-    private SimpleDateFormat dateEnregistrement;
+    private Timestamp dateEnregistrement;
 
 }
