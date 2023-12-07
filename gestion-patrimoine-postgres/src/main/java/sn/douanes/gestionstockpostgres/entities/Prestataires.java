@@ -30,7 +30,7 @@ public class Prestataires {
     @Column(name = "numero_telephone")
     private Integer numeroTelephone;
 
-    @Column(name = "adresse-email", length = 100)
+    @Column(name = "adresse_email", length = 100)
     private String adresseEmail;
 
     @Column(name = "adresse", length = 512)

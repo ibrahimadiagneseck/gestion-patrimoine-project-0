@@ -87,20 +87,18 @@ export class VehiculeService {
     const formData = new FormData();
 
     formData.append('numeroSerie', vehicule.numeroSerie);
-    formData.append('codeTypeVehicule', JSON.stringify(vehicule.codeTypeVehicule));
     formData.append('numeroImmatriculation', vehicule.numeroImmatriculation);
+    formData.append('identifiantBE', JSON.stringify(vehicule.identifiantBE));
     formData.append('genre', vehicule.genre);
-    formData.append('codeMarque', JSON.stringify(vehicule.codeMarque));
     formData.append('modele', vehicule.modele);
     formData.append('etatVehicule', vehicule.etatVehicule);
     formData.append('typeEnergie', vehicule.typeEnergie);
     formData.append('codePays', JSON.stringify(vehicule.codePays));
     formData.append('numeroCarteGrise', vehicule.numeroCarteGrise);
     formData.append('dateMiseEnCirculation', JSON.stringify(vehicule.dateMiseEnCirculation));
+    formData.append('codeTypeVehicule', JSON.stringify(vehicule.codeTypeVehicule));
+    formData.append('codeMarque', JSON.stringify(vehicule.codeMarque));
     formData.append('codeUniteDouaniere', JSON.stringify(vehicule.codeUniteDouaniere));
-    formData.append('matriculeAgent', JSON.stringify(vehicule.matriculeAgent));
-    formData.append('codeTypeObjet', JSON.stringify(vehicule.codeTypeObjet));
-    formData.append('identifiantBE', JSON.stringify(vehicule.identifiantBE));
 
     return formData;
   }
