@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import sn.douanes.gestionstockpostgres.entities.*;
 import sn.douanes.gestionstockpostgres.services.VehiculeService;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;

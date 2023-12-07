@@ -3,7 +3,7 @@ package sn.douanes.gestionstockpostgres.services;
 
 import sn.douanes.gestionstockpostgres.entities.*;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public interface VehiculeService {

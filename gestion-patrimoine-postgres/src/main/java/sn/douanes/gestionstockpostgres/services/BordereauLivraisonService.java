@@ -5,8 +5,7 @@ import sn.douanes.gestionstockpostgres.entities.BordereauLivraison;
 import sn.douanes.gestionstockpostgres.entities.Prestataires;
 import sn.douanes.gestionstockpostgres.entities.Sections;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public interface BordereauLivraisonService {

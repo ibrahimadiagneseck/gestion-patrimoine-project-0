@@ -23,7 +23,7 @@ public class VidangeController {
     VidangeService vidangeService;
 
 
-    @GetMapping("/Vehicules")
+    @GetMapping("/Vidanges")
     public ResponseEntity<List<Vidange>> getAllVidanges() {
         List<Vidange> vidange = vidangeService.getAllVidanges();
         return new ResponseEntity<>(vidange, OK);
@@ -38,12 +38,13 @@ public class VidangeController {
     @PutMapping("/ModifierVidange")
     @ResponseBody
     public Vidange ModifierVidange(@RequestBody Vidange v) {
-
         return vidangeService.updateVidange(v);
     }
 
     @DeleteMapping("SupprimerVidange/{id}")
-    public void SupprimerVidange(@PathVariable("id") String vidange) {vidangeService.deleteVidangeById(vidange);}
+    public void SupprimerVidange(@PathVariable("id") String numeroImmatriculation) {
+        vidangeService.deleteVidangeById(numeroImmatriculation);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

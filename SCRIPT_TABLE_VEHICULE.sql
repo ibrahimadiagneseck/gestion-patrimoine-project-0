@@ -347,21 +347,52 @@ public class Vehicule {
 SELECT * FROM information_schema.tables WHERE table_type = 'BASE TABLE';
 
 
+-- Drop foreign key constraints referencing the tables to be deleted
+ALTER TABLE prestataires_secteur DROP CONSTRAINT IF EXISTS FK_prestataires_secteur_secteur_activite;
+ALTER TABLE prestataires_secteur DROP CONSTRAINT IF EXISTS FK_prestataires_secteur_prestataires;
+
+ALTER TABLE bordereau_livraison DROP CONSTRAINT IF EXISTS FK_bordereau_livraison_agent;
+ALTER TABLE bordereau_livraison DROP CONSTRAINT IF EXISTS FK_bordereau_livraison_prestataires;
+ALTER TABLE bordereau_livraison DROP CONSTRAINT IF EXISTS FK_bordereau_livraison_sections;
+
+ALTER TABLE bon_entree DROP CONSTRAINT IF EXISTS FK_bon_entree_bordereau_livraison;
+
+ALTER TABLE article_bon_entree DROP CONSTRAINT IF EXISTS FK_article_bon_entree_agent;
+ALTER TABLE article_bon_entree DROP CONSTRAINT IF EXISTS FK_article_bon_entree_type_objet;
+ALTER TABLE article_bon_entree DROP CONSTRAINT IF EXISTS FK_article_bon_entree_bon_entree;
+
+ALTER TABLE vehicule DROP CONSTRAINT IF EXISTS FK_vehicule_pays;
+ALTER TABLE vehicule DROP CONSTRAINT IF EXISTS FK_vehicule_article_bon_entree;
+ALTER TABLE vehicule DROP CONSTRAINT IF EXISTS FK_vehicule_type_vehicule;
+ALTER TABLE vehicule DROP CONSTRAINT IF EXISTS FK_vehicule_marque_vehicule;
+ALTER TABLE vehicule DROP CONSTRAINT IF EXISTS FK_vehicule_unite_douaniere;
+
+ALTER TABLE agent DROP CONSTRAINT IF EXISTS FK_agent_fonction_agent;
+ALTER TABLE agent DROP CONSTRAINT IF EXISTS FK_agent_unite_douaniere;
+ALTER TABLE agent DROP CONSTRAINT IF EXISTS FK_agent_corps_agent;
+
+ALTER TABLE unite_douaniere DROP CONSTRAINT IF EXISTS FK_unite_douaniere_type_unite_douaniere;
+
+ALTER TABLE sections DROP CONSTRAINT IF EXISTS FK_section_unite_douaniere;
+
+-- Drop the tables with CASCADE option
 DROP TABLE IF EXISTS vehicule;
+DROP TABLE IF EXISTS pays;
 DROP TABLE IF EXISTS article_bon_entree;
 DROP TABLE IF EXISTS bon_entree;
 DROP TABLE IF EXISTS bordereau_livraison;
 DROP TABLE IF EXISTS agent;
 DROP TABLE IF EXISTS type_objet;
-DROP TABLE IF EXISTS sections;
-DROP TABLE IF EXISTS unite_douaniere;
+DROP TABLE IF EXISTS prestataires_secteur;
+DROP TABLE IF EXISTS secteur_activite;
 DROP TABLE IF EXISTS prestataires;
 DROP TABLE IF EXISTS type_vehicule;
 DROP TABLE IF EXISTS marque_vehicule;
+DROP TABLE IF EXISTS unite_douaniere;
+DROP TABLE IF EXISTS sections;
 DROP TABLE IF EXISTS type_unite_douaniere;
 DROP TABLE IF EXISTS corps_agent;
 DROP TABLE IF EXISTS fonction_agent;
-DROP TABLE IF EXISTS pays;
 
 
 
@@ -407,7 +438,7 @@ CREATE TABLE prestataires (
     ninea VARCHAR(20),
     raison_sociale VARCHAR(512),
     numero_telephone INT,
-    adresse_email  VARCHAR(100)
+    adresse_email  VARCHAR(100),
     adresse VARCHAR(512),
     PRIMARY KEY (ninea)
 );
@@ -473,7 +504,7 @@ CREATE TABLE agent (
 );  
 
 
-CREATE TABLE bordereau_livraison ( -- exemple : BLSA202311121243214 (SA+heure en SimpleDateFormat)
+CREATE TABLE bordereau_livraison ( -- exemple : BLSA202311121243214 (SA+heure en Timestamp)
     identifiant_b_l VARCHAR(25),
     numero_b_l VARCHAR(100),
     description_b_l VARCHAR(512),
@@ -484,7 +515,7 @@ CREATE TABLE bordereau_livraison ( -- exemple : BLSA202311121243214 (SA+heure en
     code_section VARCHAR(3),
     ninea VARCHAR(20),
     matricule_agent VARCHAR(7),
-    date_enregistrement SimpleDateFormat,
+    date_enregistrement Timestamp(6),
     code_corps_agent VARCHAR(3),
     PRIMARY KEY (identifiant_b_l),
     CONSTRAINT FK_bordereau_livraison_sections FOREIGN KEY (code_section) REFERENCES sections(code_section),
@@ -493,21 +524,15 @@ CREATE TABLE bordereau_livraison ( -- exemple : BLSA202311121243214 (SA+heure en
 );
 
 
-CREATE TABLE bon_entree ( -- exemple : BESG202311121243214 (SG+heure en SimpleDateFormat)
+CREATE TABLE bon_entree ( -- exemple : BESG202311121243214 (SG+heure en Timestamp)
     identifiant_b_e VARCHAR(25),
     numero_b_e VARCHAR(100),
     libelle_bon_entree VARCHAR(255),
     date_bon_entree DATE,
     observation_bon_entree VARCHAR(255),
     identifiant_b_l VARCHAR(25),
-    date_enregistrement SimpleDateFormat,
-    -- matricule_agent VARCHAR(7),
-    -- code_corps_agent VARCHAR(3),
-    -- code_section VARCHAR(3),
     PRIMARY KEY (identifiant_b_e),
-    CONSTRAINT FK_bon_entree_bordereau_livraison FOREIGN KEY (identifiant_b_l) REFERENCES bordereau_livraison(identifiant_b_l),
-    -- CONSTRAINT FK_bon_entree_agent FOREIGN KEY (matricule_agent, code_corps_agent) REFERENCES agent(matricule_agent, code_corps_agent),
-    -- CONSTRAINT FK_bon_entree_sections FOREIGN KEY (code_section) REFERENCES sections(code_section)
+    CONSTRAINT FK_bon_entree_bordereau_livraison FOREIGN KEY (identifiant_b_l) REFERENCES bordereau_livraison(identifiant_b_l)
 );
 
 
@@ -517,9 +542,9 @@ CREATE TABLE article_bon_entree (
     code_type_objet VARCHAR(5),
     libelle_article_bon_entree VARCHAR(255),
     quantite_entree INT,
-    date_enregistrement SimpleDateFormat,
+    date_enregistrement Timestamp(6),
     matricule_agent VARCHAR(7),
-    -- code_corps_agent VARCHAR(3),
+    code_corps_agent VARCHAR(3),
     PRIMARY KEY (identifiant_b_e, code_article_bon_entree),
     CONSTRAINT FK_article_bon_entree_bon_entree FOREIGN KEY (identifiant_b_e) REFERENCES bon_entree(identifiant_b_e),
     CONSTRAINT FK_article_bon_entree_type_objet FOREIGN KEY (code_type_objet) REFERENCES type_objet(code_type_objet),
@@ -549,17 +574,12 @@ CREATE TABLE vehicule (
     code_type_vehicule VARCHAR(25),
     code_marque VARCHAR(25),
     code_unite_douaniere VARCHAR(3),
-    -- matricule_agent VARCHAR(7),
-    -- code_corps_agent VARCHAR(3),
-    -- code_type_objet VARCHAR(5),
     PRIMARY KEY (numero_serie),
     CONSTRAINT FK_vehicule_pays FOREIGN KEY (code_pays) REFERENCES pays(code_pays),
     CONSTRAINT FK_vehicule_article_bon_entree FOREIGN KEY (identifiant_b_e, code_article_bon_entree) REFERENCES article_bon_entree(identifiant_b_e, code_article_bon_entree),
     CONSTRAINT FK_vehicule_type_vehicule FOREIGN KEY (code_type_vehicule) REFERENCES type_vehicule(code_type_vehicule),
     CONSTRAINT FK_vehicule_marque_vehicule FOREIGN KEY (code_marque) REFERENCES marque_vehicule(code_marque),
-    CONSTRAINT FK_vehicule_unite_douaniere FOREIGN KEY (code_unite_douaniere) REFERENCES unite_douaniere(code_unite_douaniere),
-    -- CONSTRAINT FK_vehicule_agent FOREIGN KEY (matricule_agent, code_corps_agent) REFERENCES agent(matricule_agent, code_corps_agent),
-    -- CONSTRAINT FK_vehicule_type_objet FOREIGN KEY (code_type_objet) REFERENCES type_objet(code_type_objet)
+    CONSTRAINT FK_vehicule_unite_douaniere FOREIGN KEY (code_unite_douaniere) REFERENCES unite_douaniere(code_unite_douaniere)
 );
 
 
@@ -569,11 +589,67 @@ CREATE TABLE vehicule (
 ----------------------------------------------------------------------------------------------------
 
 
+-- Insertion des données dans la table secteur_activite
+INSERT INTO secteur_activite (code_secteur_activite, libelle_secteur_activite)
+VALUES 
+    ('SEC1', 'Secteur 1'),
+    ('SEC2', 'Secteur 2'),
+    ('SEC3', 'Secteur 3');
+
+
+-- Insertion des données dans la table prestataires
+INSERT INTO prestataires (ninea, raison_sociale, numero_telephone, adresse_email, adresse)
+VALUES 
+    ('NIN1', 'Prestataire 1', 123456789, 'email1@example.com', 'Address 1'),
+    ('NIN2', 'Prestataire 2', 987654321, 'email2@example.com', 'Address 2'),
+    ('NIN3', 'Prestataire 3', 555555555, 'email3@example.com', 'Address 3');
+
+
+-- Insertion des données dans la table prestataires_secteur
+INSERT INTO prestataires_secteur (ninea, code_secteur_activite)
+VALUES 
+    ('NIN1', 'SEC1'),
+    ('NIN2', 'SEC2'),
+    ('NIN3', 'SEC3');
+
+
+INSERT INTO type_unite_douaniere (code_type_unite_douaniere, libelle_type_unite_douaniere)
+VALUES ('BUR', 'BUREAU CENTRAL'),
+       ('BRI', 'BRIGADE MOBILE');
+
+
+-- Insertion des données dans la table unite_douaniere
+INSERT INTO unite_douaniere (code_unite_douaniere, nom_unite_douaniere, effectif_unite_douaniere, nombre_arme, nombre_automobile, nombre_materiel, code_type_unite_douaniere)
+VALUES 
+    ('06K', 'BUREAU DE LA LOGISTIQUE ET DE LA MAINTENANCE', 10, 3, 5, 20, 'BUR'),
+    ('06Z', 'BUREAU DE LA PROGRAMMATION ET DES FINANCES', 10, 3, 5, 20, 'BUR');
+
+
+
+-- Insertion des données dans la table sections
+INSERT INTO sections (code_section, libelle_section, code_unite_douaniere)
+VALUES 
+    ('SA', 'SECTION ARMEMENT', '06K'),
+    ('SM', 'SECTION MATERIEL', '06K'),
+    ('SG', 'SECTION GARAGE', '06K');
+
+
+-- Insertion des données dans la table type_objet
+INSERT INTO type_objet (code_type_objet, libelle_type_objet, code_section)
+VALUES 
+    ('ARMES', 'ARMES ET MUNITIONS', 'SA'),
+    ('VEHIC', 'VEHICULES ET MATERIELS ROULANTS', 'SG');
+
+
+
+
+
 
 INSERT INTO fonction_agent (code_fonction_agent, libelle_fonction_agent)
 VALUES ('FCT1', 'Fonction 1'),
        ('FCT2', 'Fonction 2'),
        ('FCT3', 'Fonction 3');
+
 
 
 INSERT INTO corps_agent (code_corps_agent, libelle_corps_agent)
@@ -582,70 +658,39 @@ VALUES ('CP1', 'Corps 1'),
        ('CP3', 'Corps 3');
 
 
-INSERT INTO type_unite_douaniere (code_type_unite_douaniere, libelle_type_unite_douaniere)
-VALUES ('BUR', 'BUREAU CENTRAL'),
-       ('BRI', 'BRIGADE MOBILE');
-
-
-INSERT INTO marque_vehicule (code_marque, libelle_marque)
-VALUES ('MRQ1', 'Marque 1'),
-       ('MRQ2', 'Marque 2'),
-       ('MRQ3', 'Marque 3');
-
-
-INSERT INTO type_vehicule (code_type_vehicule, libelle_type_vehicule)
-VALUES ('TV1', 'Type 1'),
-       ('TV2', 'Type 2'),
-       ('TV3', 'Type 3');
-
-
-INSERT INTO prestataires (ninea, raison_sociale, numero_telephone, adresse)
-VALUES ('NIN1', 'Prestataire 1', 123456789, 'Address 1'),
-       ('NIN2', 'Prestataire 2', 987654321, 'Address 2'),
-       ('NIN3', 'Prestataire 3', 555555555, 'Address 3');
-
-
-INSERT INTO unite_douaniere (code_unite_douaniere, nom_unite_douaniere, effectif_unite_douaniere, nombre_arme, nombre_automobile, nombre_materiel, code_type_unite_douaniere)
-VALUES ('06K', 'BUREAU DE LA LOGISTIQUE ET DE LA MAINTENANCE', 10, 3, 5, 20, 'BUR'),
-       ('06Z', 'BUREAU DE LA PROGRAMMATION ET DES FINANCES', 10, 3, 5, 20, 'BUR');
-
-
-INSERT INTO sections (code_section, libelle_section, code_unite_douaniere)
-VALUES ('SA', 'SECTION ARMEMENT', '06K'),
-       ('SM', 'SECTION MATERIEL', '06K'),
-       ('SG', 'SECTION GARAGE', '06K');
-
-
-INSERT INTO type_objet (code_type_objet, libelle_type_objet, code_section)
-VALUES ('ARMES', 'ARMES ET MUNITIONS', 'SA'),
-       ('VEHIC', 'VEHICULES ET MATERIELS ROULANTS', 'SG');
-
-
+-- Insertion des données dans la table agent
 INSERT INTO agent (matricule_agent, code_agent, nom_agent, prenom_agent, numero_telephone_agent, code_fonction_agent, code_unite_douaniere, code_corps_agent)
-VALUES ('MAT001', 'AGT01', 'Nom Agent 1', 'Prenom Agent 1', 123456789, 'FCT1', '06K', 'CP1'),
-       ('MAT002', 'AGT02', 'Nom Agent 2', 'Prenom Agent 2', 987654321, 'FCT2', '06Z', 'CP2'),
-       ('MAT003', 'AGT03', 'Nom Agent 3', 'Prenom Agent 3', 555555555, 'FCT3', '06K', 'CP3');
+VALUES 
+    ('MAT001', 'AGT01', 'Nom Agent 1', 'Prenom Agent 1', 123456789, 'FCT1', '06K', 'CP1'),
+    ('MAT002', 'AGT02', 'Nom Agent 2', 'Prenom Agent 2', 987654321, 'FCT2', '06Z', 'CP2'),
+    ('MAT003', 'AGT03', 'Nom Agent 3', 'Prenom Agent 3', 555555555, 'FCT3', '06K', 'CP3');
 
 
+-- Insertion des données dans la table bordereau_livraison
 INSERT INTO bordereau_livraison (identifiant_b_l, numero_b_l, description_b_l, lieu_de_livraison, date_b_l, conformite_b_l, nom_livreur, code_section, ninea, matricule_agent, date_enregistrement, code_corps_agent)
-VALUES ('BL001', '001', 'Description BL 1', 'Lieu 1', '2023-12-01', 'Con', 'Livreur 1', 'SA', 'NIN1', 'MAT001', CURRENT_TIMESTAMP, 'CP1'),
-       ('BL002', '002', 'Description BL 2', 'Lieu 2', '2023-12-02', 'Con', 'Livreur 2', 'SM', 'NIN2', 'MAT002', CURRENT_TIMESTAMP, 'CP2'),
-       ('BL003', '003', 'Description BL 3', 'Lieu 3', '2023-12-03', 'Con', 'Livreur 3', 'SG', 'NIN3', 'MAT003', CURRENT_TIMESTAMP, 'CP3');
+VALUES 
+    ('BL001', '001', 'Description BL 1', 'Lieu 1', '2023-12-01', 'Con', 'Livreur 1', 'SA', 'NIN1', 'MAT001', CURRENT_TIMESTAMP, 'CP1'),
+    ('BL002', '002', 'Description BL 2', 'Lieu 2', '2023-12-02', 'Con', 'Livreur 2', 'SM', 'NIN2', 'MAT002', CURRENT_TIMESTAMP, 'CP2'),
+    ('BL003', '003', 'Description BL 3', 'Lieu 3', '2023-12-03', 'Con', 'Livreur 3', 'SG', 'NIN3', 'MAT003', CURRENT_TIMESTAMP, 'CP3');
 
 
-INSERT INTO bon_entree (identifiant_b_e, numero_b_e, libelle_bon_entree, date_bon_entree, observation_bon_entree, identifiant_b_l, date_enregistrement, matricule_agent, code_corps_agent, code_section)
-VALUES ('BESA202312011043210', '001', 'Libelle BE 1', '2023-12-01', 'Observation 1', 'BL001', CURRENT_TIMESTAMP, 'MAT001', 'CP1', 'SA'),
-       ('BESM202312021143211', '002', 'Libelle BE 2', '2023-12-02', 'Observation 2', 'BL002', CURRENT_TIMESTAMP, 'MAT002', 'CP2', 'SM'),
-       ('BESG202312031243213', '003', 'Libelle BE 3', '2023-12-03', 'Observation 3', 'BL003', CURRENT_TIMESTAMP, 'MAT003', 'CP3', 'SG'),
-       ('BESG202312040243216', '004', 'Libelle BE 4', '2023-12-03', 'Observation 4', 'BL003', CURRENT_TIMESTAMP, 'MAT003', 'CP3', 'SG');
+-- Insertion des données dans la table bon_entree
+INSERT INTO bon_entree (identifiant_b_e, numero_b_e, libelle_bon_entree, date_bon_entree, observation_bon_entree, identifiant_b_l)
+VALUES 
+    ('BESA202312011043210', '001', 'Libelle BE 1', '2023-12-01', 'Observation 1', 'BL001'),
+    ('BESM202312021143211', '002', 'Libelle BE 2', '2023-12-02', 'Observation 2', 'BL002'),
+    ('BESG202312031243213', '003', 'Libelle BE 3', '2023-12-03', 'Observation 3', 'BL003');
 
 
+-- Insertion des données dans la table article_bon_entree
 INSERT INTO article_bon_entree (identifiant_b_e, code_article_bon_entree, code_type_objet, libelle_article_bon_entree, quantite_entree, date_enregistrement, matricule_agent, code_corps_agent)
-VALUES ('BESA202312011043210', 1, 'ARMES', 'Article 1', 1, CURRENT_TIMESTAMP, 'MAT001', 'CP1'),
-       ('BESM202312021143211', 2, 'VEHIC', 'Article 2', 1, CURRENT_TIMESTAMP, 'MAT002', 'CP2'),
-       ('BESG202312031243213', 3, 'ARMES', 'Article 3', 1, CURRENT_TIMESTAMP, 'MAT003', 'CP3'),
-       ('BESG202312031243213', 4, 'ARMES', 'Article 4', 1, CURRENT_TIMESTAMP, 'MAT003', 'CP3'),
-       ('BESA202312011043210', 5, 'VEHIC', 'Article 5', 1, CURRENT_TIMESTAMP, 'MAT001', 'CP1');
+VALUES 
+    ('BESA202312011043210', 1, 'ARMES', 'Article 1', 1, CURRENT_TIMESTAMP, 'MAT001', 'CP1'),
+    ('BESM202312021143211', 2, 'VEHIC', 'Article 2', 1, CURRENT_TIMESTAMP, 'MAT002', 'CP2'),
+    ('BESG202312031243213', 3, 'ARMES', 'Article 3', 1, CURRENT_TIMESTAMP, 'MAT003', 'CP3'),
+    ('BESG202312031243213', 4, 'ARMES', 'Article 4', 1, CURRENT_TIMESTAMP, 'MAT003', 'CP3'),
+    ('BESA202312011043210', 5, 'VEHIC', 'Article 5', 1, CURRENT_TIMESTAMP, 'MAT001', 'CP1');
+
 
 
 INSERT INTO pays (code_pays, libelle_pays)
@@ -910,16 +955,45 @@ VALUES
 ('ZW', 'Zimbabwe');
 
 
-
-INSERT INTO vehicule (numero_serie, numero_immatriculation, identifiant_b_e, code_article_bon_entree, genre, modele, etat_vehicule, type_energie, code_pays, numero_carte_grise, date_mise_en_circulation, code_type_vehicule, code_marque, code_unite_douaniere, matricule_agent, code_corps_agent, code_type_objet)
-VALUES ('123456', 'ABC123', 'BESM202312021143211', 2, 'Car', 'Model 1', 'Good', 'Gasoline', 'US', 'CG123', '2023-01-01', 'TV1', 'MRQ1', '06Z', 'MAT002', 'CP2', 'VEHIC'),
-       ('789012', 'XYZ789', 'BESG202312031243213', 3, 'Truck', 'Model 2', 'Excellent', 'Diesel', 'JP', 'CG789', '2023-02-02', 'TV2', 'MRQ2', '06K', 'MAT003', 'CP3', 'ARMES'),
-       ('345678', 'DEF345', 'BESA202312011043210', 1, 'Motorcycle', 'Model 3', 'Fair', 'Electric', 'FR', 'CG345', '2023-03-03', 'TV3', 'MRQ3', '06K', 'MAT001', 'CP1', 'VEHIC');
-
+INSERT INTO type_vehicule (code_type_vehicule, libelle_type_vehicule)
+VALUES ('TV1', 'Type 1'),
+       ('TV2', 'Type 2'),
+       ('TV3', 'Type 3');
 
 
+INSERT INTO marque_vehicule (code_marque, libelle_marque)
+VALUES ('MRQ1', 'Marque 1'),
+       ('MRQ2', 'Marque 2'),
+       ('MRQ3', 'Marque 3');
 
 
+-- Insertion des données dans la table vehicule
+INSERT INTO vehicule (numero_serie, numero_immatriculation, identifiant_b_e, code_article_bon_entree, genre, modele, etat_vehicule, type_energie, code_pays, numero_carte_grise, date_mise_en_circulation, code_type_vehicule, code_marque, code_unite_douaniere)
+VALUES 
+    ('123456', 'ABC123', 'BESM202312021143211', 2, 'Car', 'Model 1', 'Good', 'Gasoline', 'US', 'CG123', '2023-01-01', 'TV1', 'MRQ1', '06Z'),
+    ('789012', 'XYZ789', 'BESG202312031243213', 3, 'Truck', 'Model 2', 'Excellent', 'Diesel', 'JP', 'CG789', '2023-02-02', 'TV2', 'MRQ2', '06K'),
+    ('345678', 'DEF345', 'BESA202312011043210', 1, 'Motorcycle', 'Model 3', 'Fair', 'Electric', 'FR', 'CG345', '2023-03-03', 'TV3', 'MRQ3', '06K');
+
+
+---------------------------------------------------------------------------------------------------------
+
+SELECT * FROM fonction_agent;
+SELECT * FROM corps_agent;
+SELECT * FROM type_unite_douaniere;
+SELECT * FROM marque_vehicule;
+SELECT * FROM type_vehicule;
+SELECT * FROM prestataires;
+SELECT * FROM secteur_activite;
+SELECT * FROM prestataires_secteur;
+SELECT * FROM unite_douaniere;
+SELECT * FROM sections;
+SELECT * FROM type_objet;
+SELECT * FROM agent;
+SELECT * FROM bordereau_livraison;
+SELECT * FROM bon_entree;
+SELECT * FROM article_bon_entree;
+SELECT * FROM pays;
+SELECT * FROM vehicule;
 
 
 

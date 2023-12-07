@@ -6,8 +6,7 @@ import sn.douanes.gestionstockpostgres.entities.*;
 import sn.douanes.gestionstockpostgres.repositories.VehiculeRepository;
 import sn.douanes.gestionstockpostgres.services.VehiculeService;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 
