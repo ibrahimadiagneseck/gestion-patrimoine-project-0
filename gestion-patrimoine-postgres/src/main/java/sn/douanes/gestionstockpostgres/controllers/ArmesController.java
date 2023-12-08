@@ -37,12 +37,13 @@ public class ArmesController {
     @PutMapping("/ModifierArmes")
     @ResponseBody
     public Armes ModifierArmes(@RequestBody Armes a) {
-
         return armesService.updateArmes(a);
     }
 
-    @DeleteMapping("SupprimerArmes/{id}")
-    public void SupprimerArmes(@PathVariable("id") String numeroArme ) {armesService.deleteArmesById(numeroArme);}
+    @DeleteMapping("SupprimerArmesById/{id}")
+    public void SupprimerArmesById(@PathVariable("id") String numeroArme ) {
+        armesService.deleteArmesById(numeroArme);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

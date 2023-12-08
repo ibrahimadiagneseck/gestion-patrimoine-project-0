@@ -55,8 +55,10 @@ public class PrestatairesController {
         return prestatairesService.updatePrestataires(p);
     }
 
-    @DeleteMapping("SupprimerPrestataires/{id}")
-    public void SupprimerPrestataires(@PathVariable("id") String ninea) {prestatairesService.deletePrestatairesById(ninea);}
+    @DeleteMapping("SupprimerPrestatairesById/{id}")
+    public void SupprimerPrestatairesById(@PathVariable("id") String ninea) {
+        prestatairesService.deletePrestatairesById(ninea);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

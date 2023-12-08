@@ -65,8 +65,8 @@ public class VehiculeController {
     }
 
 
-    @DeleteMapping("SupprimerVehicule/{id}")
-    public void SupprimerVehicule(@PathVariable("id") String numeroSerie) {
+    @DeleteMapping("SupprimerVehiculeById/{id}")
+    public void SupprimerVehiculeById(@PathVariable("id") String numeroSerie) {
         vehiculeService.deleteVehiculeById(numeroSerie);
     }
 

@@ -1,26 +1,30 @@
 <div class="card shadow">
 
     <div class="card-header text-center fw-bold bg-myprimary fs-5">
-        Ajouter Bon Entree
+        Ajouter
     </div>
 
+    <div class="text-center fw-bolder bg-myprimary mt-3" role="alert">
+        Bordereau Livraison
+    </div>
+    
 
     <div class="card-body">
         <div class="container px-3 py-2">
-            <app-bon-entree></app-bon-entree>
+            <app-bordereau-livraison></app-bordereau-livraison>
         </div>
         
-        <!-- <hr>
+        <hr class="text-myyellow">
 
         <div class="container px-3 py-2">
             <app-bon-entree></app-bon-entree>
-        </div> -->
+        </div>
     </div>
 
-    <!-- <div class="container px-3 py-2">
+    <div class="container px-3 py-2">
         <div class="row mt-5">
             <div class="col-12 text-end">
-                <button type="submit" class="btn btn-myprimary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour ajouter">
+                <button (click)="submitForm()" type="button" class="btn btn-myprimary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour ajouter">
                     Valider
                 </button>
     
@@ -29,7 +33,7 @@
                 </button>
             </div>
         </div>
-    </div> -->
+    </div>
 
 
 </div>

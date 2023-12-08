@@ -22,24 +22,27 @@ export class BordereauLivraisonService {
     return this.httpClient.get<BordereauLivraison[]>(`${this.urlServeur}/BordereauLivraisons`);
   }
 
-  public ajouterBordereauLivraison(formData: FormData): Observable<BordereauLivraison> {
-    return this.httpClient.post<BordereauLivraison>(`${this.urlServeur}/AjouterBordereauLivraison`, formData);
+  public ajouterBordereauLivraison(bordereauLivraison: BordereauLivraison): Observable<BordereauLivraison> {
+    return this.httpClient.post<BordereauLivraison>(`${this.urlServeur}/AjouterBordereauLivraison`, bordereauLivraison);
+  }
+
+  public ajouterBordereauLivraisonRequestParam(formData: FormData): Observable<BordereauLivraison> {
+    return this.httpClient.post<BordereauLivraison>(`${this.urlServeur}/AjouterRequestParamBordereauLivraison`, formData);
   }
 
   public modifierBordereauLivraison(formData: FormData): Observable<BordereauLivraison> {
     return this.httpClient.post<BordereauLivraison>(`${this.urlServeur}/ModifierBordereauLivraison`, formData);
   }
 
-  public supprimerBordereauLivraison(identifiantBL: string): Observable<CustomHttpRespone> {
-    return this.httpClient.delete<CustomHttpRespone>(`${this.urlServeur}/SupprimerBordereauLivraisonByBordereauLivraisonId/${identifiantBL}`);
+  public supprimerBordereauLivraisonById(identifiantBL: string): Observable<CustomHttpRespone> {
+    return this.httpClient.delete<CustomHttpRespone>(`${this.urlServeur}/SupprimerBordereauLivraisonById/${identifiantBL}`);
   }
 
 
-  public createBonEntreeFormData(bordereauLivraison: BordereauLivraison): FormData {
+  public createBordereauLivraisonFormData(bordereauLivraison: BordereauLivraison): FormData {
 
     const formData = new FormData();
 
-    formData.append('identifiantBL', bordereauLivraison.identifiantBL);
     formData.append('numeroBL', bordereauLivraison.numeroBL);
     formData.append('descriptionBL', bordereauLivraison.descriptionBL);
     formData.append('lieuDeLivraison', bordereauLivraison.lieuDeLivraison);
@@ -49,10 +52,6 @@ export class BordereauLivraisonService {
     formData.append('codeSection', JSON.stringify(bordereauLivraison.codeSection));
     formData.append('ninea', JSON.stringify(bordereauLivraison.ninea));
     formData.append('matriculeAgent', JSON.stringify(bordereauLivraison.matriculeAgent));
-    formData.append('dateEnregistrement', JSON.stringify(bordereauLivraison.dateEnregistrement));
-
-
-
 
 
     return formData;

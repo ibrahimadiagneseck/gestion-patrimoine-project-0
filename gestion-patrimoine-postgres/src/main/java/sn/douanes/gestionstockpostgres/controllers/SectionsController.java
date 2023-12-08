@@ -51,8 +51,8 @@ public class SectionsController {
         return sectionsService.updateSections(t);
     }
 
-    @DeleteMapping("SupprimerSections/{id}")
-    public void SupprimerSections(@PathVariable("id") String codeSection) {
+    @DeleteMapping("SupprimerSectionsById/{id}")
+    public void SupprimerSectionsById(@PathVariable("id") String codeSection) {
         sectionsService.deleteSectionsById(codeSection);
     }
 

@@ -49,7 +49,6 @@ public class ArticleBonEntreeController {
     @PutMapping("/ModifierArticleBonEntree")
     @ResponseBody
     public ArticleBonEntree ModifierArticleBonEntree(@RequestBody ArticleBonEntree a) {
-
         return articleBonEntreeService.updateArticleBonEntree(a);
     }
 

@@ -46,51 +46,112 @@ public class ProjectSecurityConfig {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests((requests)->requests
-                                .requestMatchers("/accueil").hasRole("USER")
-                                .requestMatchers("/gestion-utilisateur/*").hasRole("USER")
-                                .requestMatchers("/gestion-vehicule").hasRole("USER")
 
-                                .requestMatchers("/Vehicules").hasRole("USER")
-                                .requestMatchers("/AjouterVehicule").hasRole("USER")
-                                .requestMatchers("/ModifierVehicule").hasRole("USER")
-                                .requestMatchers("/SupprimerVehicule/*").hasRole("USER")
+//
+//                                .requestMatchers("/FonctionAgents").hasRole("USER")
+//                                .requestMatchers("/AjouterFonctionAgent").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamFonctionAgent").hasRole("USER")
+//                                .requestMatchers("/ModifierFonctionAgent").hasRole("USER")
+//                                .requestMatchers("/SupprimerFonctionAgentById/*").hasRole("USER")
+//
+//                                .requestMatchers("/CorpsAgents").hasRole("USER")
+//                                .requestMatchers("/AjouterCorpsAgent").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamCorpsAgent").hasRole("USER")
+//                                .requestMatchers("/ModifierCorpsAgent").hasRole("USER")
+//                                .requestMatchers("/SupprimerCorpsAgentById/*").hasRole("USER")
+//
+//                                .requestMatchers("/TypeUniteDouanieres").hasRole("USER")
+//                                .requestMatchers("/AjouterTypeUniteDouaniere").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamTypeUniteDouaniere").hasRole("USER")
+//                                .requestMatchers("/ModifierTypeUniteDouaniere").hasRole("USER")
+//                                .requestMatchers("/SupprimerTypeUniteDouaniereById/*").hasRole("USER")
+//
+//                                .requestMatchers("/MarqueVehicules").hasRole("USER")
+//                                .requestMatchers("/AjouterMarqueVehicule").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamMarqueVehicule").hasRole("USER")
+//                                .requestMatchers("/ModifierMarqueVehicule").hasRole("USER")
+//                                .requestMatchers("/SupprimerMarqueVehiculeById/*").hasRole("USER")
+//
+//                                .requestMatchers("/TypeVehicules").hasRole("USER")
+//                                .requestMatchers("/AjouterTypeVehicule").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamTypeVehicule").hasRole("USER")
+//                                .requestMatchers("/ModifierTypeVehicule").hasRole("USER")
+//                                .requestMatchers("/SupprimerTypeVehiculeById/*").hasRole("USER")
+//
+//                                .requestMatchers("/Prestataires").hasRole("USER")
+//                                .requestMatchers("/AjouterPrestataires").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamPrestataires").hasRole("USER")
+//                                .requestMatchers("/ModifierPrestataires").hasRole("USER")
+//                                .requestMatchers("/SupprimerPrestatairesById/*").hasRole("USER")
+//
+//                                .requestMatchers("/SecteurActivite").hasRole("USER")
+//                                .requestMatchers("/AjouterSecteurActivite").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamSecteurActivite").hasRole("USER")
+//                                .requestMatchers("/ModifierSecteurActivite").hasRole("USER")
+//                                .requestMatchers("/SupprimerSecteurActiviteById/*").hasRole("USER")
+//
+//                                .requestMatchers("/PrestatairesSecteurs").hasRole("USER")
+//                                .requestMatchers("/AjouterPrestatairesSecteurs").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamPrestatairesSecteur").hasRole("USER")
+//                                .requestMatchers("/ModifierPrestatairesSecteur").hasRole("USER")
+//                                .requestMatchers("/SupprimerPrestatairesSecteurById/*").hasRole("USER")
+//
+//                                .requestMatchers("/UniteDouanieres").hasRole("USER")
+//                                .requestMatchers("/AjouterUniteDouaniere").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamUniteDouaniere").hasRole("USER")
+//                                .requestMatchers("/ModifierUniteDouaniere").hasRole("USER")
+//                                .requestMatchers("/SupprimerUniteDouaniereById/*").hasRole("USER")
+//
+//                                .requestMatchers("/Sections").hasRole("USER")
+//                                .requestMatchers("/AjouterSections").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamSections").hasRole("USER")
+//                                .requestMatchers("/ModifierSections").hasRole("USER")
+//                                .requestMatchers("/SupprimerSectionsById/*").hasRole("USER")
+//
+//                                .requestMatchers("/TypeObjets").hasRole("USER")
+//                                .requestMatchers("/AjouterTypeObjet").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamTypeObjet").hasRole("USER")
+//                                .requestMatchers("/ModifierTypeObjet").hasRole("USER")
+//                                .requestMatchers("/SupprimerTypeObjetById/*").hasRole("USER")
+//
+//                                .requestMatchers("/Agents").hasRole("USER")
+//                                .requestMatchers("/AjouterAgent").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamAgent").hasRole("USER")
+//                                .requestMatchers("/ModifierAgent").hasRole("USER")
+//                                .requestMatchers("/SupprimerAgentById/*").hasRole("USER")
+//
+//                                .requestMatchers("/BordereauLivraisons").hasRole("USER")
+//                                .requestMatchers("/AjouterBordereauLivraison").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamBordereauLivraison").hasRole("USER")
+//                                .requestMatchers("/ModifierBordereauLivraison").hasRole("USER")
+//                                .requestMatchers("/SupprimerBordereauLivraisonById/*").hasRole("USER")
+//
+//                                .requestMatchers("/BonEntrees").hasRole("USER")
+//                                .requestMatchers("/AjouterBonEntree").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamBonEntree").hasRole("USER")
+//                                .requestMatchers("/ModifierBonEntree").hasRole("USER")
+//                                .requestMatchers("/SupprimerBonEntreeById/*").hasRole("USER")
+//
+//                                .requestMatchers("/ArticleBonEntrees").hasRole("USER")
+//                                .requestMatchers("/AjouterArticleBonEntree").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamArticleBonEntree").hasRole("USER")
+//                                .requestMatchers("/ModifierArticleBonEntree").hasRole("USER")
+//                                .requestMatchers("/SupprimerArticleBonEntree/*").hasRole("USER")
+//
+//                                .requestMatchers("/Pays").hasRole("USER")
+//                                .requestMatchers("/AjouterPays").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamPays").hasRole("USER")
+//                                .requestMatchers("/ModifierPays").hasRole("USER")
+//                                .requestMatchers("/SupprimerPaysById/*").hasRole("USER")
+//
+//                                .requestMatchers("/Vehicules").hasRole("USER")
+//                                .requestMatchers("/AjouterVehicule").hasRole("USER")
+//                                .requestMatchers("/AjouterRequestParamVehicule").hasRole("USER")
+//                                .requestMatchers("/ModifierVehicule").hasRole("USER")
+//                                .requestMatchers("/SupprimerVehiculeById/*").hasRole("USER")
 
-                                .requestMatchers("/ArticleBonEntrees").hasRole("USER")
-                                .requestMatchers("/AjouterArticleBonEntree").hasRole("USER")
-                                .requestMatchers("/ModifierArticleBonEntree").hasRole("USER")
-                                .requestMatchers("/SupprimerArticleBonEntree/*").hasRole("USER")
+                                 .requestMatchers("/**").permitAll()
 
-                                .requestMatchers("/BonEntrees").hasRole("USER")
-                                .requestMatchers("/AjouterBonEntree").hasRole("USER")
-                                .requestMatchers("/ModifierBonEntree").hasRole("USER")
-                                .requestMatchers("/SupprimerBonEntree/*").hasRole("USER")
-
-                                .requestMatchers("/Sections").hasRole("USER")
-                                .requestMatchers("/AjouterSections").hasRole("USER")
-                                .requestMatchers("/ModifierSections").hasRole("USER")
-                                .requestMatchers("/SupprimerSections/*").hasRole("USER")
-
-
-                                .requestMatchers("/Agents").hasRole("USER")
-                                .requestMatchers("/AjouterAgent").hasRole("USER")
-                                .requestMatchers("/ModifierAgent").hasRole("USER")
-                                .requestMatchers("/SupprimerAgent/*").hasRole("USER")
-
-
-                                .requestMatchers("/BordereauLivraisons").hasRole("USER")
-                                .requestMatchers("/AjouterBordereauLivraison").hasRole("USER")
-                                .requestMatchers("/ModifierBordereauLivraison").hasRole("USER")
-                                .requestMatchers("/SupprimerBordereauLivraison/*").hasRole("USER")
-
-
-                                // .requestMatchers("/**").permitAll()
-
-//                        .requestMatchers("/myAccount").hasRole("USER")
-//                        .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")
-//                        .requestMatchers("/myLoans").authenticated()
-//                        .requestMatchers("/myCards").hasRole("USER")
-//                        .requestMatchers("/user").authenticated()
-//                        .requestMatchers("/notices","/contact","/register").permitAll()
                 )
                 .oauth2ResourceServer(oauth2ResourceServerCustomizer ->
                         oauth2ResourceServerCustomizer.jwt(jwtCustomizer -> jwtCustomizer.jwtAuthenticationConverter(jwtAuthenticationConverter)));

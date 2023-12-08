@@ -82,7 +82,6 @@ export class ReceptionVehiculeListeComponent implements OnInit, OnDestroy {
   columnsToHide: string[] = [
     "observationBonEntree",
     "dateEnregistrement",
-    "identifiantBL",
     "matriculeAgent",
     "matriculeAgent",
     "codeSection"
@@ -91,29 +90,19 @@ export class ReceptionVehiculeListeComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = [
     "N°",
-    "identifiantBE",
     "numeroBE",
     "libelleBonEntree",
     "dateBonEntree",
     "observationBonEntree",
-    "dateEnregistrement",
-    "identifiantBL",
-    "matriculeAgent",
-    "codeSection",
-    "nombreArticleBonEntree"
+    "rowNombreArticleBonEntree"
   ];
   displayedColumnsCustom: string[] = [
     "N°",
-    "Identifiant BE",
-    "N° BE",
-    "Libelle BE",
-    "Date BE",
-    "Observation BE",
-    "Date enregistrement",
-    "Identifiant BL",
-    "Matricule agent",
-    "Code section",
-    "Article"
+    "N° bon d\'entrée",
+    "Libelle bon d\'entrée",
+    "Date bon d\'entrée",
+    "Observation bon d\'entrée",
+    "Articles"
   ];
   /* ----------------------------------------------------------------------------------------- */
 
@@ -161,7 +150,7 @@ export class ReceptionVehiculeListeComponent implements OnInit, OnDestroy {
 
     const data: BonEntree[] = this.dataSource.filteredData;
 
-    console.log(data);
+    // console.log(data);
     
 
     const months = ['JANV.', 'FÉVR.', 'MARS', 'AVR.', 'MAI', 'JUIN', 'JUIL.', 'AOÛT', 'SEPT.', 'OCT.', 'NOV.', 'DÉC.'];
@@ -171,16 +160,11 @@ export class ReceptionVehiculeListeComponent implements OnInit, OnDestroy {
     // Créez un tableau de données pour autoTable
     const tableData = data.map((item: BonEntree) => [
       item.rowNumber,
-      item.identifiantBE,
       item.numeroBE,
       item.libelleBonEntree,
       `${new Date(item.dateBonEntree).getDate()} ${months[new Date(item.dateBonEntree).getMonth()]} ${new Date(item.dateBonEntree).getFullYear() % 100}`,
       item.observationBonEntree,
-      `${new Date(item.dateEnregistrement).getDate()} ${months[new Date(item.dateEnregistrement).getMonth()]} ${new Date(item.dateEnregistrement).getFullYear() % 100}`,
-      item.identifiantBL.identifiantBL,
-      item.matriculeAgent.matriculeAgent,
-      item.codeSection.codeSection,
-      item.nombreArticleBonEntree
+      item.rowNombreArticleBonEntree
     ]);
 
     // Configuration pour le PDF avec une taille de page personnalisée
@@ -195,16 +179,11 @@ export class ReceptionVehiculeListeComponent implements OnInit, OnDestroy {
       head: [
         [
           { content: 'N°', styles: { fontSize: 6 } },
-          { content: 'Identifiant BE', styles: { fontSize: 6 } },
-          { content: 'N° BE', styles: { fontSize: 6 } },
-          { content: 'Libelle BE', styles: { fontSize: 6 } },
-          { content: 'Date BE', styles: { fontSize: 6 } },
-          { content: 'Observation BE', styles: { fontSize: 6 } },
-          { content: 'Date enregistrement', styles: { fontSize: 6 } },
-          { content: 'Identifiant BL', styles: { fontSize: 6 } },
-          { content: 'Matricule agent', styles: { fontSize: 6 } },
-          { content: 'Code section', styles: { fontSize: 6 } },
-          { content: 'Article', styles: { fontSize: 6 } }
+          { content: 'N° bon d\'entrée', styles: { fontSize: 6 } },
+          { content: 'Libelle bon d\'entrée', styles: { fontSize: 6 } },
+          { content: 'Date bon d\'entrée', styles: { fontSize: 6 } },
+          { content: 'Observation bon d\'entrée', styles: { fontSize: 6 } },
+          { content: 'Articles', styles: { fontSize: 6 } }
         ]
       ],
       body: tableData.map(row => row.map(cell => ({ content: cell.toString(), styles: { fontSize: 6 } }))),
@@ -325,8 +304,8 @@ export class ReceptionVehiculeListeComponent implements OnInit, OnDestroy {
         
         response = response.map((item) => ({
           ...item,
-          nombreArticleBonEntree: this.nombreArticleBonEntree(item)
-        })).sort((a, b) => a.nombreArticleBonEntree - b.nombreArticleBonEntree);
+          rowNombreArticleBonEntree: this.nombreArticleBonEntree(item)
+        })).sort((a, b) => a.rowNombreArticleBonEntree - b.rowNombreArticleBonEntree);
 
         this.dataSource = new MatTableDataSource<BonEntree>(response.map((item) => ({
           ...item,

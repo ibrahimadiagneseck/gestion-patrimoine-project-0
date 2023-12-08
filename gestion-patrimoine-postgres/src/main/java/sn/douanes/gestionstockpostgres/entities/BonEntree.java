@@ -37,24 +37,9 @@ public class BonEntree {
     private String observationBonEntree;
 
 
-//    @Column(name = "date_enregistrement")
-//    private Timestamp dateEnregistrement;
-
-
     @ManyToOne
     @JoinColumn(name = "identifiant_b_l")
     private BordereauLivraison identifiantBL;
 
-//    @ManyToOne
-//    @JoinColumns({
-//            @JoinColumn(name = "matricule_agent", referencedColumnName = "matricule_agent"),
-//            @JoinColumn(name = "code_corps_agent", referencedColumnName = "code_corps_agent")
-//    })
-//    private Agent matriculeAgent;
-
-
-//    @ManyToOne
-//    @JoinColumn(name = "code_section")
-//    private Sections codeSection;
 
 }

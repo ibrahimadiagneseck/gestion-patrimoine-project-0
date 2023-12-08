@@ -37,12 +37,13 @@ public class ChangementPieceController {
     @PutMapping("/ModifierChangementPiece")
     @ResponseBody
     public ChangementPiece ModifierChangementPiece(@RequestBody ChangementPiece c) {
-
         return changementPieceService.updateChangementPiece(c);
     }
 
-    @DeleteMapping("SupprimerChangementPiece/{id}")
-    public void SupprimerChangementPiece(@PathVariable("id") String numeroImmatriculation ) {changementPieceService.deleteChangementPieceById(numeroImmatriculation );}
+    @DeleteMapping("SupprimerChangementPieceById/{id}")
+    public void SupprimerChangementPieceById(@PathVariable("id") String numeroImmatriculation) {
+        changementPieceService.deleteChangementPieceById(numeroImmatriculation );
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

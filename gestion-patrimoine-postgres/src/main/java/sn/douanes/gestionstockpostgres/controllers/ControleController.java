@@ -38,12 +38,13 @@ public class ControleController {
     @PutMapping("/ModifierControle")
     @ResponseBody
     public Controle ModifierControle(@RequestBody Controle c) {
-
         return controleService.updateControle(c);
     }
 
-    @DeleteMapping("SupprimerControle/{id}")
-    public void SupprimerControle(@PathVariable("id") String numeroImmatriculation ) {controleService.deleteControleById(numeroImmatriculation );}
+    @DeleteMapping("SupprimerControleById/{id}")
+    public void SupprimerControleById(@PathVariable("id") String numeroImmatriculation ) {
+        controleService.deleteControleById(numeroImmatriculation );
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

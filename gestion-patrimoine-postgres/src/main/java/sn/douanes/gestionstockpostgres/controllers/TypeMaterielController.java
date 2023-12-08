@@ -42,8 +42,10 @@ public class TypeMaterielController {
         return typeMaterielService.updateTypeMateriel(t);
     }
 
-    @DeleteMapping("SupprimerTypeMateriel/{id}")
-    public void SupprimerTypeMateriel(@PathVariable("id") String  code_type_materiel ) {typeMaterielService.deleteTypeMaterielById( code_type_materiel );}
+    @DeleteMapping("SupprimerTypeMaterielById/{id}")
+    public void SupprimerTypeMaterielById(@PathVariable("id") String code_type_materiel) {
+        typeMaterielService.deleteTypeMaterielById( code_type_materiel);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

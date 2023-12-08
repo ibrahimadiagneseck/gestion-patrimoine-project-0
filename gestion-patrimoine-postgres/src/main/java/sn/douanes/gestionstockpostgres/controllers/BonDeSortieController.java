@@ -41,8 +41,10 @@ public class BonDeSortieController {
         return bonDeSortieService.updateBonDeSortie(b);
     }
 
-    @DeleteMapping("SupprimerBonDeSortie/{id}")
-    public void SupprimerBonDeSortie(@PathVariable("id") String numeroBonSortie) {bonDeSortieService.deleteBonDeSortieById(numeroBonSortie);}
+    @DeleteMapping("SupprimerBonDeSortieById/{id}")
+    public void SupprimerBonDeSortieById(@PathVariable("id") String numeroBonSortie) {
+        bonDeSortieService.deleteBonDeSortieById(numeroBonSortie);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

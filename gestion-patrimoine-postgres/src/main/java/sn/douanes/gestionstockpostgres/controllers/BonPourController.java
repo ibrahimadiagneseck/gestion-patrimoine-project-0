@@ -37,12 +37,13 @@ public class BonPourController {
     @PutMapping("/ModifierBonPour")
     @ResponseBody
     public BonPour ModifierBonPour(@RequestBody BonPour b) {
-
         return bonPourService.updateBonPour(b);
     }
 
-    @DeleteMapping("SupprimerBonPour/{id}")
-    public void SupprimerBonPour(@PathVariable("id") String numeroBonPour) {bonPourService.deleteBonPourById(numeroBonPour);}
+    @DeleteMapping("SupprimerBonPourById/{id}")
+    public void SupprimerBonPourById(@PathVariable("id") String numeroBonPour) {
+        bonPourService.deleteBonPourById(numeroBonPour);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

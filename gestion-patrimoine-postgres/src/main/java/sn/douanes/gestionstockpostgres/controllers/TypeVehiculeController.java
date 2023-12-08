@@ -50,8 +50,8 @@ public class TypeVehiculeController {
         return typeVehiculeService.updateTypeVehicule(t);
     }
 
-    @DeleteMapping("SupprimerTypeVehicule/{id}")
-    public void SupprimerTypeVehicule(@PathVariable("id") String codeTypeVehicule) {
+    @DeleteMapping("SupprimerTypeVehiculeById/{id}")
+    public void SupprimerTypeVehiculeById(@PathVariable("id") String codeTypeVehicule) {
         typeVehiculeService.deleteTypeVehiculeById(codeTypeVehicule);
     }
 

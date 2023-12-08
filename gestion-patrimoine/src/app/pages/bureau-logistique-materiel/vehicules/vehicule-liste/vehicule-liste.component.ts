@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { ReceptionVehiculeAjouterComponent } from '../reception-vehicule-ajouter/reception-vehicule-ajouter.component';
 
 
 @Component({
@@ -65,55 +66,54 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
   /* ----------------------------------------------------------------------------------------- */
   // tableau
   rowNumber!: number; // numéro de ligne pour le tableau
+  // columnsToCodeMarque: string[] = [
+  //   "codeMarque"
+  // ];
+  // columnsToCodePays: string[] = [
+  //   "codePays"
+  // ];
   columnsDateFormat: string[] = [
     "dateMiseEnCirculation"
   ];
   columnsToHide: string[] = [
+    "numeroImmatriculation",
+    "genre",
+    "typeEnergie",
+    "numeroCarteGrise",
     "codeTypeVehicule",
-    "codeMarque",
-    "codeUniteDouaniere",
-    "matriculeAgent",
-    "codeTypeObjet",
-    "provenance",
-    "identifiantBE"
+    "codeUniteDouaniere"
   ];
   dataSource = new MatTableDataSource<Vehicule>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = [
-    "N°",
+    "rowNumber",
     "numeroSerie",
-    "codeTypeVehicule",
     "numeroImmatriculation",
     "genre",
-    "codeMarque",
     "modele",
     "etatVehicule",
     "typeEnergie",
-    "provenance",
+    "rowPays",
     "numeroCarteGrise",
     "dateMiseEnCirculation",
-    "codeUniteDouaniere",
-    "matriculeAgent",
-    "codeTypeObjet",
-    "identifiantBE",
+    "codeTypeVehicule",
+    "rowMarque",
+    "codeUniteDouaniere"
   ];
   displayedColumnsCustom: string[] = [
     "N°",
     "N° serie",
-    "Code type vehicule",
     "N° immatriculation",
     "Genre",
-    "Code marque",
     "Modele",
     "Etat vehicule",
     "Type energie",
-    "Provenance",
+    "Pays",
     "N° carte grise",
     "Date mise en circulation",
-    "Code unite douaniere",
-    "Matricule agent",
-    "Code type objet",
-    "Identifiant BE",
+    "Type vehicule",
+    "Marque",
+    "Unite douaniere"
   ];
   /* ----------------------------------------------------------------------------------------- */
 
@@ -128,6 +128,7 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.listeVehicules();
+    
 
     /* ----------------------------------------------------------------------------------------- */
     // rechercher
@@ -156,6 +157,7 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
   generatePDF(): void {
 
     const data: Vehicule[] = this.dataSource.filteredData;
+    // const data: any[] = this.dataSource.filteredData;
 
     // console.log(data);
     
@@ -166,22 +168,22 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
 
     // Créez un tableau de données pour autoTable
     const tableData = data.map((item: Vehicule) => [
+    // const tableData = data.map((item: any) => [
+      
       item.rowNumber,
       item.numeroSerie,
-      item.codeTypeVehicule,
       item.numeroImmatriculation,
       item.genre,
-      item.codeMarque.libelleMarque,
       item.modele,
       item.etatVehicule,
       item.typeEnergie,
       item.codePays.libellePays,
       item.numeroCarteGrise,
       `${new Date(item.dateMiseEnCirculation).getDate()} ${months[new Date(item.dateMiseEnCirculation).getMonth()]} ${new Date(item.dateMiseEnCirculation).getFullYear() % 100}`,
-      item.codeUniteDouaniere.codeUniteDouaniere,
-      item.matriculeAgent.matriculeAgent,
-      item.codeTypeObjet.libelleTypeObjet,
-      item.identifiantBE.identifiantBE.identifiantBE
+      item.codeTypeVehicule.libelleTypeVehicule,
+      item.codeMarque.libelleMarque,
+      item.codeUniteDouaniere.codeUniteDouaniere
+
     ]);
 
     // Configuration pour le PDF avec une taille de page personnalisée
@@ -197,20 +199,17 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
         [
           { content: 'N°', styles: { fontSize: 6 } },
           { content: 'N° serie', styles: { fontSize: 6 } },
-          { content: 'Code type vehicule', styles: { fontSize: 6 } },
           { content: 'N° immatriculation', styles: { fontSize: 6 } },
           { content: 'Genre', styles: { fontSize: 6 } },
-          { content: 'Code marque', styles: { fontSize: 6 } },
           { content: 'Modele', styles: { fontSize: 6 } },
           { content: 'Etat vehicule', styles: { fontSize: 6 } },
           { content: 'Type energie', styles: { fontSize: 6 } },
-          { content: 'Provenance', styles: { fontSize: 6 } },
+          { content: 'Pays', styles: { fontSize: 6 } },
           { content: 'N° carte grise', styles: { fontSize: 6 } },
           { content: 'Date mise en circulation', styles: { fontSize: 6 } },
-          { content: 'Code uniteDouaniere', styles: { fontSize: 6 } },
-          { content: 'Matricule agent', styles: { fontSize: 6 } },
-          { content: 'Code type objet', styles: { fontSize: 6 } },
-          { content: 'Identifiant BE', styles: { fontSize: 6 } }
+          { content: 'Type vehicule', styles: { fontSize: 6 } },
+          { content: 'Marque', styles: { fontSize: 6 } },
+          { content: 'Unite douaniere', styles: { fontSize: 6 } }
         ]
       ],
       body: tableData.map(row => row.map(cell => ({ content: cell.toString(), styles: { fontSize: 6 } }))),
@@ -264,29 +263,16 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
 
         this.rowNumber = 1;
 
-        // for (let i = 0; i < this.vehicules.length; i++) {
-        //   this.dataSourceVehicules[i].numeroSerie = this.vehicules[i].numeroSerie;
-        //   this.dataSourceVehicules[i].codeTypeVehicule = this.vehicules[i].codeTypeVehicule;
-        //   this.dataSourceVehicules[i].numeroImmatriculation = this.vehicules[i].numeroImmatriculation;
-        //   this.dataSourceVehicules[i].genre = this.vehicules[i].genre;
-        //   this.dataSourceVehicules[i].codeMarque = this.vehicules[i].codeMarque.libelleMarque;
-        //   this.dataSourceVehicules[i].modele = this.vehicules[i].modele;
-        //   this.dataSourceVehicules[i].etatVehicule = this.vehicules[i].etatVehicule;
-        //   this.dataSourceVehicules[i].typeEnergie = this.vehicules[i].typeEnergie;
-        //   this.dataSourceVehicules[i].codePays = this.vehicules[i].codePays.libellePays;
-        //   this.dataSourceVehicules[i].numeroCarteGrise = this.vehicules[i].numeroCarteGrise;
-        //   this.dataSourceVehicules[i].dateMiseEnCirculation = this.vehicules[i].dateMiseEnCirculation;
-        //   this.dataSourceVehicules[i].codeUniteDouaniere = this.vehicules[i].codeUniteDouaniere.codeUniteDouaniere;
-        //   this.dataSourceVehicules[i].matriculeAgent = this.vehicules[i].matriculeAgent.matriculeAgent;
-        //   this.dataSourceVehicules[i].codeTypeObjet = this.vehicules[i].codeTypeObjet.libelleTypeObjet;
-        //   this.dataSourceVehicules[i].identifiantBE = this.vehicules[i].identifiantBE.identifiantBE;
-        // }
 
         // this.dataSource = new MatTableDataSource<IVehicule>(this.vehicules);
         this.dataSource = new MatTableDataSource<Vehicule>(this.vehicules.map((item) => ({
           ...item,
+          // vehicule: [] as Vehicule[],
+          rowMarque: item.codeMarque.libelleMarque,
+          rowPays: item.codePays.libellePays,
           rowNumber: this.rowNumber++
         })));
+        
 
         // console.log(this.dataSource.data);
         this.dataSource.paginator = this.paginator;
@@ -305,7 +291,7 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
 
   popupAjouter(): void {
     const dialogRef = this.matDialog.open(
-      VehiculeListeComponent,
+      ReceptionVehiculeAjouterComponent,
       {
         width: '80%',
         enterAnimationDuration: '100ms',
@@ -320,7 +306,7 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
 
   popupDetail(element: any): void {
     const dialogRef = this.matDialog.open(
-      VehiculeListeComponent,
+      ReceptionVehiculeAjouterComponent,
       {
         width: '80%',
         enterAnimationDuration: '100ms',
@@ -332,6 +318,11 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(() => {
       this.ngOnInit();
     });
+  }
+
+
+  compare(value1: String, value2: String): boolean {
+    return value1 === value1;
   }
 
 }

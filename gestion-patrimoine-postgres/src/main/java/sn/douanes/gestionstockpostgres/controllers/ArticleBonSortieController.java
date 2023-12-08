@@ -38,12 +38,13 @@ public class ArticleBonSortieController {
     @PutMapping("/ModifierArticleBonSortie")
     @ResponseBody
     public ArticleBonSortie ModifierArticleBonSortie(@RequestBody ArticleBonSortie a) {
-
         return articleBonSortieService.updateArticleBonSortie(a);
     }
 
-    @DeleteMapping("SupprimerArticleBonSortie/{id}")
-    public void SupprimerArticleBonSortie(@PathVariable("id") String  codeArticleBonSortie  ) {articleBonSortieService.deleteArticleBonSortieById(codeArticleBonSortie);}
+    @DeleteMapping("SupprimerArticleBonSortieById/{id}")
+    public void SupprimerArticleBonSortieById(@PathVariable("id") String codeArticleBonSortie) {
+        articleBonSortieService.deleteArticleBonSortieById(codeArticleBonSortie);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

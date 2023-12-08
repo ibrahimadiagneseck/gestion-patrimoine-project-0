@@ -1,348 +1,5 @@
 
 
-public class Agent {
-
-    @Id
-    @Column(name = "matricule_agent", length = 7)
-    private String matriculeAgent;
-
-    @Column(name = "code_agent", unique = true, length = 5)
-    private String codeAgent;
-
-    @Column(name = "nom_agent", length = 100)
-    private String nomAgent;
-
-    @Column(name = "prenom_agent", length = 255)
-    private String prenomAgent;
-
-    @Column(name = "numero_telephone_agent")
-    private Integer numeroTelephoneAgent;
-
-    @ManyToOne
-    @JoinColumn(name = "code_fonction_agent")
-    private FonctionAgent fonctionAgent;
-
-    @ManyToOne
-    @JoinColumn(name = "code_unite_douaniere")
-    private UniteDouaniere uniteDouaniere;
-
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "code_corps_agent")
-    private CorpsAgent codeCorpsAgent;
-}
-
-
-public class FonctionAgent {
-
-    @Id
-    @Column(name = "code_fonction_agent", length = 10)
-    private String codeFonctionAgent;
-
-    @Column(name = "libelle_fonction_agent", length = 100)
-    private String libelleFonctionAgent;
-}
-
-
-public class UniteDouaniere {
-
-    @Id
-    @Column(name = "code_unite_douaniere", length = 3)
-    private String codeUniteDouaniere;
-
-    @Column(name = "nom_unite_douaniere", length = 255)
-    private String nomUniteDouaniere;
-
-    @Column(name = "effectif_unite_douaniere")
-    private Integer effectifUniteDouaniere;
-
-    @Column(name = "nombre_arme")
-    private Integer nombreArme;
-
-    @Column(name = "nombre_automobile")
-    private Integer nombreAutomobile;
-
-    @Column(name = "nombre_materiel")
-    private Integer nombreMateriel;
-
-    @ManyToOne
-    @JoinColumn(name = "code_type_unite_douaniere")
-    private TypeUniteDouaniere codeTypeUniteDouaniere;
-}
-
-
-public class TypeUniteDouaniere {
-
-    @Id
-    @Column(name = "code_type_unite_douaniere", length = 5)
-    private String codeTypeUniteDouaniere;
-
-    @Column(name = "libelle_type_unite_douaniere", length = 100)
-    private String libelleTypeUniteDouaniere;
-}
-
-
-public class CorpsAgent {
-
-    @Id
-    @Column(name = "code_corps_agent", length = 3)
-    private String codeCorpsAgent;
-
-    @Column(name = "libelle_corps_agent", length = 100)
-    private String libelleCorpsAgent;
-}
-
-
-public class BordereauLivraison {
-
-    @Id
-    @Column(name = "identifiant_b_l", length = 25)
-    private String identifiantBL;
-
-    @Column(name = "numero_b_l", length = 100)
-    private String numeroBL;
-
-    @Column(name = "description_b_l", length = 512)
-    private String descriptionBL;
-
-    @Column(name = "lieu_de_livraison")
-    private String lieuDeLivraison;
-
-    @Column(name = "date_b_l")
-    private Date dateBL;
-
-    @Column(name = "conformite_b_l", length = 3)
-    private String conformiteBL;
-
-    @Column(name = "nom_livreur", length = 512)
-    private String nomLivreur;
-
-    @ManyToOne
-    @JoinColumn(name = "code_section")
-    private Sections codeSection;
-
-    @ManyToOne
-    @JoinColumn(name = "ninea")
-    private Prestataires ninea;
-
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "matricule_agent", referencedColumnName = "matricule_agent"),
-            @JoinColumn(name = "code_corps_agent", referencedColumnName = "code_corps_agent")
-    })
-    private Agent matriculeAgent;
-
-    @Column(name = "date_enregistrement")
-    private Timestamp dateEnregistrement = new Timestamp(System.currentTimeMillis());
-}
-
-
-public class Prestataires {
-
-    @Id
-    @Column(name = "ninea", length = 20)
-    private String ninea;
-
-    @Column(name = "raison_sociale", length = 512)
-    private String raisonSociale;
-
-    @Column(name = "numero_telephone")
-    private Integer numeroTelephone;
-
-    @Column(name = "adresse", length = 512)
-    private String adresse;
-}
-
-
-public class Sections {
-
-    @Id
-    @Column(name = "code_section", length = 3)
-    private String codeSection;
-
-    @Column(name = "libelle_section", length = 100)
-    private String libelleSection;
-
-    @ManyToOne
-    @JoinColumn(name = "code_unite_douaniere")
-    private UniteDouaniere codeUniteDouaniere;
-}
-
-
-public class BonEntree {
-
-    @Id
-    @Column(name = "identifiant_b_e", length = 25)
-    private String identifiantBE;
-
-    @Column(name = "numero_b_e", length = 100)
-    private String numeroBE;
-
-    @Column(name = "libelle_bon_entree")
-    private String libelleBonEntree;
-
-    @Column(name = "date_bon_entree")
-    private Date dateBonEntree;
-
-    @Column(name = "observation_bon_entree")
-    private String observationBonEntree;
-
-    @Column(name = "date_enregistrement")
-    private Timestamp dateEnregistrement = new Timestamp(System.currentTimeMillis());
-
-    @ManyToOne
-    @JoinColumn(name = "identifiant_b_l")
-    private BordereauLivraison identifiantBL;
-
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "matricule_agent", referencedColumnName = "matricule_agent"),
-            @JoinColumn(name = "code_corps_agent", referencedColumnName = "code_corps_agent")
-    })
-    private Agent matriculeAgent;
-
-    @ManyToOne
-    @JoinColumn(name = "code_section")
-    private Sections codeSection;
-}
-
-
-public class ArticleBonEntree {
-
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "identifiant_b_e")
-    private BonEntree identifiantBE;
-
-    @Id
-    @Column(name = "code_article_bon_entree")
-    private Integer codeArticleBonEntree;
-
-    @Column(name = "libelle_article_bon_entree")
-    private String libelleArticleBonEntree;
-
-    @Column(name = "quantite_entree")
-    private Integer quantiteEntree;
-
-    @Column(name = "date_enregistrement")
-    private Timestamp dateEnregistrement = new Timestamp(System.currentTimeMillis());
-
-    @ManyToOne
-    @JoinColumn(name = "code_type_objet")
-    private TypeObjet codeTypeObjet;
-
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "matricule_agent", referencedColumnName = "matricule_agent"),
-            @JoinColumn(name = "code_corps_agent", referencedColumnName = "code_corps_agent")
-    })
-    private Agent matriculeAgent;
-}
-
-
-public class TypeObjet {
-
-    @Id
-    @Column(name = "code_type_objet", length = 5)
-    private String codeTypeObjet;
-
-    @Column(name = "libelle_type_objet", length = 100)
-    private String libelleTypeObjet;
-
-    @ManyToOne
-    @JoinColumn(name = "code_section")
-    private Sections codeSection;
-}
-
-
-public class TypeVehicule {
-
-    @Id
-    @Column(name = "code_type_vehicule", length = 25)
-    private String codeTypeVehicule;
-
-    @Column(name = "libelle_type_vehicule", length = 100)
-    private String libelleTypeVehicule;
-}
-
-
-public class MarqueVehicule {
-
-    @Id
-    @Column(name = "code_marque", length = 25)
-    private String codeMarque;
-
-    @Column(name = "libelle_marque", length = 100)
-    private String libelleMarque;
-}
-
-
-public class Vehicule {
-
-    @Id
-    @Column(name = "numero_serie", length = 30)
-    private String numeroSerie;
-
-    @Column(name = "numero_immatriculation", length = 20)
-    private String numeroImmatriculation;
-
-    @Column(name = "genre", length = 50)
-    private String genre;
-
-    @Column(name = "modele", length = 50)
-    private String modele;
-
-    @Column(name = "etat_vehicule", length = 10)
-    private String etatVehicule;
-
-    @Column(name = "type_energie", length = 20)
-    private String typeEnergie;
-
-    @Column(name = "numero_carte_grise", length = 30)
-    private String numeroCarteGrise;
-
-    @Column(name = "date_mise_en_circulation")
-    private Date dateMiseEnCirculation;
-
-    @ManyToOne
-    @JoinColumn(name = "code_pays")
-    private Pays codePays;
-
-    @ManyToOne
-    @JoinColumn(name = "code_type_vehicule")
-    private TypeVehicule codeTypeVehicule;
-
-    @ManyToOne
-    @JoinColumn(name = "code_marque")
-    private MarqueVehicule codeMarque;
-
-    @ManyToOne
-    @JoinColumn(name = "code_unite_douaniere")
-    private UniteDouaniere codeUniteDouaniere;
-
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "identifiant_b_e", referencedColumnName = "identifiant_b_e"),
-            @JoinColumn(name = "code_article_bon_entree", referencedColumnName = "code_article_bon_entree")
-    })
-    private ArticleBonEntree identifiantBE;
-
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "matricule_agent", referencedColumnName = "matricule_agent"),
-            @JoinColumn(name = "code_corps_agent", referencedColumnName = "code_corps_agent")
-    })
-    private Agent matriculeAgent;
-
-    @ManyToOne
-    @JoinColumn(name = "code_type_objet")
-    private TypeObjet codeTypeObjet;
-}
-
-
-
-----------------------------------------------------------------------------------------------------
-
 
 SELECT * FROM information_schema.tables WHERE table_type = 'BASE TABLE';
 
@@ -589,7 +246,6 @@ CREATE TABLE vehicule (
 ----------------------------------------------------------------------------------------------------
 
 
--- Insertion des données dans la table secteur_activite
 INSERT INTO secteur_activite (code_secteur_activite, libelle_secteur_activite)
 VALUES 
     ('SEC1', 'Secteur 1'),
@@ -597,7 +253,6 @@ VALUES
     ('SEC3', 'Secteur 3');
 
 
--- Insertion des données dans la table prestataires
 INSERT INTO prestataires (ninea, raison_sociale, numero_telephone, adresse_email, adresse)
 VALUES 
     ('NIN1', 'Prestataire 1', 123456789, 'email1@example.com', 'Address 1'),
@@ -605,7 +260,6 @@ VALUES
     ('NIN3', 'Prestataire 3', 555555555, 'email3@example.com', 'Address 3');
 
 
--- Insertion des données dans la table prestataires_secteur
 INSERT INTO prestataires_secteur (ninea, code_secteur_activite)
 VALUES 
     ('NIN1', 'SEC1'),
@@ -618,15 +272,12 @@ VALUES ('BUR', 'BUREAU CENTRAL'),
        ('BRI', 'BRIGADE MOBILE');
 
 
--- Insertion des données dans la table unite_douaniere
 INSERT INTO unite_douaniere (code_unite_douaniere, nom_unite_douaniere, effectif_unite_douaniere, nombre_arme, nombre_automobile, nombre_materiel, code_type_unite_douaniere)
 VALUES 
     ('06K', 'BUREAU DE LA LOGISTIQUE ET DE LA MAINTENANCE', 10, 3, 5, 20, 'BUR'),
     ('06Z', 'BUREAU DE LA PROGRAMMATION ET DES FINANCES', 10, 3, 5, 20, 'BUR');
 
 
-
--- Insertion des données dans la table sections
 INSERT INTO sections (code_section, libelle_section, code_unite_douaniere)
 VALUES 
     ('SA', 'SECTION ARMEMENT', '06K'),
@@ -634,15 +285,10 @@ VALUES
     ('SG', 'SECTION GARAGE', '06K');
 
 
--- Insertion des données dans la table type_objet
 INSERT INTO type_objet (code_type_objet, libelle_type_objet, code_section)
 VALUES 
     ('ARMES', 'ARMES ET MUNITIONS', 'SA'),
     ('VEHIC', 'VEHICULES ET MATERIELS ROULANTS', 'SG');
-
-
-
-
 
 
 INSERT INTO fonction_agent (code_fonction_agent, libelle_fonction_agent)
@@ -658,7 +304,6 @@ VALUES ('CP1', 'Corps 1'),
        ('CP3', 'Corps 3');
 
 
--- Insertion des données dans la table agent
 INSERT INTO agent (matricule_agent, code_agent, nom_agent, prenom_agent, numero_telephone_agent, code_fonction_agent, code_unite_douaniere, code_corps_agent)
 VALUES 
     ('MAT001', 'AGT01', 'Nom Agent 1', 'Prenom Agent 1', 123456789, 'FCT1', '06K', 'CP1'),
@@ -666,20 +311,18 @@ VALUES
     ('MAT003', 'AGT03', 'Nom Agent 3', 'Prenom Agent 3', 555555555, 'FCT3', '06K', 'CP3');
 
 
--- Insertion des données dans la table bordereau_livraison
 INSERT INTO bordereau_livraison (identifiant_b_l, numero_b_l, description_b_l, lieu_de_livraison, date_b_l, conformite_b_l, nom_livreur, code_section, ninea, matricule_agent, date_enregistrement, code_corps_agent)
 VALUES 
-    ('BL001', '001', 'Description BL 1', 'Lieu 1', '2023-12-01', 'Con', 'Livreur 1', 'SA', 'NIN1', 'MAT001', CURRENT_TIMESTAMP, 'CP1'),
-    ('BL002', '002', 'Description BL 2', 'Lieu 2', '2023-12-02', 'Con', 'Livreur 2', 'SM', 'NIN2', 'MAT002', CURRENT_TIMESTAMP, 'CP2'),
-    ('BL003', '003', 'Description BL 3', 'Lieu 3', '2023-12-03', 'Con', 'Livreur 3', 'SG', 'NIN3', 'MAT003', CURRENT_TIMESTAMP, 'CP3');
+    ('BLSA202312011043210', '001', 'Description BL 1', 'Lieu 1', '2023-12-01', 'OUI', 'Livreur 1', 'SA', 'NIN1', 'MAT001', CURRENT_TIMESTAMP, 'CP1'),
+    ('BLSM202312021143211', '002', 'Description BL 2', 'Lieu 2', '2023-12-02', 'OUI', 'Livreur 2', 'SM', 'NIN2', 'MAT002', CURRENT_TIMESTAMP, 'CP2'),
+    ('BLSG202312031243213', '003', 'Description BL 3', 'Lieu 3', '2023-12-03', 'NON', 'Livreur 3', 'SG', 'NIN3', 'MAT003', CURRENT_TIMESTAMP, 'CP3');
 
 
--- Insertion des données dans la table bon_entree
 INSERT INTO bon_entree (identifiant_b_e, numero_b_e, libelle_bon_entree, date_bon_entree, observation_bon_entree, identifiant_b_l)
 VALUES 
-    ('BESA202312011043210', '001', 'Libelle BE 1', '2023-12-01', 'Observation 1', 'BL001'),
-    ('BESM202312021143211', '002', 'Libelle BE 2', '2023-12-02', 'Observation 2', 'BL002'),
-    ('BESG202312031243213', '003', 'Libelle BE 3', '2023-12-03', 'Observation 3', 'BL003');
+    ('BESA202312011043210', '001', 'Libelle BE 1', '2023-12-01', 'Observation 1', 'BLSA202312011043210'),
+    ('BESM202312021143211', '002', 'Libelle BE 2', '2023-12-02', 'Observation 2', 'BLSM202312021143211'),
+    ('BESG202312031243213', '003', 'Libelle BE 3', '2023-12-03', 'Observation 3', 'BLSG202312031243213');
 
 
 -- Insertion des données dans la table article_bon_entree
@@ -690,7 +333,6 @@ VALUES
     ('BESG202312031243213', 3, 'ARMES', 'Article 3', 1, CURRENT_TIMESTAMP, 'MAT003', 'CP3'),
     ('BESG202312031243213', 4, 'ARMES', 'Article 4', 1, CURRENT_TIMESTAMP, 'MAT003', 'CP3'),
     ('BESA202312011043210', 5, 'VEHIC', 'Article 5', 1, CURRENT_TIMESTAMP, 'MAT001', 'CP1');
-
 
 
 INSERT INTO pays (code_pays, libelle_pays)
@@ -967,7 +609,6 @@ VALUES ('MRQ1', 'Marque 1'),
        ('MRQ3', 'Marque 3');
 
 
--- Insertion des données dans la table vehicule
 INSERT INTO vehicule (numero_serie, numero_immatriculation, identifiant_b_e, code_article_bon_entree, genre, modele, etat_vehicule, type_energie, code_pays, numero_carte_grise, date_mise_en_circulation, code_type_vehicule, code_marque, code_unite_douaniere)
 VALUES 
     ('123456', 'ABC123', 'BESM202312021143211', 2, 'Car', 'Model 1', 'Good', 'Gasoline', 'US', 'CG123', '2023-01-01', 'TV1', 'MRQ1', '06Z'),
@@ -975,7 +616,7 @@ VALUES
     ('345678', 'DEF345', 'BESA202312011043210', 1, 'Motorcycle', 'Model 3', 'Fair', 'Electric', 'FR', 'CG345', '2023-03-03', 'TV3', 'MRQ3', '06K');
 
 
----------------------------------------------------------------------------------------------------------
+
 
 SELECT * FROM fonction_agent;
 SELECT * FROM corps_agent;

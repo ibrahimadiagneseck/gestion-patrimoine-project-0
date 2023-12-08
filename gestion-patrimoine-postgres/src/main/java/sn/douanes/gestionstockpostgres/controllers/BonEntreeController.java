@@ -55,8 +55,10 @@ public class BonEntreeController {
         return bonEntreeService.updateBonEntree(b);
     }
 
-    @DeleteMapping("SupprimerBonEntree/{id}")
-    public void SupprimerBonEntree(@PathVariable("id") String identifiantBE) {bonEntreeService.deleteBonEntreeById(identifiantBE);}
+    @DeleteMapping("SupprimerBonEntreeById/{id}")
+    public void SupprimerBonEntreeById(@PathVariable("id") String identifiantBE) {
+        bonEntreeService.deleteBonEntreeById(identifiantBE);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
