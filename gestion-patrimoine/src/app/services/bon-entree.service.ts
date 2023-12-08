@@ -69,42 +69,37 @@ export class BonEntreeService {
     return this.httpClient.get<BonEntree[]>(`${this.urlServeur}/BonEntrees`);
   }
 
-  // public ajouterBonEntree(formData: FormData): Observable<BonEntree> {
-  //   return this.httpClient.post<BonEntree>(`${this.urlServeur}/AjouterBonEntree`, formData);
-  // }
-
-  // public ajouterBonEntree(formData: FormData): Observable<BonEntree> {
-  //   return this.httpClient.post<BonEntree>(`${this.urlServeur}/BonEntree/AjouterBonEntree`, formData);
-  // }
-
   public ajouterBonEntree(bonEntree: BonEntree): Observable<BonEntree> {
     return this.httpClient.post<BonEntree>(`${this.urlServeur}/AjouterBonEntree`, bonEntree);
+  }
+
+  public ajouterBonEntreeRequestParam(formData: FormData): Observable<BonEntree> {
+    return this.httpClient.post<BonEntree>(`${this.urlServeur}/AjouterRequestParamBonEntree`, formData);
   }
 
   public modifierBonEntree(formData: FormData): Observable<BonEntree> {
     return this.httpClient.post<BonEntree>(`${this.urlServeur}/ModifierBonEntree`, formData);
   }
 
-  public supprimerBonEntree(identifiantBE: string): Observable<CustomHttpRespone> {
-    return this.httpClient.delete<CustomHttpRespone>(`${this.urlServeur}/SupprimerBonEntreeByBonEntreeId/${identifiantBE}`);
+  public supprimerBonEntreeById(numeroSerie: string): Observable<CustomHttpRespone> {
+    return this.httpClient.delete<CustomHttpRespone>(`${this.urlServeur}/SupprimerBonEntreeById/${numeroSerie}`);
   }
 
 
-//   public createBonEntreeFormData(bonEntree: BonEntree): FormData {
-
-//     const formData = new FormData();
-
-//     formData.append('numeroBE', bonEntree.numeroBE);
-//     formData.append('libelleBonEntree', bonEntree.libelleBonEntree);
-//     formData.append('dateBonEntree', JSON.stringify(bonEntree.dateBonEntree));
-//     formData.append('observationBonEntree', bonEntree.observationBonEntree);
-//     formData.append('identifiantBL', JSON.stringify(bonEntree.identifiantBL));
-//     formData.append('matriculeAgent', JSON.stringify(bonEntree.matriculeAgent));
-//     formData.append('codeSection', JSON.stringify(bonEntree.codeSection));
 
 
-//     return formData;
-//   }
+  public createBonEntreeFormData(bonEntree: BonEntree): FormData {
+
+    const formData = new FormData();
+
+    formData.append('numeroBE', bonEntree.numeroBE);
+    formData.append('libelleBonEntree', bonEntree.libelleBonEntree);
+    formData.append('dateBonEntree', JSON.stringify(bonEntree.dateBonEntree));
+    formData.append('observationBonEntree', bonEntree.observationBonEntree);
+    formData.append('identifiantBL', JSON.stringify(bonEntree.identifiantBL));
+
+    return formData;
+  }
 
 
 

@@ -42,8 +42,10 @@ public class MaterielsController {
         return materielsService.updateMateriels(m);
     }
 
-    @DeleteMapping("SupprimerMateriels/{id}")
-    public void SupprimerMateriels(@PathVariable("id") String  code_materiel  ) {materielsService.deleteMaterielsById( code_materiel );}
+    @DeleteMapping("SupprimerMaterielsById/{id}")
+    public void SupprimerMaterielsById(@PathVariable("id") String code_materiel) {
+        materielsService.deleteMaterielsById( code_materiel );
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

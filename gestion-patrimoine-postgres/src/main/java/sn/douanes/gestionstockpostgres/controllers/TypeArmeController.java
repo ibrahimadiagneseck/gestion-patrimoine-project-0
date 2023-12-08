@@ -41,8 +41,10 @@ public class TypeArmeController {
         return typeArmeService.updateTypeArme(t);
     }
 
-    @DeleteMapping("SupprimerTypeArme/{id}")
-    public void SupprimerTypeArme(@PathVariable("id") String  code_type_arme ) {typeArmeService.deleteTypeArmeById( code_type_arme );}
+    @DeleteMapping("SupprimerTypeArmeById/{id}")
+    public void SupprimerTypeArmeById(@PathVariable("id") String code_type_arme) {
+        typeArmeService.deleteTypeArmeById(code_type_arme);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

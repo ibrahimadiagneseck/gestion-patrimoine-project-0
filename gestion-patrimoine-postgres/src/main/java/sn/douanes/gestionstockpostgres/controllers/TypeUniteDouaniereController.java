@@ -51,8 +51,10 @@ public class TypeUniteDouaniereController {
         return typeUniteDouaniereService.updateTypeUniteDouaniere(t);
     }
 
-    @DeleteMapping("SupprimerTypeUniteDouaniere/{id}")
-    public void SupprimerTypeUniteDouaniere(@PathVariable("id") String codeTypeUniteDouaniere) {typeUniteDouaniereService.deleteTypeUniteDouaniereById(codeTypeUniteDouaniere);}
+    @DeleteMapping("SupprimerTypeUniteDouaniereById/{id}")
+    public void SupprimerTypeUniteDouaniereById(@PathVariable("id") String codeTypeUniteDouaniere) {
+        typeUniteDouaniereService.deleteTypeUniteDouaniereById(codeTypeUniteDouaniere);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

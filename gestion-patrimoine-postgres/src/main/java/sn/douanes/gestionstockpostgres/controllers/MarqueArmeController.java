@@ -42,8 +42,10 @@ public class MarqueArmeController {
         return marqueArmeService.updateMarqueArme(m);
     }
 
-    @DeleteMapping("SupprimerMarqueArme/{id}")
-    public void SupprimerMarqueArme(@PathVariable("id") String  code_marque_arme  ) {marqueArmeService.deleteMarqueArmeById( code_marque_arme  );}
+    @DeleteMapping("SupprimerMarqueArmeById/{id}")
+    public void SupprimerMarqueArmeById(@PathVariable("id") String code_marque_arme) {
+        marqueArmeService.deleteMarqueArmeById(code_marque_arme);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

@@ -41,8 +41,8 @@ public class VidangeController {
         return vidangeService.updateVidange(v);
     }
 
-    @DeleteMapping("SupprimerVidange/{id}")
-    public void SupprimerVidange(@PathVariable("id") String numeroImmatriculation) {
+    @DeleteMapping("SupprimerVidangeById/{id}")
+    public void SupprimerVidangeById(@PathVariable("id") String numeroImmatriculation) {
         vidangeService.deleteVidangeById(numeroImmatriculation);
     }
 

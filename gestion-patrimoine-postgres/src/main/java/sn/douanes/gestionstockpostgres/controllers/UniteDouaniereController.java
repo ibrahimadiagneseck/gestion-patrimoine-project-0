@@ -57,8 +57,8 @@ public class UniteDouaniereController {
         return uniteDouaniereService.updateUniteDouaniere(u);
     }
 
-    @DeleteMapping("SupprimerUniteDouaniere/{id}")
-    public void SupprimerUniteDouaniere(@PathVariable("id") String codeUniteDouaniere) {
+    @DeleteMapping("SupprimerUniteDouaniereById/{id}")
+    public void SupprimerUniteDouaniereById(@PathVariable("id") String codeUniteDouaniere) {
         uniteDouaniereService.deleteUniteDouaniereById(codeUniteDouaniere);
     }
 

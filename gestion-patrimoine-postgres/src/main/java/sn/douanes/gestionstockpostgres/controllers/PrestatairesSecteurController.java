@@ -54,8 +54,8 @@ public class PrestatairesSecteurController {
         return prestatairesSecteurService.updatePrestatairesSecteur(p);
     }
 
-    @DeleteMapping("SupprimerPrestatairesSecteur/{id}")
-    public void SupprimerPrestatairesSecteur(
+    @DeleteMapping("SupprimerPrestatairesSecteurById/{id}")
+    public void SupprimerPrestatairesSecteurById(
             @PathVariable("ninea") Prestataires ninea,
             @PathVariable("codeSecteurActivite") SecteurActivite codeSecteurActivite
     ) {

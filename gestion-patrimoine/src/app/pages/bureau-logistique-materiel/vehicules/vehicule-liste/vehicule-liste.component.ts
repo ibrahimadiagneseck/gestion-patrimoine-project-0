@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { ReceptionVehiculeAjouterComponent } from '../reception-vehicule-ajouter/reception-vehicule-ajouter.component';
 
 
 @Component({
@@ -65,12 +66,12 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
   /* ----------------------------------------------------------------------------------------- */
   // tableau
   rowNumber!: number; // numéro de ligne pour le tableau
-  columnsToCodeMarque: string[] = [
-    "codeMarque"
-  ];
-  columnsToCodePays: string[] = [
-    "codePays"
-  ];
+  // columnsToCodeMarque: string[] = [
+  //   "codeMarque"
+  // ];
+  // columnsToCodePays: string[] = [
+  //   "codePays"
+  // ];
   columnsDateFormat: string[] = [
     "dateMiseEnCirculation"
   ];
@@ -92,11 +93,11 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
     "modele",
     "etatVehicule",
     "typeEnergie",
-    "codePays",
+    "rowPays",
     "numeroCarteGrise",
     "dateMiseEnCirculation",
     "codeTypeVehicule",
-    "codeMarque",
+    "rowMarque",
     "codeUniteDouaniere"
   ];
   displayedColumnsCustom: string[] = [
@@ -107,7 +108,7 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
     "Modele",
     "Etat vehicule",
     "Type energie",
-    "Provenance",
+    "Pays",
     "N° carte grise",
     "Date mise en circulation",
     "Type vehicule",
@@ -156,6 +157,7 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
   generatePDF(): void {
 
     const data: Vehicule[] = this.dataSource.filteredData;
+    // const data: any[] = this.dataSource.filteredData;
 
     // console.log(data);
     
@@ -166,6 +168,7 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
 
     // Créez un tableau de données pour autoTable
     const tableData = data.map((item: Vehicule) => [
+    // const tableData = data.map((item: any) => [
       
       item.rowNumber,
       item.numeroSerie,
@@ -201,7 +204,7 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
           { content: 'Modele', styles: { fontSize: 6 } },
           { content: 'Etat vehicule', styles: { fontSize: 6 } },
           { content: 'Type energie', styles: { fontSize: 6 } },
-          { content: 'Provenance', styles: { fontSize: 6 } },
+          { content: 'Pays', styles: { fontSize: 6 } },
           { content: 'N° carte grise', styles: { fontSize: 6 } },
           { content: 'Date mise en circulation', styles: { fontSize: 6 } },
           { content: 'Type vehicule', styles: { fontSize: 6 } },
@@ -264,8 +267,12 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
         // this.dataSource = new MatTableDataSource<IVehicule>(this.vehicules);
         this.dataSource = new MatTableDataSource<Vehicule>(this.vehicules.map((item) => ({
           ...item,
+          // vehicule: [] as Vehicule[],
+          rowMarque: item.codeMarque.libelleMarque,
+          rowPays: item.codePays.libellePays,
           rowNumber: this.rowNumber++
         })));
+        
 
         // console.log(this.dataSource.data);
         this.dataSource.paginator = this.paginator;
@@ -284,7 +291,7 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
 
   popupAjouter(): void {
     const dialogRef = this.matDialog.open(
-      VehiculeListeComponent,
+      ReceptionVehiculeAjouterComponent,
       {
         width: '80%',
         enterAnimationDuration: '100ms',
@@ -299,7 +306,7 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
 
   popupDetail(element: any): void {
     const dialogRef = this.matDialog.open(
-      VehiculeListeComponent,
+      ReceptionVehiculeAjouterComponent,
       {
         width: '80%',
         enterAnimationDuration: '100ms',

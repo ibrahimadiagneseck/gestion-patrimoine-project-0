@@ -54,8 +54,10 @@ public class TypeObjetController {
         return typeObjetService.updateTypeObjet(t);
     }
 
-    @DeleteMapping("SupprimerTypeObjet/{id}")
-    public void SupprimerTypeObjet(@PathVariable("id") String codeTypeObjet) {typeObjetService.deleteTypeObjetById(codeTypeObjet);}
+    @DeleteMapping("SupprimerTypeObjetById/{id}")
+    public void SupprimerTypeObjetById(@PathVariable("id") String codeTypeObjet) {
+        typeObjetService.deleteTypeObjetById(codeTypeObjet);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

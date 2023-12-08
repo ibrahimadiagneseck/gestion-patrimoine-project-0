@@ -37,12 +37,13 @@ public class FournisseursController {
     @PutMapping("/ModifierFournisseurs")
     @ResponseBody
     public Fournisseurs ModifierFournisseurs(@RequestBody Fournisseurs f) {
-
         return fournisseursService.updateFournisseurs(f);
     }
 
-    @DeleteMapping("SupprimerFournisseurs/{id}")
-    public void SupprimerFournisseurs(@PathVariable("id") String codeFournisseur) {fournisseursService.deleteFournisseursById(codeFournisseur );}
+    @DeleteMapping("SupprimerFournisseursById/{id}")
+    public void SupprimerFournisseursById(@PathVariable("id") String codeFournisseur) {
+        fournisseursService.deleteFournisseursById(codeFournisseur);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

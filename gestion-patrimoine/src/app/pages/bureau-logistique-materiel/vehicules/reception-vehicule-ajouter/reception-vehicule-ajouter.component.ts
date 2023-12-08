@@ -26,10 +26,32 @@ export class ReceptionVehiculeAjouterComponent implements OnInit, OnDestroy {
   }
 
 
-
-
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
+
+  popupFermer(): void {
+    this.dialogRef.close();
+  }
+
+
+  // --------------------------------------------------------------------------
+
+  private clickButton(buttonId: string): void {
+    document.getElementById(buttonId)?.click();
+  }
+
+  // pour envoyer tous les formulaires
+  public submitForm(): void { 
+    this.clickButton('submit-form');
+    this.clickButton('bordereau-livraison-form');
+  }
+
+
+
+  // onSubmit(): void {
+  //   // console.log(this.vehiculeForm.value);
+  //   // this.AjouterVehicule();
+  // }
 
 }

@@ -52,8 +52,8 @@ public class SecteurActiviteController {
         return secteurActiviteService.updateSecteurActivite(p);
     }
 
-    @DeleteMapping("SupprimerSecteurActivite/{id}")
-    public void SupprimerSecteurActivite(@PathVariable("id") String codeSecteurActivite) {
+    @DeleteMapping("SupprimerSecteurActiviteById/{id}")
+    public void SupprimerSecteurActiviteById(@PathVariable("id") String codeSecteurActivite) {
         secteurActiviteService.deleteSecteurActiviteById(codeSecteurActivite);
     }
 

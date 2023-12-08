@@ -11,6 +11,8 @@ import { Agent } from 'src/app/model/agent.model';
 import { SectionsService } from 'src/app/services/sections.service';
 import { BordereauLivraisonService } from 'src/app/services/bordereau-livraison.service';
 import { AgentService } from 'src/app/services/agent.service';
+import { Prestataires } from 'src/app/model/prestataires.model';
+import { PrestatairesService } from 'src/app/services/prestataires.service';
 
 @Component({
   selector: 'app-bon-entree',
@@ -27,6 +29,9 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
   public sections: Sections[] = [];
   public section: Sections = new Sections();
 
+  public prestataires: Prestataires[] = [];
+  public prestataire: Prestataires = new Prestataires();
+
   public bordereauLivraisons: BordereauLivraison[] = [];
   public bordereauLivraison: BordereauLivraison = new BordereauLivraison();
 
@@ -38,6 +43,7 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
   constructor(
     private bonEntreeService: BonEntreeService,
     private sectionsService: SectionsService,
+    private prestatairesService: PrestatairesService,
     private bordereauLivraisonService: BordereauLivraisonService,
     private agentService: AgentService
   ) { }
@@ -50,6 +56,7 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
     this.listeSections();
     this.listeBordereauLivraisons();
     this.listeAgents();
+    this.listePrestataires();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -60,6 +67,27 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
       next: (response: Sections[]) => {
         this.sections = response;
         // console.log(this.sections);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listePrestataires(): void {
+
+    const subscription = this.prestatairesService.listePrestataires().subscribe({
+      next: (response: Prestataires[]) => {
+        this.prestataires = response;
+        // console.log(this.prestataires);
         
       },
       error: (errorResponse: HttpErrorResponse) => {
@@ -130,15 +158,29 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
   //   );
   // }
 
-  public ajouterBonEntree(bonEntreeForm: NgForm): void {
 
-    // const formData = this.bonEntreeService.createBonEntreeFormData(bonEntreeForm.value);
+  // --------------------------------------------------------------------------
 
-    console.log(bonEntreeForm.value);
+  private clickButton(buttonId: string): void {
+    document.getElementById(buttonId)?.click();
+  }
+
+  // pour executer ajouterBordereauLivraison
+  public submitBordereauLivraisonForm(): void { 
+    this.clickButton('bordereau-livraison-form')
+  }
+
+  public ajouterBordereauLivraison(bordereauLivraisonForm: NgForm): void {
+
+    const formData = this.bordereauLivraisonService.createBordereauLivraisonFormData(bordereauLivraisonForm.value);
+
+    
+
+    console.log(bordereauLivraisonForm.value);
 
     this.subscriptions.push(
-      this.bonEntreeService.ajouterBonEntree(bonEntreeForm.value).subscribe({
-        next: (response: BonEntree) => {
+      this.bordereauLivraisonService.ajouterBordereauLivraisonRequestParam(formData).subscribe({
+        next: (response: BordereauLivraison) => {
 
         },
         error: (errorResponse: HttpErrorResponse) => {
@@ -147,5 +189,8 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
       })
     );
   }
+
+  // --------------------------------------------------------------------------
+
 
 }

@@ -18,6 +18,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
 import { BonEntreeComponent } from './bon-entree/bon-entree.component';
+import { ArticleBonEntreeComponent } from './article-bon-entree/article-bon-entree.component';
+import { VehiculeComponent } from './vehicule/vehicule.component';
+import { BordereauLivraisonComponent } from './bordereau-livraison/bordereau-livraison.component';
 
 
 
@@ -28,7 +31,10 @@ import { BonEntreeComponent } from './bon-entree/bon-entree.component';
     EnteteComponent,
     MenuComponent,
     PopupConfirmationSupprimerComponent,
-    BonEntreeComponent
+    BonEntreeComponent,
+    ArticleBonEntreeComponent,
+    BordereauLivraisonComponent,
+    VehiculeComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +58,10 @@ import { BonEntreeComponent } from './bon-entree/bon-entree.component';
     EnteteComponent,
     MenuComponent,
     PopupConfirmationSupprimerComponent,
-    BonEntreeComponent
+    BonEntreeComponent,
+    ArticleBonEntreeComponent,
+    BordereauLivraisonComponent,
+    VehiculeComponent
   ]
 })
 export class ComposantModule { }

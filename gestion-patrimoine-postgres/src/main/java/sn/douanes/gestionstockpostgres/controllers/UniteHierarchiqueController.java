@@ -41,8 +41,10 @@ public class UniteHierarchiqueController {
         return uniteHierarchiqueService.updateUniteHierarchique(u);
     }
 
-    @DeleteMapping("SupprimerUniteHierarchique/{id}")
-    public void SupprimerUniteHierarchique(@PathVariable("id") String    code_unite_hierarchique ) {uniteHierarchiqueService.deleteUniteHierarchiqueById(  code_unite_hierarchique);}
+    @DeleteMapping("SupprimerUniteHierarchiqueById/{id}")
+    public void SupprimerUniteHierarchiqueById(@PathVariable("id") String code_unite_hierarchique ) {
+        uniteHierarchiqueService.deleteUniteHierarchiqueById(code_unite_hierarchique);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

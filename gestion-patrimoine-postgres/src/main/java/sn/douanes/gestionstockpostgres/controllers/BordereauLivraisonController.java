@@ -36,15 +36,15 @@ public class BordereauLivraisonController {
 
     @PostMapping("/AjouterRequestParamBordereauLivraison")
     public ResponseEntity<BordereauLivraison> ajouterBordereauLivraison (
-            @RequestParam("numeroBE") String numeroBL,
-            @RequestParam("numeroBE") String descriptionBL,
-            @RequestParam("numeroBE") String lieuDeLivraison,
-            @RequestParam("numeroBE") Date dateBL,
-            @RequestParam("numeroBE") String conformiteBL,
-            @RequestParam("numeroBE") String nomLivreur,
-            @RequestParam("numeroBE") Sections codeSection,
-            @RequestParam("numeroBE") Prestataires ninea,
-            @RequestParam("numeroBE") Agent matriculeAgent
+            @RequestParam("numeroBL") String numeroBL,
+            @RequestParam("descriptionBL") String descriptionBL,
+            @RequestParam("lieuDeLivraison") String lieuDeLivraison,
+            @RequestParam("dateBL") Date dateBL,
+            @RequestParam("conformiteBL") String conformiteBL,
+            @RequestParam("nomLivreur") String nomLivreur,
+            @RequestParam("codeSection") Sections codeSection,
+            @RequestParam("ninea") Prestataires ninea,
+            @RequestParam("matriculeAgent") Agent matriculeAgent
     ) {
         BordereauLivraison bordereauLivraison = bordereauLivraisonService.ajouterBordereauLivraison(numeroBL, descriptionBL, lieuDeLivraison, dateBL, conformiteBL, nomLivreur, codeSection, ninea, matriculeAgent);
         return new ResponseEntity<>(bordereauLivraison, OK);
@@ -53,12 +53,13 @@ public class BordereauLivraisonController {
     @PutMapping("/ModifierBordereauLivraison")
     @ResponseBody
     public BordereauLivraison ModifierBordereauLivraison(@RequestBody BordereauLivraison b) {
-
         return bordereauLivraisonService.updateBordereauLivraison(b);
     }
 
-    @DeleteMapping("SupprimerBordereauLivraison/{id}")
-    public void SupprimerBordereauLivraison(@PathVariable("id") String identifiantBL) {bordereauLivraisonService.deleteBordereauLivraisonById(identifiantBL);}
+    @DeleteMapping("SupprimerBordereauLivraisonById/{id}")
+    public void SupprimerBordereauLivraisonById(@PathVariable("id") String identifiantBL) {
+        bordereauLivraisonService.deleteBordereauLivraisonById(identifiantBL);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

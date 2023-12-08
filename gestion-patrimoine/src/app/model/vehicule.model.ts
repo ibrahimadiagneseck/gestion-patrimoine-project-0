@@ -24,6 +24,8 @@ export class Vehicule {
   public codeTypeVehicule: TypeVehicule;
   public codeMarque: MarqueVehicule;
   public codeUniteDouaniere: UniteDouaniere;
+  // public rowPays: String;
+  // public rowMarque: String;
 
 
   constructor() {
@@ -33,14 +35,16 @@ export class Vehicule {
     this.numeroImmatriculation = '';
     this.genre = '';
     this.codeMarque = new MarqueVehicule() ;
-    this.modele ='';
-    this.etatVehicule ='';
+    this.modele = '';
+    this.etatVehicule = '';
     this.typeEnergie = '';
     this.codePays = new Pays() ;
     this.numeroCarteGrise = '';
     this.dateMiseEnCirculation = new Date();
     this.codeUniteDouaniere = new UniteDouaniere() ;
     this.identifiantBE = new ArticleBonEntree() ;
+    // this.rowPays = '';
+    // this.rowMarque = '';
   }
 
 }

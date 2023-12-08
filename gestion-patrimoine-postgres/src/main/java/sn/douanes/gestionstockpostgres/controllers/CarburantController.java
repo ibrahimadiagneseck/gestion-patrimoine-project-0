@@ -37,12 +37,13 @@ public class CarburantController {
     @PutMapping("/ModifierCarburant")
     @ResponseBody
     public Carburant ModifierCarburant(@RequestBody Carburant c) {
-
         return carburantService.updateCarburant(c);
     }
 
-    @DeleteMapping("SupprimerCarburant/{id}")
-    public void SupprimerCarburant(@PathVariable("id") String numeroCarte ) {carburantService.deleteCarburantById(numeroCarte);}
+    @DeleteMapping("SupprimerCarburantById/{id}")
+    public void SupprimerCarburantById(@PathVariable("id") String numeroCarte) {
+        carburantService.deleteCarburantById(numeroCarte);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

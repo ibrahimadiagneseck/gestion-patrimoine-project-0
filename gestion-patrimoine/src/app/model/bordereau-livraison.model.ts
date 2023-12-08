@@ -6,7 +6,7 @@ import { Sections } from "./sections.model";
 
 export class BordereauLivraison {
 
-  public identifiantBL: string;
+  // public identifiantBL: string;
   public numeroBL: string;
   public descriptionBL: string;
   public lieuDeLivraison: string;
@@ -16,11 +16,11 @@ export class BordereauLivraison {
   public codeSection: Sections;
   public ninea: Prestataires;
   public matriculeAgent: Agent;
-  public dateEnregistrement: number;
+  // public dateEnregistrement: number;
 
 
   constructor() {
-    this.identifiantBL = '';
+    // this.identifiantBL = '';
     this.numeroBL = '';
     this.descriptionBL = '';
     this.lieuDeLivraison = '';
@@ -30,7 +30,7 @@ export class BordereauLivraison {
     this.codeSection = new Sections() ;
     this.ninea = new Prestataires() ;
     this.matriculeAgent = new Agent() ;
-    this.dateEnregistrement = new Date().getTime();
+    // this.dateEnregistrement = new Date().getTime();
 
 
 

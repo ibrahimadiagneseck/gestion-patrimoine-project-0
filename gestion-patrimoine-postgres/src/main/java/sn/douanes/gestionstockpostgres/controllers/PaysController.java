@@ -54,8 +54,8 @@ public class PaysController {
         return paysService.updatePays(p);
     }
 
-    @DeleteMapping("SupprimerPays/{id}")
-    public void SupprimerPays(@PathVariable("id") String codePays) {
+    @DeleteMapping("SupprimerPaysById/{id}")
+    public void SupprimerPaysById(@PathVariable("id") String codePays) {
         paysService.deletePaysById(codePays);
     }
 

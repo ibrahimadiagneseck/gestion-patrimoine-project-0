@@ -55,8 +55,8 @@ public class AgentController {
         return agentService.updateAgent(a);
     }
 
-    @DeleteMapping("SupprimerAgent/{id}")
-    public void SupprimerAgent(
+    @DeleteMapping("SupprimerAgentById/{id}")
+    public void SupprimerAgentById(
             @PathVariable("matriculeAgent") String matriculeAgent,
             @PathVariable("codeCorpsAgent") CorpsAgent codeCorpsAgent
     ) {

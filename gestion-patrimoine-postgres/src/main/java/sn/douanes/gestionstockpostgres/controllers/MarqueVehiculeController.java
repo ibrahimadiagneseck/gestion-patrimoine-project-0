@@ -51,8 +51,8 @@ public class MarqueVehiculeController {
         return marqueVehiculeService.updateMarqueVehicule(t);
     }
 
-    @DeleteMapping("SupprimerMarqueVehicule/{id}")
-    public void SupprimerMarqueVehicule(@PathVariable("id") String codeMarque) {
+    @DeleteMapping("SupprimerMarqueVehiculeById/{id}")
+    public void SupprimerMarqueVehiculeById(@PathVariable("id") String codeMarque) {
         marqueVehiculeService.deleteMarqueVehiculeById(codeMarque);
     }
 

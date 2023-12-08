@@ -46,12 +46,13 @@ public class CorpsAgentController {
     @PutMapping("/ModifierCorpsAgent")
     @ResponseBody
     public CorpsAgent ModifierCorpsAgent(@RequestBody CorpsAgent c) {
-
         return corpsAgentService.updateCorpsAgent(c);
     }
 
-    @DeleteMapping("SupprimerCorpsAgent/{id}")
-    public void SupprimerCorpsAgent(@PathVariable("id") String codeCorpsAgent) {corpsAgentService.deleteCorpsAgentById(codeCorpsAgent);}
+    @DeleteMapping("SupprimerCorpsAgentById/{id}")
+    public void SupprimerCorpsAgentById(@PathVariable("id") String codeCorpsAgent) {
+        corpsAgentService.deleteCorpsAgentById(codeCorpsAgent);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

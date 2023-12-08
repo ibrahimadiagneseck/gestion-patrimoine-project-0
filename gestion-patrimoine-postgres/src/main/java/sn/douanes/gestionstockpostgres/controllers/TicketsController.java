@@ -42,8 +42,10 @@ public class TicketsController {
         return ticketsService.updateTickets(t);
     }
 
-    @DeleteMapping("SupprimerTickets/{id}")
-    public void SupprimerTickets(@PathVariable("id") Long  numero_ticket ) {ticketsService.deleteTicketsById( numero_ticket );}
+    @DeleteMapping("SupprimerTicketsById/{id}")
+    public void SupprimerTicketsById(@PathVariable("id") Long numero_ticket) {
+        ticketsService.deleteTicketsById(numero_ticket);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

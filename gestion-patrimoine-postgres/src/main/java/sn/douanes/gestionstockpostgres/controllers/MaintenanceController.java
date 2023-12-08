@@ -38,12 +38,13 @@ public class MaintenanceController {
     @PutMapping("/ModifierMaintenance")
     @ResponseBody
     public Maintenance ModifierMaintenance(@RequestBody Maintenance m) {
-
         return maintenanceService.updateMaintenance(m);
     }
 
-    @DeleteMapping("SupprimerMaintenance/{id}")
-    public void SupprimerMaintenance(@PathVariable("id") String maintenance ) {maintenanceService.deleteMaintenanceById(maintenance);}
+    @DeleteMapping("SupprimerMaintenanceById/{id}")
+    public void SupprimerMaintenanceById(@PathVariable("id") String maintenance ) {
+        maintenanceService.deleteMaintenanceById(maintenance);
+    }
 
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

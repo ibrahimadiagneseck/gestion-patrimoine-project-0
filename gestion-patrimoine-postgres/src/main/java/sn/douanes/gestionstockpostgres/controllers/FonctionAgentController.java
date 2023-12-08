@@ -51,8 +51,8 @@ public class FonctionAgentController {
         return fonctionAgentService.updateFonctionAgent(f);
     }
 
-    @DeleteMapping("SupprimerFonctionAgent/{id}")
-    public void SupprimerFonctionAgent(@PathVariable("id") String codeFonctionAgent ) {
+    @DeleteMapping("SupprimerFonctionAgentById/{id}")
+    public void SupprimerFonctionAgentById(@PathVariable("id") String codeFonctionAgent) {
         fonctionAgentService.deleteFonctionAgentById(codeFonctionAgent);
     }
 
