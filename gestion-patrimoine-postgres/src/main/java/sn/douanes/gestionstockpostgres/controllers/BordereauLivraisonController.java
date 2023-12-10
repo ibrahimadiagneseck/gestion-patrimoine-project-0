@@ -3,6 +3,7 @@ package sn.douanes.gestionstockpostgres.controllers;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,14 +40,23 @@ public class BordereauLivraisonController {
             @RequestParam("numeroBL") String numeroBL,
             @RequestParam("descriptionBL") String descriptionBL,
             @RequestParam("lieuDeLivraison") String lieuDeLivraison,
-            @RequestParam("dateBL") Date dateBL,
+            @RequestParam("dateBL") String dateBL,
             @RequestParam("conformiteBL") String conformiteBL,
             @RequestParam("nomLivreur") String nomLivreur,
-            @RequestParam("codeSection") Sections codeSection,
-            @RequestParam("ninea") Prestataires ninea,
-            @RequestParam("matriculeAgent") Agent matriculeAgent
+            @RequestParam(value = "codeSection") Sections codeSection,
+            @RequestParam(value = "ninea") Prestataires ninea,
+            @RequestParam(value = "matriculeAgent") Agent matriculeAgent
     ) {
-        BordereauLivraison bordereauLivraison = bordereauLivraisonService.ajouterBordereauLivraison(numeroBL, descriptionBL, lieuDeLivraison, dateBL, conformiteBL, nomLivreur, codeSection, ninea, matriculeAgent);
+        // @RequestParam(value = "codeSection", required = false) Sections codeSection,
+        // dateBL = java.sql.Date.valueOf("2017-11-15");
+        // dateBL = new java.sql.Date(dateBL.getTime());
+
+        System.out.println(codeSection.toString());
+        System.out.println(ninea.toString());
+        System.out.println(matriculeAgent.toString());
+
+
+        BordereauLivraison bordereauLivraison = bordereauLivraisonService.ajouterBordereauLivraison(numeroBL, descriptionBL, lieuDeLivraison, Date.valueOf(dateBL), conformiteBL, nomLivreur, new Sections(), new Prestataires(), new Agent());
         return new ResponseEntity<>(bordereauLivraison, OK);
     }
 

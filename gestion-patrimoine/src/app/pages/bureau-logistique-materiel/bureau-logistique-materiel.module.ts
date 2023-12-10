@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { BureauLogistiqueMaterielRoutingModule } from './bureau-logistique-materiel-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -60,6 +60,7 @@ import { ReceptionVehiculeAjouterComponent } from './vehicules/reception-vehicul
     // MDCDialog
 
     BureauLogistiqueMaterielRoutingModule
-  ]
+  ],
+  providers: [DatePipe],
 })
 export class BureauLogistiqueMaterielModule { }

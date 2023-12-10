@@ -6,9 +6,14 @@
             <input id="numeroBL" type="text" name="numeroBL" required ngModel class="text-input form-control bg-mywhite border  border-myprimary px-1 text-uppercase">
         </div>
 
-        <div class="col-3 mx-auto form-group">
+        <!-- <div class="col-3 mx-auto form-group">
             <label for="dateBL" class="form-label fw-bold">Date bordereau</label>
             <input type="date" name="dateBL" id="dateBL" ngbDatepicker #dp1="ngbDatepicker" (click)="dp1.toggle()" required ngModel class="text-input form-control bg-mywhite border border-myprimary px-1 text-uppercase">
+        </div> -->
+
+        <div class="col-3 mx-auto form-group">
+            <label for="dateBL" class="form-label fw-bold">Date bordereau</label>
+            <input type="text" name="dateBL" id="dateBL" ngbDatepicker #dp1="ngbDatepicker" (click)="dp1.toggle()" required ngModel class="text-input form-control bg-mywhite border border-myprimary px-1 text-uppercase">
         </div>
 
         <div class="col-3 mx-auto form-group">
@@ -31,7 +36,7 @@
         <div class="col-3 mx-auto form-group">
             <label for="ninea" class="form-label fw-bold">Prestataire</label>
             <select name="ninea" id="ninea" required ngModel class="form-select text-input form-control bg-mywhite border  border-myprimary px-1 text-uppercase">
-                <option *ngFor="let prestataire of prestataires" [value]="prestataire">
+                <option *ngFor="let prestataire of prestataires" [ngValue]="prestataire">
                     {{ prestataire.ninea }}
                 </option>
             </select>
@@ -45,10 +50,28 @@
         </div>
 
         <div class="col-3 mx-auto form-group">
+            <label for="codeSection" class="form-label fw-bold">Section</label>
+            <select name="codeSection" id="codeSection" required ngModel class="form-select text-input form-control bg-mywhite border  border-myprimary px-1 text-uppercase">
+                <option *ngFor="let section of sections" [ngValue]="section">
+                    {{ section.codeSection }}
+                </option>
+            </select>
         </div>
 
         <div class="col-3 mx-auto form-group">
+            <label for="matriculeAgent" class="form-label fw-bold">Agent</label>
+            <select name="matriculeAgent" id="matriculeAgent" required ngModel class="form-select text-input form-control bg-mywhite border  border-myprimary px-1 text-uppercase">
+                <option *ngFor="let agent of agents" [ngValue]="agent">
+                    {{ agent.matriculeAgent }}
+                </option>
+            </select>
         </div>
+
+        <!-- <div class="col-3 mx-auto form-group">
+        </div>
+
+        <div class="col-3 mx-auto form-group">
+        </div> -->
     </div>
 
 
