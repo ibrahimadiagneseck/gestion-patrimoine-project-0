@@ -27,11 +27,19 @@ export class BordereauLivraisonComponent implements OnInit, OnDestroy {
   public prestataires: Prestataires[] = [];
   public prestataire: Prestataires = new Prestataires();
 
+  public sections: Sections[] = [];
+  public section: Sections = new Sections();
+
+  public agents: Agent[] = [];
+  public agent: Agent = new Agent();
+
   private subscriptions: Subscription[] = [];
 
   constructor(
     private prestatairesService: PrestatairesService,
-    private bordereauLivraisonService: BordereauLivraisonService
+    private bordereauLivraisonService: BordereauLivraisonService,
+    private sectionsService: SectionsService,
+    private agentService: AgentService
   ) { }
 
   ngOnDestroy(): void {
@@ -40,6 +48,8 @@ export class BordereauLivraisonComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.listePrestataires();
+    this.listeAgent();
+    this.listeSections();
   }
 
 
@@ -51,6 +61,46 @@ export class BordereauLivraisonComponent implements OnInit, OnDestroy {
     const subscription = this.prestatairesService.listePrestataires().subscribe({
       next: (response: Prestataires[]) => {
         this.prestataires = response;
+        // console.log(this.prestataires);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listeSections(): void {
+
+    const subscription = this.sectionsService.listeSections().subscribe({
+      next: (response: Sections[]) => {
+        this.sections = response;
+        // console.log(this.prestataires);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listeAgent(): void {
+
+    const subscription = this.agentService.listeAgents().subscribe({
+      next: (response: Agent[]) => {
+        this.agents = response;
         // console.log(this.prestataires);
         
       },
