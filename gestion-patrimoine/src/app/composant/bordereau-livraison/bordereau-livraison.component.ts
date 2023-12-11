@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { BonEntree } from 'src/app/model/bon-entree.model';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -13,6 +13,7 @@ import { BordereauLivraisonService } from 'src/app/services/bordereau-livraison.
 import { AgentService } from 'src/app/services/agent.service';
 import { Prestataires } from 'src/app/model/prestataires.model';
 import { PrestatairesService } from 'src/app/services/prestataires.service';
+import { MyDate } from 'src/app/model/date.model';
 
 @Component({
   selector: 'app-bordereau-livraison',
@@ -129,22 +130,48 @@ export class BordereauLivraisonComponent implements OnInit, OnDestroy {
 
   public ajouterBordereauLivraison(bordereauLivraisonForm: NgForm): void {
 
-    const formData = this.bordereauLivraisonService.createBordereauLivraisonFormData(bordereauLivraisonForm.value);
-    console.log(bordereauLivraisonForm.value);
+    // -------------------------------------------------------------------------- METHODE 1
+    // const formData = this.bordereauLivraisonService.createBordereauLivraisonFormData(bordereauLivraisonForm.value);
 
-    this.subscriptions.push(
-      this.bordereauLivraisonService.ajouterBordereauLivraisonRequestParam(formData).subscribe({
+    // this.subscriptions.push(this.bordereauLivraisonService.ajouterBordereauLivraisonRequestParam(formData).subscribe({
+    //     next: (response: BordereauLivraison) => {
+    //       console.log(response);
+          
+    //     },
+    //     error: (errorResponse: HttpErrorResponse) => {
+
+    //     }
+    //   })
+    // );
+
+    // -------------------------------------------------------------------------- METHODE 2
+    const dateBL: MyDate = bordereauLivraisonForm.value.dateBL;
+    const formattedDate = this.bordereauLivraisonService.formatterMyDate(dateBL);
+
+    // const bordereauLivraisonForm1: NgForm = bordereauLivraisonForm;
+    // bordereauLivraisonForm.control.get('dateBL')?.patchValue(formattedDate);
+    // bordereauLivraisonForm.control.get('dateBL')?.setValue(formattedDate);
+    
+    const bordereauLivraison: any = bordereauLivraisonForm.value;
+    if (formattedDate) {
+      bordereauLivraison.dateBL = formattedDate;
+    }
+    
+    console.log(bordereauLivraison);
+    
+
+    this.subscriptions.push(this.bordereauLivraisonService.ajouterBordereauLivraison(bordereauLivraisonForm.value).subscribe({
         next: (response: BordereauLivraison) => {
-
+          
         },
         error: (errorResponse: HttpErrorResponse) => {
 
         }
       })
     );
+
   }
 
   // --------------------------------------------------------------------------
-
 
 }

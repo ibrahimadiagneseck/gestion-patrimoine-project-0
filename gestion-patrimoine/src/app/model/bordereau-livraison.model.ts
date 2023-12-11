@@ -16,22 +16,44 @@ export class BordereauLivraison {
   public codeSection: Sections;
   public ninea: Prestataires;
   public matriculeAgent: Agent;
+  control: any;
   // public dateEnregistrement: number;
 
 
-  constructor() {
-    // this.identifiantBL = '';
-    this.numeroBL = '';
-    this.descriptionBL = '';
-    this.lieuDeLivraison = '';
-    this.dateBL = new MyDate();
-    this.conformiteBL ='';
-    this.nomLivreur ='';
-    this.codeSection = new Sections() ;
-    this.ninea = new Prestataires() ;
-    this.matriculeAgent = new Agent() ;
-    // this.dateEnregistrement = new Date().getTime();
+  // constructor() {
+  //   // this.identifiantBL = '';
+  //   this.numeroBL = '';
+  //   this.descriptionBL = '';
+  //   this.lieuDeLivraison = '';
+  //   this.dateBL = new MyDate();
+  //   this.conformiteBL ='';
+  //   this.nomLivreur ='';
+  //   this.codeSection = new Sections() ;
+  //   this.ninea = new Prestataires() ;
+  //   this.matriculeAgent = new Agent() ;
+  //   // this.dateEnregistrement = new Date().getTime();
+  // }
+
+  constructor(
+    numeroBL: string = '',
+    descriptionBL: string = '',
+    lieuDeLivraison: string = '',
+    dateBL: MyDate = new MyDate(),
+    conformiteBL: string = '',
+    nomLivreur: string = '',
+    codeSection: Sections = new Sections(),
+    ninea: Prestataires = new Prestataires(),
+    matriculeAgent: Agent = new Agent()
+  ) {
+    this.numeroBL = numeroBL;
+    this.descriptionBL = descriptionBL;
+    this.lieuDeLivraison = lieuDeLivraison;
+    this.dateBL = dateBL;
+    this.conformiteBL = conformiteBL;
+    this.nomLivreur = nomLivreur;
+    this.codeSection = codeSection;
+    this.ninea = ninea;
+    this.matriculeAgent = matriculeAgent;
   }
-
-
+  
 }
