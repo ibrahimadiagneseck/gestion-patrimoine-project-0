@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CustomHttpRespone } from '../model/custom-http-response.model';
 import { BonEntree } from '../model/bon-entree.model';
+import { MyDate } from '../model/date.model';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -86,22 +88,33 @@ export class BonEntreeService {
   }
 
 
-
-
   public createBonEntreeFormData(bonEntree: BonEntree): FormData {
 
     const formData = new FormData();
 
+    const formattedDate = this.formatterMyDate(bonEntree.dateBonEntree);
+
     formData.append('numeroBE', bonEntree.numeroBE);
     formData.append('libelleBonEntree', bonEntree.libelleBonEntree);
-    formData.append('dateBonEntree', JSON.stringify(bonEntree.dateBonEntree));
+    formData.append('dateBonEntree', formattedDate);
     formData.append('observationBonEntree', bonEntree.observationBonEntree);
-    formData.append('identifiantBL', JSON.stringify(bonEntree.identifiantBL));
+    formData.append('identifiantBL', bonEntree.identifiantBL.identifiantBL);
 
     return formData;
   }
 
+public formatterMyDate(myDate: MyDate): string  {
+  if (!myDate || !myDate.year || !myDate.month || !myDate.day) {
+      return ''; 
+  }
 
+  const { year, month, day } = myDate;
+  const date = new Date(year, month - 1, day);
+
+  const datePipe = new DatePipe('en-US');
+  const formattedDate = datePipe.transform(date, 'yyyy-MM-dd') || '';
+  return formattedDate;
+}
 
 
 

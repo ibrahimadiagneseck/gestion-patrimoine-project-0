@@ -16,13 +16,13 @@ import { PrestatairesService } from 'src/app/services/prestataires.service';
 import { MyDate } from 'src/app/model/date.model';
 
 @Component({
-  selector: 'app-bordereau-livraison',
+  selector: 'app-bordereau-livraison-ajouter',
   // standalone: true,
   // imports: [CommonModule],
-  templateUrl: './bordereau-livraison.component.html',
-  styleUrl: './bordereau-livraison.component.css'
+  templateUrl: './bordereau-livraison-ajouter.component.html',
+  styleUrl: './bordereau-livraison-ajouter.component.css'
 })
-export class BordereauLivraisonComponent implements OnInit, OnDestroy {
+export class BordereauLivraisonAjouterComponent implements OnInit, OnDestroy {
 
 
   public prestataires: Prestataires[] = [];
@@ -152,16 +152,21 @@ export class BordereauLivraisonComponent implements OnInit, OnDestroy {
     // bordereauLivraisonForm.control.get('dateBL')?.patchValue(formattedDate);
     // bordereauLivraisonForm.control.get('dateBL')?.setValue(formattedDate);
     
-    const bordereauLivraison: any = bordereauLivraisonForm.value;
+
     if (formattedDate) {
-      bordereauLivraison.dateBL = formattedDate;
+      bordereauLivraisonForm.value.dateBL = formattedDate;
     }
     
-    console.log(bordereauLivraison);
-    
+    // SECTION ET AGENT
+    bordereauLivraisonForm.value.codeSection = this.sections[0];
+    bordereauLivraisonForm.value.matriculeAgent = this.agents[0];
 
+    console.log(bordereauLivraisonForm.value);
+    
+    
     this.subscriptions.push(this.bordereauLivraisonService.ajouterBordereauLivraison(bordereauLivraisonForm.value).subscribe({
         next: (response: BordereauLivraison) => {
+          console.log(response);
           
         },
         error: (errorResponse: HttpErrorResponse) => {

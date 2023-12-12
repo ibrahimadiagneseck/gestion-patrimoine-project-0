@@ -4,36 +4,40 @@
         Ajouter
     </div>
 
-    <div class="text-center fw-bolder bg-myprimary mt-3" role="alert">
-        Bordereau Livraison
-    </div>
-    
-
     <div class="card-body">
-        <div class="container px-3 py-2">
-            <app-bordereau-livraison></app-bordereau-livraison>
+        <div class="text-center fw-bolder bg-myprimary mt-1" role="alert">
+            Bordereau Livraison
         </div>
-        
-        <hr class="text-myyellow">
 
         <div class="container px-3 py-2">
-            <app-bon-entree></app-bon-entree>
+            <app-bordereau-livraison-ajouter></app-bordereau-livraison-ajouter>
         </div>
-    </div>
 
-    <div class="container px-3 py-2">
-        <div class="row mt-5">
-            <div class="col-12 text-end">
-                <button (click)="submitForm()" type="button" class="btn btn-myprimary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour ajouter">
-                    Valider
-                </button>
+        <div class="text-center fw-bolder bg-myprimary mt-1" role="alert">
+            Bon d'Entrée
+        </div>
+
+        <div class="container px-3 py-2">
+            <app-bon-entree-ajouter></app-bon-entree-ajouter>
+        </div>
+
+        <div class="container px-3 py-2">
+            <div class="row">
+                <div class="col-12 text-end">
+                    <button (click)="submitForm()" type="button" class="btn btn-myprimary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour ajouter">
+                        Valider
+                    </button>
     
-                <button (click)="popupFermer()" type="button" class="btn btn-mysecondary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour retourner">
-                    Retour
-                </button>
+                    <button type="button" disabled class="btn btn-mysecondary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour retourner">
+                        Ajouter article
+                    </button>
+        
+                    <button (click)="popupFermer()" type="button" class="btn btn-mysecondary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour retourner">
+                        Retour
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-
 
 </div>

@@ -1,6 +1,8 @@
 package sn.douanes.gestionstockpostgres.controllers;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,8 +44,9 @@ public class BordereauLivraisonController {
     @PostMapping("/AjouterBordereauLivraison")
     @ResponseBody
     public BordereauLivraison AjouterBordereauLivraison(@RequestBody BordereauLivraison bordereauLivraison) {
-        bordereauLivraison.setIdentifiantBL("BLSG202312031243219");
-        return bordereauLivraisonService.saveBordereauLivraison(bordereauLivraison);
+
+        // return bordereauLivraisonService.saveBordereauLivraison(bordereauLivraison);
+        return bordereauLivraisonService.ajouterBordereauLivraison(bordereauLivraison.getNumeroBL(), bordereauLivraison.getDescriptionBL(), bordereauLivraison.getLieuDeLivraison(), bordereauLivraison.getDateBL(), bordereauLivraison.getConformiteBL(), bordereauLivraison.getNomLivreur(), bordereauLivraison.getCodeSection(), bordereauLivraison.getNinea(), bordereauLivraison.getMatriculeAgent());
     }
 
 

@@ -149,7 +149,6 @@ export class ReceptionVehiculeListeComponent implements OnInit, OnDestroy {
   generatePDF(): void {
 
     const data: BonEntree[] = this.dataSource.filteredData;
-
     // console.log(data);
     
 
@@ -162,7 +161,7 @@ export class ReceptionVehiculeListeComponent implements OnInit, OnDestroy {
       item.rowNumber,
       item.numeroBE,
       item.libelleBonEntree,
-      `${new Date(item.dateBonEntree).getDate()} ${months[new Date(item.dateBonEntree).getMonth()]} ${new Date(item.dateBonEntree).getFullYear() % 100}`,
+      `${new Date(item.dateBonEntree.toString()).getDate()} ${months[new Date(item.dateBonEntree.toString()).getMonth()]} ${new Date(item.dateBonEntree.toString()).getFullYear() % 100}`,
       item.observationBonEntree,
       item.rowNombreArticleBonEntree
     ]);

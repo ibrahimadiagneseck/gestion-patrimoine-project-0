@@ -17,10 +17,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
-import { BonEntreeComponent } from './bon-entree/bon-entree.component';
-import { ArticleBonEntreeComponent } from './article-bon-entree/article-bon-entree.component';
-import { VehiculeComponent } from './vehicule/vehicule.component';
-import { BordereauLivraisonComponent } from './bordereau-livraison/bordereau-livraison.component';
+import { BonEntreeAjouterComponent } from './bon-entree-ajouter/bon-entree-ajouter.component';
+import { ArticleBonEntreeAjouterComponent } from './article-bon-entree-ajouter/article-bon-entree-ajouter.component';
+import { BordereauLivraisonAjouterComponent } from './bordereau-livraison-ajouter/bordereau-livraison-ajouter.component';
+import { VehiculeAjouterComponent } from './vehicule-ajouter/vehicule-ajouter.component';
+
+
 
 
 
@@ -31,10 +33,10 @@ import { BordereauLivraisonComponent } from './bordereau-livraison/bordereau-liv
     EnteteComponent,
     MenuComponent,
     PopupConfirmationSupprimerComponent,
-    BonEntreeComponent,
-    ArticleBonEntreeComponent,
-    BordereauLivraisonComponent,
-    VehiculeComponent
+    BonEntreeAjouterComponent,
+    ArticleBonEntreeAjouterComponent,
+    BordereauLivraisonAjouterComponent,
+    VehiculeAjouterComponent
   ],
   imports: [
     BrowserModule,
@@ -58,10 +60,10 @@ import { BordereauLivraisonComponent } from './bordereau-livraison/bordereau-liv
     EnteteComponent,
     MenuComponent,
     PopupConfirmationSupprimerComponent,
-    BonEntreeComponent,
-    ArticleBonEntreeComponent,
-    BordereauLivraisonComponent,
-    VehiculeComponent
+    BonEntreeAjouterComponent,
+    ArticleBonEntreeAjouterComponent,
+    BordereauLivraisonAjouterComponent,
+    VehiculeAjouterComponent
   ]
 })
 export class ComposantModule { }

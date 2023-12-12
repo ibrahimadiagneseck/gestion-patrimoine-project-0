@@ -1,4 +1,5 @@
 import { BordereauLivraison } from "./bordereau-livraison.model";
+import { MyDate } from "./date.model";
 
 export class BonEntree {
 
@@ -6,21 +7,30 @@ export class BonEntree {
   public identifiantBE: string;
   public numeroBE: string;
   public libelleBonEntree: string;
-  public dateBonEntree: Date;
+  public dateBonEntree: MyDate;
   public observationBonEntree:string;
   public identifiantBL: BordereauLivraison;
   public rowNombreArticleBonEntree: number;
 
 
-  constructor() {
-    this.rowNumber = 0;
-    this.identifiantBE = '';
-    this.numeroBE = '';
-    this.libelleBonEntree = '';
-    this.dateBonEntree = new Date();
-    this.observationBonEntree = '';
-    this.identifiantBL = new BordereauLivraison() ;
-    this.rowNombreArticleBonEntree = 0;
+  constructor(
+    rowNumber = 0,
+    identifiantBE = '',
+    numeroBE = '',
+    libelleBonEntree = '',
+    dateBonEntree = new MyDate(),
+    observationBonEntree = '',
+    identifiantBL = new BordereauLivraison(),
+    rowNombreArticleBonEntree = 0
+  ) {
+    this.rowNumber = rowNumber;
+    this.identifiantBE = identifiantBE;
+    this.numeroBE = numeroBE;
+    this.libelleBonEntree = libelleBonEntree;
+    this.dateBonEntree = dateBonEntree;
+    this.observationBonEntree = observationBonEntree;
+    this.identifiantBL = identifiantBL;
+    this.rowNombreArticleBonEntree = rowNombreArticleBonEntree;
   }
 
 }

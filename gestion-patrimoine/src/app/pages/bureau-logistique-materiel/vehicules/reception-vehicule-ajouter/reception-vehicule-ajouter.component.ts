@@ -43,8 +43,8 @@ export class ReceptionVehiculeAjouterComponent implements OnInit, OnDestroy {
 
   // pour envoyer tous les formulaires
   public submitForm(): void { 
-    this.clickButton('submit-form');
     this.clickButton('bordereau-livraison-form');
+    this.clickButton('bon-entree-form');
   }
 
 

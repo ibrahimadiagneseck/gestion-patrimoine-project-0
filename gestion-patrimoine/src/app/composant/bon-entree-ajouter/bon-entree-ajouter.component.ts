@@ -13,15 +13,16 @@ import { BordereauLivraisonService } from 'src/app/services/bordereau-livraison.
 import { AgentService } from 'src/app/services/agent.service';
 import { Prestataires } from 'src/app/model/prestataires.model';
 import { PrestatairesService } from 'src/app/services/prestataires.service';
+import { MyDate } from 'src/app/model/date.model';
 
 @Component({
-  selector: 'app-bon-entree',
+  selector: 'app-bon-entree-ajouter',
   // standalone: true,
   // imports: [CommonModule],
-  templateUrl: './bon-entree.component.html',
-  styleUrl: './bon-entree.component.css'
+  templateUrl: './bon-entree-ajouter.component.html',
+  styleUrl: './bon-entree-ajouter.component.css'
 })
-export class BonEntreeComponent implements OnInit, OnDestroy {
+export class BonEntreeAjouterComponent implements OnInit, OnDestroy {
 
   public bonEntrees: BonEntree[] = [];
   public bonEntree: BonEntree = new BonEntree();
@@ -41,10 +42,10 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private bonEntreeService: BonEntreeService,
     private sectionsService: SectionsService,
     private prestatairesService: PrestatairesService,
     private bordereauLivraisonService: BordereauLivraisonService,
+    private bonEntreeService: BonEntreeService,
     private agentService: AgentService
   ) { }
 
@@ -140,48 +141,58 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
   // ---------------------------------------------------------------------------------------------------------------------
   // ---------------------------------------------------------------------------------------------------------------------
 
-  // public ajouterBonEntree(bonEntreeForm: NgForm): void {
 
-  //   const formData = this.bonEntreeService.createBonEntreeFormData(bonEntreeForm.value);
-
-  //   console.log(formData);
-
-  //   this.subscriptions.push(
-  //     this.bonEntreeService.ajouterBonEntree(formData).subscribe({
-  //       next: (response: BonEntree) => {
-
-  //       },
-  //       error: (errorResponse: HttpErrorResponse) => {
-
-  //       }
-  //     })
-  //   );
-  // }
 
 
   // --------------------------------------------------------------------------
-
   private clickButton(buttonId: string): void {
     document.getElementById(buttonId)?.click();
   }
 
-  // pour executer ajouterBordereauLivraison
-  public submitBordereauLivraisonForm(): void { 
-    this.clickButton('bordereau-livraison-form')
+  // pour executer ajouterBonEntree
+  public submitBonEntreeForm(): void { 
+    this.clickButton('bon-entree-form')
   }
 
-  public ajouterBordereauLivraison(bordereauLivraisonForm: NgForm): void {
+  public ajouterBonEntree(bonEntreeForm: NgForm): void {
 
-    const formData = this.bordereauLivraisonService.createBordereauLivraisonFormData(bordereauLivraisonForm.value);
+    // -------------------------------------------------------------------------- METHODE 1
+    // const formData = this.bonEntreeService.createBonEntreeFormData(bonEntreeForm.value);
 
+    // this.subscriptions.push(this.bonEntreeService.ajouterBonEntreeRequestParam(formData).subscribe({
+    //     next: (response: BonEntree) => {
+    //       console.log(response);
+          
+    //     },
+    //     error: (errorResponse: HttpErrorResponse) => {
+
+    //     }
+    //   })
+    // );
+
+    // -------------------------------------------------------------------------- METHODE 2
+    const dateBL: MyDate = bonEntreeForm.value.dateBonEntree;
+    const formattedDate = this.bonEntreeService.formatterMyDate(dateBL);
+
+    // const bordereauLivraisonForm1: NgForm = bordereauLivraisonForm;
+    // bordereauLivraisonForm.control.get('dateBL')?.patchValue(formattedDate);
+    // bordereauLivraisonForm.control.get('dateBL')?.setValue(formattedDate);
     
 
-    console.log(bordereauLivraisonForm.value);
+    if (formattedDate) {
+      bonEntreeForm.value.dateBonEntree = formattedDate;
+    }
+    
+    // BORDEREAU LIVRAISON
+    bonEntreeForm.value.identifiantBL = this.bordereauLivraisons[0];
 
-    this.subscriptions.push(
-      this.bordereauLivraisonService.ajouterBordereauLivraisonRequestParam(formData).subscribe({
-        next: (response: BordereauLivraison) => {
-
+    console.log(bonEntreeForm.value);
+    
+    
+    this.subscriptions.push(this.bonEntreeService.ajouterBonEntree(bonEntreeForm.value).subscribe({
+        next: (response: BonEntree) => {
+          console.log(response);
+          
         },
         error: (errorResponse: HttpErrorResponse) => {
 
@@ -189,7 +200,6 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
       })
     );
   }
-
   // --------------------------------------------------------------------------
 
 
