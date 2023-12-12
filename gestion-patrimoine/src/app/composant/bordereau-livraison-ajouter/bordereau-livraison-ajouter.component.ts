@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { BonEntree } from 'src/app/model/bon-entree.model';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -13,27 +13,23 @@ import { BordereauLivraisonService } from 'src/app/services/bordereau-livraison.
 import { AgentService } from 'src/app/services/agent.service';
 import { Prestataires } from 'src/app/model/prestataires.model';
 import { PrestatairesService } from 'src/app/services/prestataires.service';
+import { MyDate } from 'src/app/model/date.model';
 
 @Component({
-  selector: 'app-bon-entree',
+  selector: 'app-bordereau-livraison-ajouter',
   // standalone: true,
   // imports: [CommonModule],
-  templateUrl: './bon-entree.component.html',
-  styleUrl: './bon-entree.component.css'
+  templateUrl: './bordereau-livraison-ajouter.component.html',
+  styleUrl: './bordereau-livraison-ajouter.component.css'
 })
-export class BonEntreeComponent implements OnInit, OnDestroy {
+export class BordereauLivraisonAjouterComponent implements OnInit, OnDestroy {
 
-  public bonEntrees: BonEntree[] = [];
-  public bonEntree: BonEntree = new BonEntree();
-
-  public sections: Sections[] = [];
-  public section: Sections = new Sections();
 
   public prestataires: Prestataires[] = [];
   public prestataire: Prestataires = new Prestataires();
 
-  public bordereauLivraisons: BordereauLivraison[] = [];
-  public bordereauLivraison: BordereauLivraison = new BordereauLivraison();
+  public sections: Sections[] = [];
+  public section: Sections = new Sections();
 
   public agents: Agent[] = [];
   public agent: Agent = new Agent();
@@ -41,10 +37,9 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private bonEntreeService: BonEntreeService,
-    private sectionsService: SectionsService,
     private prestatairesService: PrestatairesService,
     private bordereauLivraisonService: BordereauLivraisonService,
+    private sectionsService: SectionsService,
     private agentService: AgentService
   ) { }
 
@@ -53,31 +48,11 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.listeSections();
-    this.listeBordereauLivraisons();
-    this.listeAgents();
     this.listePrestataires();
+    this.listeAgent();
+    this.listeSections();
   }
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  // ---------------------------------------------------------------------------------------------------------------------
-  public listeSections(): void {
-
-    const subscription = this.sectionsService.listeSections().subscribe({
-      next: (response: Sections[]) => {
-        this.sections = response;
-        // console.log(this.sections);
-        
-      },
-      error: (errorResponse: HttpErrorResponse) => {
-        // console.log(errorResponse);
-      },
-    });
-
-    this.subscriptions.push(subscription);
-  }
-  // ---------------------------------------------------------------------------------------------------------------------
-  // ---------------------------------------------------------------------------------------------------------------------
 
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -102,12 +77,12 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
 
   // ---------------------------------------------------------------------------------------------------------------------
   // ---------------------------------------------------------------------------------------------------------------------
-  public listeBordereauLivraisons(): void {
+  public listeSections(): void {
 
-    const subscription = this.bordereauLivraisonService.listeBordereauLivraisons().subscribe({
-      next: (response: BordereauLivraison[]) => {
-        this.bordereauLivraisons = response;
-        // console.log(this.bordereauLivraisons);
+    const subscription = this.sectionsService.listeSections().subscribe({
+      next: (response: Sections[]) => {
+        this.sections = response;
+        // console.log(this.prestataires);
         
       },
       error: (errorResponse: HttpErrorResponse) => {
@@ -122,12 +97,12 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
 
   // ---------------------------------------------------------------------------------------------------------------------
   // ---------------------------------------------------------------------------------------------------------------------
-  public listeAgents(): void {
+  public listeAgent(): void {
 
     const subscription = this.agentService.listeAgents().subscribe({
       next: (response: Agent[]) => {
         this.agents = response;
-        // console.log(this.agents);
+        // console.log(this.prestataires);
         
       },
       error: (errorResponse: HttpErrorResponse) => {
@@ -140,23 +115,6 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
   // ---------------------------------------------------------------------------------------------------------------------
   // ---------------------------------------------------------------------------------------------------------------------
 
-  // public ajouterBonEntree(bonEntreeForm: NgForm): void {
-
-  //   const formData = this.bonEntreeService.createBonEntreeFormData(bonEntreeForm.value);
-
-  //   console.log(formData);
-
-  //   this.subscriptions.push(
-  //     this.bonEntreeService.ajouterBonEntree(formData).subscribe({
-  //       next: (response: BonEntree) => {
-
-  //       },
-  //       error: (errorResponse: HttpErrorResponse) => {
-
-  //       }
-  //     })
-  //   );
-  // }
 
 
   // --------------------------------------------------------------------------
@@ -172,25 +130,53 @@ export class BonEntreeComponent implements OnInit, OnDestroy {
 
   public ajouterBordereauLivraison(bordereauLivraisonForm: NgForm): void {
 
-    const formData = this.bordereauLivraisonService.createBordereauLivraisonFormData(bordereauLivraisonForm.value);
+    // -------------------------------------------------------------------------- METHODE 1
+    // const formData = this.bordereauLivraisonService.createBordereauLivraisonFormData(bordereauLivraisonForm.value);
 
+    // this.subscriptions.push(this.bordereauLivraisonService.ajouterBordereauLivraisonRequestParam(formData).subscribe({
+    //     next: (response: BordereauLivraison) => {
+    //       console.log(response);
+          
+    //     },
+    //     error: (errorResponse: HttpErrorResponse) => {
+
+    //     }
+    //   })
+    // );
+
+    // -------------------------------------------------------------------------- METHODE 2
+    const dateBL: MyDate = bordereauLivraisonForm.value.dateBL;
+    const formattedDate = this.bordereauLivraisonService.formatterMyDate(dateBL);
+
+    // const bordereauLivraisonForm1: NgForm = bordereauLivraisonForm;
+    // bordereauLivraisonForm.control.get('dateBL')?.patchValue(formattedDate);
+    // bordereauLivraisonForm.control.get('dateBL')?.setValue(formattedDate);
     
 
+    if (formattedDate) {
+      bordereauLivraisonForm.value.dateBL = formattedDate;
+    }
+    
+    // SECTION ET AGENT
+    bordereauLivraisonForm.value.codeSection = this.sections[0];
+    bordereauLivraisonForm.value.matriculeAgent = this.agents[0];
+
     console.log(bordereauLivraisonForm.value);
-
-    this.subscriptions.push(
-      this.bordereauLivraisonService.ajouterBordereauLivraisonRequestParam(formData).subscribe({
+    
+    
+    this.subscriptions.push(this.bordereauLivraisonService.ajouterBordereauLivraison(bordereauLivraisonForm.value).subscribe({
         next: (response: BordereauLivraison) => {
-
+          console.log(response);
+          
         },
         error: (errorResponse: HttpErrorResponse) => {
 
         }
       })
     );
+
   }
 
   // --------------------------------------------------------------------------
-
 
 }

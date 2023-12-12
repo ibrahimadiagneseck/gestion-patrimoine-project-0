@@ -13,22 +13,28 @@ import { BordereauLivraisonService } from 'src/app/services/bordereau-livraison.
 import { AgentService } from 'src/app/services/agent.service';
 import { Prestataires } from 'src/app/model/prestataires.model';
 import { PrestatairesService } from 'src/app/services/prestataires.service';
+import { MyDate } from 'src/app/model/date.model';
 
 @Component({
-  selector: 'app-bordereau-livraison',
+  selector: 'app-bon-entree-ajouter',
   // standalone: true,
   // imports: [CommonModule],
-  templateUrl: './bordereau-livraison.component.html',
-  styleUrl: './bordereau-livraison.component.css'
+  templateUrl: './bon-entree-ajouter.component.html',
+  styleUrl: './bon-entree-ajouter.component.css'
 })
-export class BordereauLivraisonComponent implements OnInit, OnDestroy {
+export class BonEntreeAjouterComponent implements OnInit, OnDestroy {
 
+  public bonEntrees: BonEntree[] = [];
+  public bonEntree: BonEntree = new BonEntree();
+
+  public sections: Sections[] = [];
+  public section: Sections = new Sections();
 
   public prestataires: Prestataires[] = [];
   public prestataire: Prestataires = new Prestataires();
 
-  public sections: Sections[] = [];
-  public section: Sections = new Sections();
+  public bordereauLivraisons: BordereauLivraison[] = [];
+  public bordereauLivraison: BordereauLivraison = new BordereauLivraison();
 
   public agents: Agent[] = [];
   public agent: Agent = new Agent();
@@ -36,9 +42,10 @@ export class BordereauLivraisonComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
+    private sectionsService: SectionsService,
     private prestatairesService: PrestatairesService,
     private bordereauLivraisonService: BordereauLivraisonService,
-    private sectionsService: SectionsService,
+    private bonEntreeService: BonEntreeService,
     private agentService: AgentService
   ) { }
 
@@ -47,11 +54,31 @@ export class BordereauLivraisonComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.listePrestataires();
-    this.listeAgent();
     this.listeSections();
+    this.listeBordereauLivraisons();
+    this.listeAgents();
+    this.listePrestataires();
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listeSections(): void {
+
+    const subscription = this.sectionsService.listeSections().subscribe({
+      next: (response: Sections[]) => {
+        this.sections = response;
+        // console.log(this.sections);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
 
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -76,12 +103,12 @@ export class BordereauLivraisonComponent implements OnInit, OnDestroy {
 
   // ---------------------------------------------------------------------------------------------------------------------
   // ---------------------------------------------------------------------------------------------------------------------
-  public listeSections(): void {
+  public listeBordereauLivraisons(): void {
 
-    const subscription = this.sectionsService.listeSections().subscribe({
-      next: (response: Sections[]) => {
-        this.sections = response;
-        // console.log(this.prestataires);
+    const subscription = this.bordereauLivraisonService.listeBordereauLivraisons().subscribe({
+      next: (response: BordereauLivraison[]) => {
+        this.bordereauLivraisons = response;
+        // console.log(this.bordereauLivraisons);
         
       },
       error: (errorResponse: HttpErrorResponse) => {
@@ -96,12 +123,12 @@ export class BordereauLivraisonComponent implements OnInit, OnDestroy {
 
   // ---------------------------------------------------------------------------------------------------------------------
   // ---------------------------------------------------------------------------------------------------------------------
-  public listeAgent(): void {
+  public listeAgents(): void {
 
     const subscription = this.agentService.listeAgents().subscribe({
       next: (response: Agent[]) => {
         this.agents = response;
-        // console.log(this.prestataires);
+        // console.log(this.agents);
         
       },
       error: (errorResponse: HttpErrorResponse) => {
@@ -116,26 +143,56 @@ export class BordereauLivraisonComponent implements OnInit, OnDestroy {
 
 
 
-  // --------------------------------------------------------------------------
 
+  // --------------------------------------------------------------------------
   private clickButton(buttonId: string): void {
     document.getElementById(buttonId)?.click();
   }
 
-  // pour executer ajouterBordereauLivraison
-  public submitBordereauLivraisonForm(): void { 
-    this.clickButton('bordereau-livraison-form')
+  // pour executer ajouterBonEntree
+  public submitBonEntreeForm(): void { 
+    this.clickButton('bon-entree-form')
   }
 
-  public ajouterBordereauLivraison(bordereauLivraisonForm: NgForm): void {
+  public ajouterBonEntree(bonEntreeForm: NgForm): void {
 
-    const formData = this.bordereauLivraisonService.createBordereauLivraisonFormData(bordereauLivraisonForm.value);
-    console.log(bordereauLivraisonForm.value);
+    // -------------------------------------------------------------------------- METHODE 1
+    // const formData = this.bonEntreeService.createBonEntreeFormData(bonEntreeForm.value);
 
-    this.subscriptions.push(
-      this.bordereauLivraisonService.ajouterBordereauLivraisonRequestParam(formData).subscribe({
-        next: (response: BordereauLivraison) => {
+    // this.subscriptions.push(this.bonEntreeService.ajouterBonEntreeRequestParam(formData).subscribe({
+    //     next: (response: BonEntree) => {
+    //       console.log(response);
+          
+    //     },
+    //     error: (errorResponse: HttpErrorResponse) => {
 
+    //     }
+    //   })
+    // );
+
+    // -------------------------------------------------------------------------- METHODE 2
+    const dateBL: MyDate = bonEntreeForm.value.dateBonEntree;
+    const formattedDate = this.bonEntreeService.formatterMyDate(dateBL);
+
+    // const bordereauLivraisonForm1: NgForm = bordereauLivraisonForm;
+    // bordereauLivraisonForm.control.get('dateBL')?.patchValue(formattedDate);
+    // bordereauLivraisonForm.control.get('dateBL')?.setValue(formattedDate);
+    
+
+    if (formattedDate) {
+      bonEntreeForm.value.dateBonEntree = formattedDate;
+    }
+    
+    // BORDEREAU LIVRAISON
+    bonEntreeForm.value.identifiantBL = this.bordereauLivraisons[0];
+
+    console.log(bonEntreeForm.value);
+    
+    
+    this.subscriptions.push(this.bonEntreeService.ajouterBonEntree(bonEntreeForm.value).subscribe({
+        next: (response: BonEntree) => {
+          console.log(response);
+          
         },
         error: (errorResponse: HttpErrorResponse) => {
 
@@ -143,7 +200,6 @@ export class BordereauLivraisonComponent implements OnInit, OnDestroy {
       })
     );
   }
-
   // --------------------------------------------------------------------------
 
 

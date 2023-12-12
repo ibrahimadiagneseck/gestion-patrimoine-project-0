@@ -61,7 +61,7 @@ public class BonEntreeServiceImpl implements BonEntreeService {
 
         BonEntree bonEntree = new BonEntree();
 
-        bonEntree.setIdentifiantBE(genererIdentifiantBE(bonEntree.getIdentifiantBL(), genererDateEnregistrement(bonEntree.getIdentifiantBL().getDateEnregistrement())));
+        bonEntree.setIdentifiantBE(genererIdentifiantBE(identifiantBL.getCodeSection().getCodeSection(), genererDateEnregistrement(identifiantBL.getDateEnregistrement())));
 
         bonEntree.setNumeroBE(numeroBE);
         bonEntree.setLibelleBonEntree(libelleBonEntree);
@@ -74,9 +74,9 @@ public class BonEntreeServiceImpl implements BonEntreeService {
     }
 
 
-    private String genererIdentifiantBE(BordereauLivraison bordereauLivraison, String dateEnregistrement) {
+    private String genererIdentifiantBE(String identifiantBL, String dateEnregistrement) {
         // Timestamp t = new Timestamp(System.currentTimeMillis())
-        return "BE" + bordereauLivraison.getCodeSection() + dateEnregistrement;
+        return "BE" + identifiantBL + dateEnregistrement;
     }
 
 

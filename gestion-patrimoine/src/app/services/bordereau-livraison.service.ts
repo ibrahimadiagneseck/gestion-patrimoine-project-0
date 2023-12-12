@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { CustomHttpRespone } from '../model/custom-http-response.model';
 import { BordereauLivraison } from '../model/bordereau-livraison.model';
 import { DatePipe } from '@angular/common';
+import { MyDate } from '../model/date.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,14 +44,7 @@ export class BordereauLivraisonService {
 
     const formData = new FormData();
 
-    const { year, month, day } = bordereauLivraison.dateBL;
-    
-    const date = new Date(year, month - 1, day);
-    const datePipe = new DatePipe('en-US');
-    const formattedDate = datePipe.transform(date, 'yyyy-MM-dd') ?? '';
-
-    // console.log(bordereauLivraison);
-    // console.log(formattedDate);
+    const formattedDate = this.formatterMyDate(bordereauLivraison.dateBL);
 
     formData.append('numeroBL', bordereauLivraison.numeroBL);
     formData.append('descriptionBL', bordereauLivraison.descriptionBL);
@@ -58,10 +52,26 @@ export class BordereauLivraisonService {
     formData.append('dateBL', formattedDate);
     formData.append('conformiteBL', bordereauLivraison.conformiteBL);
     formData.append('nomLivreur', bordereauLivraison.nomLivreur);
-    formData.append('codeSection', JSON.stringify(bordereauLivraison.codeSection));
-    formData.append('ninea', JSON.stringify(bordereauLivraison.ninea));
-    formData.append('matriculeAgent', JSON.stringify(bordereauLivraison.matriculeAgent));
-
+    formData.append('codeSection', bordereauLivraison.codeSection.codeSection);
+    formData.append('ninea', bordereauLivraison.ninea.ninea);
+    formData.append('matriculeAgent', bordereauLivraison.matriculeAgent.matriculeAgent);
+    formData.append('codeCorpsAgent', bordereauLivraison.matriculeAgent.codeCorpsAgent.codeCorpsAgent);
+    
     return formData;
   }
+
+
+  public formatterMyDate(myDate: MyDate): string  {
+      if (!myDate || !myDate.year || !myDate.month || !myDate.day) {
+          return ''; 
+      }
+
+      const { year, month, day } = myDate;
+      const date = new Date(year, month - 1, day);
+
+      const datePipe = new DatePipe('en-US');
+      const formattedDate = datePipe.transform(date, 'yyyy-MM-dd') || '';
+      return formattedDate;
+  }
+  
 }

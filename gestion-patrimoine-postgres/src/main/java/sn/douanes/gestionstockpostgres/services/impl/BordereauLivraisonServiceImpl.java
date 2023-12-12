@@ -51,7 +51,6 @@ public class BordereauLivraisonServiceImpl implements BordereauLivraisonService 
         return bordereauLivraisonRepository.findAll();
     }
 
-
     @Override
     public BordereauLivraison ajouterBordereauLivraison(
             String numeroBL,
@@ -68,7 +67,7 @@ public class BordereauLivraisonServiceImpl implements BordereauLivraisonService 
         BordereauLivraison bordereauLivraison = new BordereauLivraison();
 
         bordereauLivraison.setDateEnregistrement(new Timestamp(System.currentTimeMillis()));
-        bordereauLivraison.setIdentifiantBL(genererIdentifiantBE(bordereauLivraison.getCodeSection(), genererDateEnregistrement(bordereauLivraison.getDateEnregistrement())));
+        bordereauLivraison.setIdentifiantBL(genererIdentifiantBE(codeSection.getCodeSection(), genererDateEnregistrement(bordereauLivraison.getDateEnregistrement())));
 
         bordereauLivraison.setNumeroBL(numeroBL);
         bordereauLivraison.setDescriptionBL(descriptionBL);
@@ -84,21 +83,15 @@ public class BordereauLivraisonServiceImpl implements BordereauLivraisonService 
     }
 
 
-    private String genererIdentifiantBE(Sections sections, String dateEnregistrement) {
-        // Timestamp t = new Timestamp(System.currentTimeMillis())
-        return "BL" + sections.getCodeSection() + dateEnregistrement;
+    private String genererIdentifiantBE(String codeSection, String dateEnregistrement) {
+        // Timestamp t = new Timestamp(System.currentTimeMillis());
+         return "BL" + codeSection + dateEnregistrement;
     }
 
     private String genererDateEnregistrement(Timestamp dateEnregistrement) {
-        // Timestamp t = new Timestamp(System.currentTimeMillis())
+        // Timestamp t = new Timestamp(System.currentTimeMillis());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
         return dateEnregistrement.toLocalDateTime().format(formatter);
     }
-
-
-
-
-
-
 
 }

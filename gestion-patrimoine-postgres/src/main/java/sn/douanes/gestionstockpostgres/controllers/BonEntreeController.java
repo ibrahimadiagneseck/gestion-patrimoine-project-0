@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sn.douanes.gestionstockpostgres.entities.*;
 import sn.douanes.gestionstockpostgres.services.BonEntreeService;
+import sn.douanes.gestionstockpostgres.services.BordereauLivraisonService;
 
 import static org.springframework.http.HttpStatus.OK;
 
@@ -20,6 +21,8 @@ public class BonEntreeController {
 
     @Autowired
     BonEntreeService bonEntreeService;
+    @Autowired
+    BordereauLivraisonService bordereauLivraisonService;
 
 
     @GetMapping("/BonEntrees")
@@ -32,7 +35,8 @@ public class BonEntreeController {
     @PostMapping("/AjouterBonEntree")
     @ResponseBody
     public BonEntree AjouterBonEntree(@RequestBody BonEntree bonEntree) {
-        return bonEntreeService.saveBonEntree(bonEntree);
+        // return bonEntreeService.saveBonEntree(bonEntree);
+        return bonEntreeService.ajouterBonEntree(bonEntree.getNumeroBE(), bonEntree.getLibelleBonEntree(), bonEntree.getDateBonEntree(), bonEntree.getObservationBonEntree(), bonEntree.getIdentifiantBL());
     }
 
 
@@ -40,11 +44,13 @@ public class BonEntreeController {
     public ResponseEntity<BonEntree> ajouterBonEntree (
         @RequestParam("numeroBE") String numeroBE,
         @RequestParam("libelleBonEntree") String libelleBonEntree,
-        @RequestParam("dateBonEntree") Date dateBonEntree,
+        @RequestParam("dateBonEntree") String dateBonEntree,
         @RequestParam("observationBonEntree") String observationBonEntree,
-        @RequestParam("identifiantBL") BordereauLivraison identifiantBL
+        @RequestParam("identifiantBL") String identifiantBL
     ) {
-        BonEntree bonEntree = bonEntreeService.ajouterBonEntree(numeroBE,  libelleBonEntree,  dateBonEntree, observationBonEntree, identifiantBL);
+        BordereauLivraison bordereauLivraison = bordereauLivraisonService.getBordereauLivraisonById(identifiantBL);
+
+        BonEntree bonEntree = bonEntreeService.ajouterBonEntree(numeroBE,  libelleBonEntree,  Date.valueOf(dateBonEntree), observationBonEntree, bordereauLivraison);
         return new ResponseEntity<>(bonEntree, OK);
     }
 

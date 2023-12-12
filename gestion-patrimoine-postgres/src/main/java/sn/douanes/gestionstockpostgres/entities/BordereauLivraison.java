@@ -1,10 +1,7 @@
 package sn.douanes.gestionstockpostgres.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.sql.Date;
@@ -16,6 +13,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class BordereauLivraison {
 
     @Id

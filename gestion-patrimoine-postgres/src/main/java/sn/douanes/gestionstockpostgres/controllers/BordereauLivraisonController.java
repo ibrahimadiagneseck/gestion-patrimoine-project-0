@@ -1,6 +1,8 @@
 package sn.douanes.gestionstockpostgres.controllers;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sn.douanes.gestionstockpostgres.entities.*;
-import sn.douanes.gestionstockpostgres.services.BordereauLivraisonService;
+import sn.douanes.gestionstockpostgres.services.*;
 
 import static org.springframework.http.HttpStatus.OK;
 
@@ -23,6 +25,16 @@ public class BordereauLivraisonController {
     @Autowired
     BordereauLivraisonService bordereauLivraisonService;
 
+    @Autowired
+    SectionsService sectionsService;
+    @Autowired
+    PrestatairesService prestatairesService;
+    @Autowired
+    AgentService agentService;
+    @Autowired
+    CorpsAgentService corpsAgentService;
+
+
     @GetMapping("/BordereauLivraisons")
     public ResponseEntity<List<BordereauLivraison>> getAllBordereauLivraisons() {
         List<BordereauLivraison> bordereauLivraisons = bordereauLivraisonService.getAllBordereauLivraisons();
@@ -32,8 +44,12 @@ public class BordereauLivraisonController {
     @PostMapping("/AjouterBordereauLivraison")
     @ResponseBody
     public BordereauLivraison AjouterBordereauLivraison(@RequestBody BordereauLivraison bordereauLivraison) {
-        return bordereauLivraisonService.saveBordereauLivraison(bordereauLivraison);
+
+        // return bordereauLivraisonService.saveBordereauLivraison(bordereauLivraison);
+        return bordereauLivraisonService.ajouterBordereauLivraison(bordereauLivraison.getNumeroBL(), bordereauLivraison.getDescriptionBL(), bordereauLivraison.getLieuDeLivraison(), bordereauLivraison.getDateBL(), bordereauLivraison.getConformiteBL(), bordereauLivraison.getNomLivreur(), bordereauLivraison.getCodeSection(), bordereauLivraison.getNinea(), bordereauLivraison.getMatriculeAgent());
     }
+
+
 
     @PostMapping("/AjouterRequestParamBordereauLivraison")
     public ResponseEntity<BordereauLivraison> ajouterBordereauLivraison (
@@ -43,20 +59,22 @@ public class BordereauLivraisonController {
             @RequestParam("dateBL") String dateBL,
             @RequestParam("conformiteBL") String conformiteBL,
             @RequestParam("nomLivreur") String nomLivreur,
-            @RequestParam(value = "codeSection") Sections codeSection,
-            @RequestParam(value = "ninea") Prestataires ninea,
-            @RequestParam(value = "matriculeAgent") Agent matriculeAgent
+            @RequestParam(value = "codeSection") String codeSectionString,
+            @RequestParam(value = "ninea") String nineaString,
+            @RequestParam(value = "matriculeAgent") String matriculeAgentString,
+            @RequestParam(value = "codeCorpsAgent") String codeCorpsAgentString
     ) {
         // @RequestParam(value = "codeSection", required = false) Sections codeSection,
         // dateBL = java.sql.Date.valueOf("2017-11-15");
         // dateBL = new java.sql.Date(dateBL.getTime());
 
-        System.out.println(codeSection.toString());
-        System.out.println(ninea.toString());
-        System.out.println(matriculeAgent.toString());
+        Sections sections = sectionsService.getSectionsById(codeSectionString);
+        Prestataires prestataires = prestatairesService.getPrestatairesById(nineaString);
+        CorpsAgent corpsAgent = corpsAgentService.getCorpsAgentById(codeCorpsAgentString);
+        Agent agent = agentService.getAgentById(matriculeAgentString, corpsAgent);
 
 
-        BordereauLivraison bordereauLivraison = bordereauLivraisonService.ajouterBordereauLivraison(numeroBL, descriptionBL, lieuDeLivraison, Date.valueOf(dateBL), conformiteBL, nomLivreur, new Sections(), new Prestataires(), new Agent());
+        BordereauLivraison bordereauLivraison = bordereauLivraisonService.ajouterBordereauLivraison(numeroBL, descriptionBL, lieuDeLivraison, Date.valueOf(dateBL), conformiteBL, nomLivreur, sections, prestataires, agent);
         return new ResponseEntity<>(bordereauLivraison, OK);
     }
 
