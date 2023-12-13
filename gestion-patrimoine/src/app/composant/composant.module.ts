@@ -21,6 +21,7 @@ import { BonEntreeAjouterComponent } from './bon-entree-ajouter/bon-entree-ajout
 import { ArticleBonEntreeAjouterComponent } from './article-bon-entree-ajouter/article-bon-entree-ajouter.component';
 import { BordereauLivraisonAjouterComponent } from './bordereau-livraison-ajouter/bordereau-livraison-ajouter.component';
 import { VehiculeAjouterComponent } from './vehicule-ajouter/vehicule-ajouter.component';
+import { PrestataireAjouterComponent } from './prestataire-ajouter/prestataire-ajouter.component';
 
 
 
@@ -36,7 +37,8 @@ import { VehiculeAjouterComponent } from './vehicule-ajouter/vehicule-ajouter.co
     BonEntreeAjouterComponent,
     ArticleBonEntreeAjouterComponent,
     BordereauLivraisonAjouterComponent,
-    VehiculeAjouterComponent
+    VehiculeAjouterComponent,
+    PrestataireAjouterComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ import { VehiculeAjouterComponent } from './vehicule-ajouter/vehicule-ajouter.co
     BonEntreeAjouterComponent,
     ArticleBonEntreeAjouterComponent,
     BordereauLivraisonAjouterComponent,
-    VehiculeAjouterComponent
+    VehiculeAjouterComponent,
+    PrestataireAjouterComponent
   ]
 })
 export class ComposantModule { }

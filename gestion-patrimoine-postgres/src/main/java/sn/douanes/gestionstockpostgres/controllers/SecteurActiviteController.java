@@ -23,7 +23,7 @@ public class SecteurActiviteController {
     SecteurActiviteService secteurActiviteService;
 
 
-    @GetMapping("/SecteurActivite")
+    @GetMapping("/SecteurActivites")
     public ResponseEntity<List<SecteurActivite>> getAllSecteurActivite() {
         List<SecteurActivite> secteurActivite = secteurActiviteService.getAllSecteurActivites();
         return new ResponseEntity<>(secteurActivite, OK);
