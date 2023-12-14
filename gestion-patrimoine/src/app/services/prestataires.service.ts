@@ -71,7 +71,7 @@ export class PrestatairesService {
   }
 
   public ajouterPrestataires(prestataires: Prestataires): Observable<Prestataires> {
-    return this.httpClient.post<Prestataires>(`${this.urlServeur}/AjouterRequestParamPrestataires`, prestataires);
+    return this.httpClient.post<Prestataires>(`${this.urlServeur}/AjouterPrestataires`, prestataires);
   }
 
   public ajouterPrestatairesRequestParam(formData: FormData): Observable<Prestataires> {
@@ -94,9 +94,8 @@ export class PrestatairesService {
     formData.append('ninea', prestataires.ninea);
     formData.append('raisonSociale', prestataires.raisonSociale);
     formData.append('numeroTelephone', prestataires.numeroTelephone.toString());
-    formData.append('adresse', prestataires.adresse);
     formData.append('adresseEmail', prestataires.adresseEmail);
-
+    formData.append('adresse', prestataires.adresse);
     return formData;
   }
 }

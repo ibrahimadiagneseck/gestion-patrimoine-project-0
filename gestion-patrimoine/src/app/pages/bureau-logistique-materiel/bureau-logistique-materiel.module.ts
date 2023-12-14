@@ -19,17 +19,17 @@ import { MatDialogModule } from '@angular/material/dialog';
 // import { MatTableExporterModule } from 'mat-table-exporter';
 import { ComposantModule } from 'src/app/composant/composant.module';
 import { ReceptionVehiculeListeComponent } from './vehicules/reception-vehicule-liste/reception-vehicule-liste.component';
-import { VehiculeListeComponent } from './vehicules/vehicule-liste/vehicule-liste.component';
 import { ReceptionVehiculeAjouterComponent } from './vehicules/reception-vehicule-ajouter/reception-vehicule-ajouter.component';
+import { ConsultationVehiculeListeComponent } from './vehicules/consultation-vehicule-liste/consultation-vehicule-liste.component';
 
 
 @NgModule({
   declarations: [
-
-    VehiculeListeComponent,
-
+    
     ReceptionVehiculeAjouterComponent,
-    ReceptionVehiculeListeComponent
+    ReceptionVehiculeListeComponent,
+
+    ConsultationVehiculeListeComponent
   ],
   imports: [
     BrowserModule,

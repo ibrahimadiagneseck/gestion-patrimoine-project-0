@@ -65,7 +65,6 @@ public class PrestatairesServiceImpl implements PrestatairesService {
         prestataires.setAdresseEmail(adresseEmail);
         prestataires.setAdresse(adresse);
 
-
         return prestatairesRepository.save(prestataires);
     }
 

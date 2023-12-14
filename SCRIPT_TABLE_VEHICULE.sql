@@ -1,4 +1,11 @@
 
+NINEA : 005177614 , raison sociale : cabinet alpha de consultance et de genie-civil-sarl
+005174222 ,transfert des technologies-sarl
+005192373, entreprise senegalaise de prefabrication-sarl
+
+
+
+-------------------------------------------------------------------------------------------------------------------
 
 
 SELECT * FROM information_schema.tables WHERE table_type = 'BASE TABLE';

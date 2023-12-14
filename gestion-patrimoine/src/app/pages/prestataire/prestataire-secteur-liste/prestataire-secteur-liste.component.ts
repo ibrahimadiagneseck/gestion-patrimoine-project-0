@@ -222,7 +222,7 @@ export class PrestataireSecteurListeComponent implements OnInit, OnDestroy {
     const subscription = this.prestatairesService.listePrestataires().subscribe({
       next: (response: Prestataires[]) => {
         this.prestataires = response;
-        console.log(this.prestataires);
+        // console.log(this.prestataires);
 
         // ---------------------------------------------
         this.rowNumber = 1;
@@ -255,7 +255,7 @@ export class PrestataireSecteurListeComponent implements OnInit, OnDestroy {
     const subscription = this.secteurActiviteService.listeSecteurActivites().subscribe({
       next: (response: SecteurActivite[]) => {
         this.secteurActivites = response;
-        console.log(this.secteurActivites);
+        // console.log(this.secteurActivites);
         
       },
       error: (errorResponse: HttpErrorResponse) => {

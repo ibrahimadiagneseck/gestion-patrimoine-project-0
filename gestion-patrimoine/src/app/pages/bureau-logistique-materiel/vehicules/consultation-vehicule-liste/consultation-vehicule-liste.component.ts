@@ -11,15 +11,14 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { ReceptionVehiculeAjouterComponent } from '../reception-vehicule-ajouter/reception-vehicule-ajouter.component';
 
-
 @Component({
-  selector: 'app-vehicule-liste',
+  selector: 'app-consultation-vehicule-liste',
   // standalone: true,
   // imports: [CommonModule],
-  templateUrl: './vehicule-liste.component.html',
-  styleUrl: './vehicule-liste.component.css'
+  templateUrl: './consultation-vehicule-liste.component.html',
+  styleUrl: './consultation-vehicule-liste.component.css'
 })
-export class VehiculeListeComponent implements OnInit, OnDestroy {
+export class ConsultationVehiculeListeComponent implements OnInit, OnDestroy {
 
   public vehicules: Vehicule[] = [];
   public vehicule: Vehicule | undefined;
@@ -289,20 +288,20 @@ export class VehiculeListeComponent implements OnInit, OnDestroy {
 
   
 
-  popupAjouter(): void {
-    const dialogRef = this.matDialog.open(
-      ReceptionVehiculeAjouterComponent,
-      {
-        width: '80%',
-        enterAnimationDuration: '100ms',
-        exitAnimationDuration: '100ms'
-      }
-    );
+  // popupAjouter(): void {
+  //   const dialogRef = this.matDialog.open(
+  //     ReceptionVehiculeAjouterComponent,
+  //     {
+  //       width: '80%',
+  //       enterAnimationDuration: '100ms',
+  //       exitAnimationDuration: '100ms'
+  //     }
+  //   );
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.ngOnInit();
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(() => {
+  //     this.ngOnInit();
+  //   });
+  // }
 
   popupDetail(element: any): void {
     const dialogRef = this.matDialog.open(

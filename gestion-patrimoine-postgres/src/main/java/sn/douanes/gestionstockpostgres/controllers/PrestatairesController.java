@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import sn.douanes.gestionstockpostgres.entities.HttpResponse;
 import sn.douanes.gestionstockpostgres.entities.Pays;
 import sn.douanes.gestionstockpostgres.entities.Prestataires;
+import sn.douanes.gestionstockpostgres.entities.SecteurActivite;
 import sn.douanes.gestionstockpostgres.services.PrestatairesService;
 
 import static org.springframework.http.HttpStatus.OK;

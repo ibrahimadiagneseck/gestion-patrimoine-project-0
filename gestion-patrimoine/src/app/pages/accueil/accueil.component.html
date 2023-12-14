@@ -19,7 +19,7 @@
     <div class="container">
 
       <div class="row">
-        <div [routerLink]="'/vehicules'" class="col-12 text-center fw-bolder fs-5 p-1 border border-4 border-myprimary lien">
+        <div class="col-12 text-center fw-bolder fs-5 p-1 border border-4 border-myprimary lien">
           Véhicule
         </div>
       </div>
@@ -31,12 +31,13 @@
         <div class="col-3 text-center fw-bolder fs-5 py-0 ">
           <p class="border border-3 border-myprimary lien">Maintenance</p>
         </div>
-        <div class="col-3 text-center fw-bolder fs-5 py-0">
-          <p class="border border-3 border-myprimary lien">Consultation</p>
-        </div>
 
         <div class="col-3 text-center fw-bolder fs-5 py-0">
           <p class="border border-3 border-myprimary lien">Dotation</p>
+        </div>
+
+        <div [routerLink]="'/consultation-vehicule'" class="col-3 text-center fw-bolder fs-5 py-0">
+          <p class="border border-3 border-myprimary lien">Consultation</p>
         </div>
       </div>
 

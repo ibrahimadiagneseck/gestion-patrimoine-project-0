@@ -22,6 +22,7 @@ import { ArticleBonEntreeAjouterComponent } from './article-bon-entree-ajouter/a
 import { BordereauLivraisonAjouterComponent } from './bordereau-livraison-ajouter/bordereau-livraison-ajouter.component';
 import { VehiculeAjouterComponent } from './vehicule-ajouter/vehicule-ajouter.component';
 import { PrestataireAjouterComponent } from './prestataire-ajouter/prestataire-ajouter.component';
+import { PopupSecteurActiviteComponent } from './popup-secteur-activite/popup-secteur-activite.component';
 
 
 
@@ -38,7 +39,8 @@ import { PrestataireAjouterComponent } from './prestataire-ajouter/prestataire-a
     ArticleBonEntreeAjouterComponent,
     BordereauLivraisonAjouterComponent,
     VehiculeAjouterComponent,
-    PrestataireAjouterComponent
+    PrestataireAjouterComponent,
+    PopupSecteurActiviteComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,8 @@ import { PrestataireAjouterComponent } from './prestataire-ajouter/prestataire-a
     ArticleBonEntreeAjouterComponent,
     BordereauLivraisonAjouterComponent,
     VehiculeAjouterComponent,
-    PrestataireAjouterComponent
+    PrestataireAjouterComponent,
+    PopupSecteurActiviteComponent
   ]
 })
 export class ComposantModule { }
