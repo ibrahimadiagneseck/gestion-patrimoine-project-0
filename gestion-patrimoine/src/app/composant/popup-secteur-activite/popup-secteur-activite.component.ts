@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SecteurActivite } from 'src/app/model/secteur-activite.model';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,9 @@ import { Prestataires } from 'src/app/model/prestataires.model';
 })
 export class PopupSecteurActiviteComponent implements OnInit, OnDestroy {
 
+  checkArray: FormArray | undefined;
+  public secteurActiviteForm!: FormGroup;
+  
 
   public secteurActivites: SecteurActivite[] = [];
   public secteurActivite: SecteurActivite = new SecteurActivite();
@@ -43,12 +46,52 @@ export class PopupSecteurActiviteComponent implements OnInit, OnDestroy {
   }
 
 
+  validerSecteurActivites(): void {
+
+    // if(this.checkArray && this.checkArray.controls) {
+    //   let valeur;
+    //   for (let i = 0; i < this.checkArray.length; i++) {
+    //     if (this.checkArray.controls[i] instanceof FormControl) {
+    //       valeur = this.checkArray.controls[i].value;
+    //       console.log(valeur);
+    //       this.tolaService.AjouterUtilisateurThemeById(this.utilisateur.idutilisateur, valeur).subscribe(
+    //         () => {
+    //           console.log(this.utilisateur.idutilisateur);
+    //         },
+    //         (erreurs: HttpErrorResponse) => {
+    //           console.log(erreurs);
+    //         }
+    //       );
+    //       this.goToConnexion();
+    //     }
+    //   }
+    // } else {
+    //   this.goToConnexion();
+    // }
+  }
+
+
+  onCheckboxChange(event: any) {
+
+    this.checkArray = this.secteurActiviteForm.get('checkArray') as FormArray;
+
+    if (event.target.checked) {
+      if (this.checkArray) {
+        this.checkArray.push(new FormControl(event.target.value));
+        console.log(this.checkArray.value);
+      }
+    } else {
+      const index = this.checkArray.controls
+        .findIndex(x => x.value === event.target.value);
+      this.checkArray.removeAt(index);
+      console.log(this.checkArray.value);
+    }
+  }
 
 
   popupFermer(): void {
     this.dialogRef.close();
   }
-
 
 
 

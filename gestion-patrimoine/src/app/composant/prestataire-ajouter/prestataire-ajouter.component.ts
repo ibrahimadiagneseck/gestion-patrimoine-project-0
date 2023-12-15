@@ -127,6 +127,7 @@ export class PrestataireAjouterComponent implements OnInit, OnDestroy {
       PopupSecteurActiviteComponent,
       {
         width: '80%',
+        // height: '80%',
         enterAnimationDuration: '100ms',
         exitAnimationDuration: '100ms',
         data:  {
