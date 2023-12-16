@@ -16,7 +16,7 @@ import { PrestatairesService } from 'src/app/services/prestataires.service';
 import { MyDate } from 'src/app/model/date.model';
 import { SecteurActivite } from 'src/app/model/secteur-activite.model';
 import { SecteurActiviteService } from 'src/app/services/secteur-activite.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PopupSecteurActiviteComponent } from '../popup-secteur-activite/popup-secteur-activite.component';
 
 @Component({
@@ -28,6 +28,8 @@ import { PopupSecteurActiviteComponent } from '../popup-secteur-activite/popup-s
 })
 export class PrestataireAjouterComponent implements OnInit, OnDestroy {
 
+  public secteurActivitesSelect: SecteurActivite[] = [];
+
   public secteurActivites: SecteurActivite[] = [];
   public secteurActivite: SecteurActivite = new SecteurActivite();
 
@@ -37,6 +39,7 @@ export class PrestataireAjouterComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
+    public dialogRef: MatDialogRef<PrestataireAjouterComponent>,
     private secteurActiviteService: SecteurActiviteService,
     private prestatairesService: PrestatairesService,
     private matDialog: MatDialog,
@@ -58,7 +61,7 @@ export class PrestataireAjouterComponent implements OnInit, OnDestroy {
     const subscription = this.secteurActiviteService.listeSecteurActivites().subscribe({
       next: (response: SecteurActivite[]) => {
         this.secteurActivites = response;
-        // console.log(this.secteurActivites);
+        console.log(this.secteurActivites);
         
       },
       error: (errorResponse: HttpErrorResponse) => {
@@ -103,14 +106,15 @@ export class PrestataireAjouterComponent implements OnInit, OnDestroy {
     // -------------------------------------------------------------------------- METHODE 2
 
     // SECTEUR ACTIVITE
-    // prestataireForm.value.secteurActivite = this.secteurActivites;
+    prestataireForm.value.secteurActivite = this.secteurActivitesSelect;
 
-    // console.log(prestataireForm.value);
+    console.log(prestataireForm.value);
     
     
     this.subscriptions.push(this.prestatairesService.ajouterPrestataires(prestataireForm.value).subscribe({
         next: (response: Prestataires) => {
           console.log(response);
+          this.popupFermer();
           
         },
         error: (errorResponse: HttpErrorResponse) => {
@@ -138,8 +142,20 @@ export class PrestataireAjouterComponent implements OnInit, OnDestroy {
     );
 
     dialogRef.afterClosed().subscribe(() => {
+      // ----------------------------------
+      // Accéder à this.secteurActivitesForm après la fermeture du popup
+      if (dialogRef.componentInstance instanceof PopupSecteurActiviteComponent) {
+        this.secteurActivitesSelect = dialogRef.componentInstance.secteurActivitesSelect;
+        console.log(this.secteurActivitesSelect);
+      }
+      // ----------------------------------
       this.ngOnInit();
     });
+  }
+
+
+  popupFermer(): void {
+    this.dialogRef.close();
   }
 
 }

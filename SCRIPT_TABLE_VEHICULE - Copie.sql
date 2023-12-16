@@ -1,4 +1,10 @@
 
+NINEA : 005177614 , raison sociale : cabinet alpha de consultance et de genie-civil-sarl
+005174222 ,transfert des technologies-sarl
+005192373, entreprise senegalaise de prefabrication-sarl
+
+
+
 -------------------------------------------------------------------------------------------------------------------
 
 
@@ -249,28 +255,23 @@ CREATE TABLE vehicule (
 
 INSERT INTO secteur_activite (code_secteur_activite, libelle_secteur_activite)
 VALUES 
-    ('IT', 'Technologies de l''information'),
-    ('Finance', 'Services financiers'),
-    ('Sante', 'Soins de santé'),
-    ('Fabrique', 'Fabrication'),
-    ('Education', 'Éducation'),
-    ('Hotellerie', 'Hôtellerie et restauration'),
-    ('Energie', 'Énergie');
-
+    ('SEC1', 'Secteur 1'),
+    ('SEC2', 'Secteur 2'),
+    ('SEC3', 'Secteur 3');
 
 
 INSERT INTO prestataires (ninea, raison_sociale, numero_telephone, adresse_email, adresse)
 VALUES 
-    ('005177614', 'cabinet alpha de consultance et de genie-civil-sarl', 123456789, 'email1@example.com', 'Address 1'),
-    ('005174222', 'transfert des technologies-sarl', 987654321, 'email2@example.com', 'Address 2'),
-    ('005192373', 'entreprise senegalaise de prefabrication-sarl', 555555555, 'email3@example.com', 'Address 3');
+    ('NIN1', 'Prestataire 1', 123456789, 'email1@example.com', 'Address 1'),
+    ('NIN2', 'Prestataire 2', 987654321, 'email2@example.com', 'Address 2'),
+    ('NIN3', 'Prestataire 3', 555555555, 'email3@example.com', 'Address 3');
 
 
 INSERT INTO prestataires_secteur (ninea, code_secteur_activite)
 VALUES 
-    ('005177614', 'IT'),
-    ('005174222', 'Finance'),
-    ('005192373', 'Sante');
+    ('NIN1', 'SEC1'),
+    ('NIN2', 'SEC2'),
+    ('NIN3', 'SEC3');
 
 
 INSERT INTO type_unite_douaniere (code_type_unite_douaniere, libelle_type_unite_douaniere)
@@ -319,9 +320,9 @@ VALUES
 
 INSERT INTO bordereau_livraison (identifiant_b_l, numero_b_l, description_b_l, lieu_de_livraison, date_b_l, conformite_b_l, nom_livreur, code_section, ninea, matricule_agent, date_enregistrement, code_corps_agent)
 VALUES 
-    ('BLSA202312011043210', '001', 'Description BL 1', 'Lieu 1', '2023-12-01', 'OUI', 'Livreur 1', 'SA', '005177614', 'MAT001', CURRENT_TIMESTAMP, 'CP1'),
-    ('BLSM202312021143211', '002', 'Description BL 2', 'Lieu 2', '2023-12-02', 'OUI', 'Livreur 2', 'SM', '005174222', 'MAT002', CURRENT_TIMESTAMP, 'CP2'),
-    ('BLSG202312031243213', '003', 'Description BL 3', 'Lieu 3', '2023-12-03', 'NON', 'Livreur 3', 'SG', '005192373', 'MAT003', CURRENT_TIMESTAMP, 'CP3');
+    ('BLSA202312011043210', '001', 'Description BL 1', 'Lieu 1', '2023-12-01', 'OUI', 'Livreur 1', 'SA', 'NIN1', 'MAT001', CURRENT_TIMESTAMP, 'CP1'),
+    ('BLSM202312021143211', '002', 'Description BL 2', 'Lieu 2', '2023-12-02', 'OUI', 'Livreur 2', 'SM', 'NIN2', 'MAT002', CURRENT_TIMESTAMP, 'CP2'),
+    ('BLSG202312031243213', '003', 'Description BL 3', 'Lieu 3', '2023-12-03', 'NON', 'Livreur 3', 'SG', 'NIN3', 'MAT003', CURRENT_TIMESTAMP, 'CP3');
 
 
 INSERT INTO bon_entree (identifiant_b_e, numero_b_e, libelle_bon_entree, date_bon_entree, observation_bon_entree, identifiant_b_l)

@@ -232,7 +232,7 @@ export class PrestataireSecteurListeComponent implements OnInit, OnDestroy {
           rowNumber: this.rowNumber++
         })));
 
-        // console.log(this.dataSource.data);
+        console.log(this.dataSource.data);
         this.dataSource.paginator = this.paginator;
         // ---------------------------------------------
         

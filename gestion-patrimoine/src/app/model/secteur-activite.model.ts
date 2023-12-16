@@ -4,16 +4,16 @@ export class SecteurActivite {
 
   public codeSecteurActivite: string;
   public libelleSecteurActivite: string;
-  public prestataires: Prestataires[] = [];
+  // public prestataires: Prestataires[] = [];
 
   constructor(
     codeSecteurActivite: string = '',
     libelleSecteurActivite: string = '',
-    prestataires: Prestataires[] = []
+    // prestataires: Prestataires[] = []
   ) {
     this.codeSecteurActivite = codeSecteurActivite;
     this.libelleSecteurActivite = libelleSecteurActivite;
-    this.prestataires = prestataires;
+    // this.prestataires = prestataires;
   }
 
 }

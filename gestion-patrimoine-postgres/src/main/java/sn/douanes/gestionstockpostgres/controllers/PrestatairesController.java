@@ -1,12 +1,15 @@
 package sn.douanes.gestionstockpostgres.controllers;
+
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sn.douanes.gestionstockpostgres.entities.HttpResponse;
-import sn.douanes.gestionstockpostgres.entities.Pays;
 import sn.douanes.gestionstockpostgres.entities.Prestataires;
 import sn.douanes.gestionstockpostgres.entities.SecteurActivite;
 import sn.douanes.gestionstockpostgres.services.PrestatairesService;
@@ -32,9 +35,34 @@ public class PrestatairesController {
 
     @PostMapping("/AjouterPrestataires")
     @ResponseBody
-    public Prestataires AjouterPrestataires(@RequestBody Prestataires prestataires) {
-        return prestatairesService.savePrestataires(prestataires);
+    public ResponseEntity<Prestataires> AjouterPrestataires(@RequestBody Prestataires prestataires) {
+        // Assurez-vous que SecteurActivite n'est pas null pour éviter la NullPointerException
+        if (prestataires.getSecteursActivite() != null) {
+            // Récupérer les entités SecteurActivite associées à Prestataires
+            Set<SecteurActivite> secteurActivites = prestataires.getSecteursActivite();
+
+            // Associer Prestataires avec chaque SecteurActivite
+            for (SecteurActivite secteurActivite : secteurActivites) {
+                // Assurez-vous que l'ensemble Prestataires dans SecteurActivite n'est pas null
+                if (secteurActivite.getPrestataires() == null) {
+                    secteurActivite.setPrestataires(new HashSet<>());
+                }
+
+                // Associer Prestataires avec SecteurActivite
+                secteurActivite.getPrestataires().add(prestataires);
+            }
+
+            // Mettre à jour l'ensemble de SecteurActivite associé à l'entité Prestataires
+            prestataires.setSecteursActivite(secteurActivites);
+        }
+
+        // Enregistrer l'entité Prestataires avec ses associations
+        Prestataires savedPrestataires = prestatairesService.savePrestataires(prestataires);
+
+        // Retourner l'entité Prestataires avec le statut 201 Created
+        return new ResponseEntity<>(savedPrestataires, HttpStatus.CREATED);
     }
+
 
     @PostMapping("/AjouterRequestParamPrestataires")
     public ResponseEntity<Prestataires> ajouterPrestataires (
@@ -44,7 +72,8 @@ public class PrestatairesController {
             @RequestParam("adresseEmail") String adresseEmail,
             @RequestParam("adresse") String adresse
     ) {
-        Prestataires prestataires = prestatairesService.ajouterPrestataires(ninea, raisonSociale, numeroTelephone, adresseEmail, adresse);
+        Set<SecteurActivite> secteursActivite = new HashSet<>();
+        Prestataires prestataires = prestatairesService.ajouterPrestataires(ninea, raisonSociale, numeroTelephone, adresseEmail, adresse, secteursActivite);
         return new ResponseEntity<>(prestataires, OK);
     }
 

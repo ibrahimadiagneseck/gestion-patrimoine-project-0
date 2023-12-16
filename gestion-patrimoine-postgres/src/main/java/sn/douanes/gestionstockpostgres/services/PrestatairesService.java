@@ -16,6 +16,6 @@ public interface PrestatairesService {
     List<Prestataires> getAllPrestataires();
 
 
-    Prestataires ajouterPrestataires(String ninea, String raisonSociale, Integer numeroTelephone, String adresseEmail, String adresse);
+    Prestataires ajouterPrestataires(String ninea, String raisonSociale, Integer numeroTelephone, String adresseEmail, String adresse, Set<SecteurActivite> secteursActivite);
 
 }
