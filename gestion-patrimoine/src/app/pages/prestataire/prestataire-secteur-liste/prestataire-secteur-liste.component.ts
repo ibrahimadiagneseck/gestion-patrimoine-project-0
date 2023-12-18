@@ -91,7 +91,6 @@ export class PrestataireSecteurListeComponent implements OnInit, OnDestroy {
     "numeroTelephone",
     "adresse",
     "adresseEmail",
-    "secteurActivite"
   ];
   displayedColumnsCustom: string[] = [
     "N°",
@@ -100,7 +99,6 @@ export class PrestataireSecteurListeComponent implements OnInit, OnDestroy {
     "N° téléphone",
     "Adresse",
     "Adresse email",
-    "Secteurs d'activité"
   ];
   /* ----------------------------------------------------------------------------------------- */
 
@@ -159,7 +157,7 @@ export class PrestataireSecteurListeComponent implements OnInit, OnDestroy {
       item.numeroTelephone,
       item.adresse,
       item.adresseEmail,
-      item.secteurActivite ? item.secteurActivite : []
+      // item.secteurActivite ? item.secteurActivite : []
     ]);
 
     // Configuration pour le PDF avec une taille de page personnalisée
@@ -179,7 +177,7 @@ export class PrestataireSecteurListeComponent implements OnInit, OnDestroy {
           { content: 'N° téléphone', styles: { fontSize: 6 } },
           { content: 'Adresse', styles: { fontSize: 6 } },
           { content: 'Adresse email', styles: { fontSize: 6 } },
-          { content: 'Secteurs activité', styles: { fontSize: 6 } }
+          // { content: 'Secteurs activité', styles: { fontSize: 6 } }
         ]
       ],
       body: tableData.map(row => row.map(cell => ({ content: cell.toString(), styles: { fontSize: 6 } }))),

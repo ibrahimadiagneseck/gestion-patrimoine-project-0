@@ -1,23 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Subscription } from 'rxjs';
+import { ReceptionVehiculeAjouter2Component } from '../reception-vehicule-ajouter-2/reception-vehicule-ajouter-2.component';
 
 @Component({
-  selector: 'app-reception-vehicule-ajouter',
+  selector: 'app-reception-vehicule-ajouter-1',
   // standalone: true,
   // imports: [CommonModule],
-  templateUrl: './reception-vehicule-ajouter.component.html',
-  styleUrl: './reception-vehicule-ajouter.component.css'
+  templateUrl: './reception-vehicule-ajouter-1.component.html',
+  styleUrl: './reception-vehicule-ajouter-1.component.css'
 })
-export class ReceptionVehiculeAjouterComponent implements OnInit, OnDestroy {
+export class ReceptionVehiculeAjouter1Component implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
   constructor(
-    public dialogRef: MatDialogRef<ReceptionVehiculeAjouterComponent>
+    private matDialog: MatDialog,
+    public dialogRef: MatDialogRef<ReceptionVehiculeAjouter1Component>
   ) {}
 
 
@@ -48,6 +50,23 @@ export class ReceptionVehiculeAjouterComponent implements OnInit, OnDestroy {
   }
 
 
+  popupAjouterArticleBonEntreeVehicule(): void {
+
+    this.dialogRef.close();
+
+    const dialogRef = this.matDialog.open(
+      ReceptionVehiculeAjouter2Component,
+      {
+        width: '80%',
+        enterAnimationDuration: '100ms',
+        exitAnimationDuration: '100ms'
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
   // onSubmit(): void {
   //   // console.log(this.vehiculeForm.value);

@@ -9,7 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { ReceptionVehiculeAjouterComponent } from '../reception-vehicule-ajouter/reception-vehicule-ajouter.component';
+import { ReceptionVehiculeAjouter1Component } from '../reception-vehicule-ajouter-1/reception-vehicule-ajouter-1.component';
 
 @Component({
   selector: 'app-consultation-vehicule-liste',
@@ -76,10 +76,9 @@ export class ConsultationVehiculeListeComponent implements OnInit, OnDestroy {
   ];
   columnsToHide: string[] = [
     "numeroImmatriculation",
-    "genre",
     "typeEnergie",
     "numeroCarteGrise",
-    "codeTypeVehicule",
+    "rowTypeVehicule",
     "codeUniteDouaniere"
   ];
   dataSource = new MatTableDataSource<Vehicule>();
@@ -88,31 +87,25 @@ export class ConsultationVehiculeListeComponent implements OnInit, OnDestroy {
     "rowNumber",
     "numeroSerie",
     "numeroImmatriculation",
-    "genre",
-    "modele",
-    "etatVehicule",
-    "typeEnergie",
+    "rowEtat",
+    "rowTypeEnergie",
     "rowPays",
     "numeroCarteGrise",
     "dateMiseEnCirculation",
-    "codeTypeVehicule",
-    "rowMarque",
-    "codeUniteDouaniere"
+    "rowTypeVehicule",
+    "rowMarque"
   ];
   displayedColumnsCustom: string[] = [
     "N°",
     "N° serie",
     "N° immatriculation",
-    "Genre",
-    "Modele",
     "Etat vehicule",
     "Type energie",
-    "Pays",
+    "Provenance",
     "N° carte grise",
     "Date mise en circulation",
     "Type vehicule",
-    "Marque",
-    "Unite douaniere"
+    "Marque"
   ];
   /* ----------------------------------------------------------------------------------------- */
 
@@ -172,17 +165,15 @@ export class ConsultationVehiculeListeComponent implements OnInit, OnDestroy {
       item.rowNumber,
       item.numeroSerie,
       item.numeroImmatriculation,
-      item.genre,
-      item.modele,
-      item.etatVehicule,
-      item.typeEnergie,
-      item.codePays.libellePays,
+      item.modele || 'N/A',
+      item.rowEtat,
+      item.rowTypeEnergie,
+      item.rowPays,
       item.numeroCarteGrise,
-      `${new Date(item.dateMiseEnCirculation).getDate()} ${months[new Date(item.dateMiseEnCirculation).getMonth()]} ${new Date(item.dateMiseEnCirculation).getFullYear() % 100}`,
-      item.codeTypeVehicule.libelleTypeVehicule,
-      item.codeMarque.libelleMarque,
-      item.codeUniteDouaniere.codeUniteDouaniere
-
+      item.dateMiseEnCirculation ? `${new Date(item.dateMiseEnCirculation.toString()).getDate()} ${months[new Date(item.dateMiseEnCirculation.toString()).getMonth()]} ${new Date(item.dateMiseEnCirculation.toString()).getFullYear() % 100}` : 'N/A',
+      // `${new Date(item.dateMiseEnCirculation).getDate()} ${months[new Date(item.dateMiseEnCirculation).getMonth()]} ${new Date(item.dateMiseEnCirculation).getFullYear() % 100}`,
+      item.rowTypeVehicule,
+      item.rowMarque
     ]);
 
     // Configuration pour le PDF avec une taille de page personnalisée
@@ -199,16 +190,14 @@ export class ConsultationVehiculeListeComponent implements OnInit, OnDestroy {
           { content: 'N°', styles: { fontSize: 6 } },
           { content: 'N° serie', styles: { fontSize: 6 } },
           { content: 'N° immatriculation', styles: { fontSize: 6 } },
-          { content: 'Genre', styles: { fontSize: 6 } },
           { content: 'Modele', styles: { fontSize: 6 } },
           { content: 'Etat vehicule', styles: { fontSize: 6 } },
           { content: 'Type energie', styles: { fontSize: 6 } },
-          { content: 'Pays', styles: { fontSize: 6 } },
+          { content: 'Provenance', styles: { fontSize: 6 } },
           { content: 'N° carte grise', styles: { fontSize: 6 } },
           { content: 'Date mise en circulation', styles: { fontSize: 6 } },
           { content: 'Type vehicule', styles: { fontSize: 6 } },
-          { content: 'Marque', styles: { fontSize: 6 } },
-          { content: 'Unite douaniere', styles: { fontSize: 6 } }
+          { content: 'Marque', styles: { fontSize: 6 } }
         ]
       ],
       body: tableData.map(row => row.map(cell => ({ content: cell.toString(), styles: { fontSize: 6 } }))),
@@ -260,6 +249,7 @@ export class ConsultationVehiculeListeComponent implements OnInit, OnDestroy {
         // this.vehicules = response.sort((a, b) => a.numeroChassis - b.numeroChassis);
         // this.vehicules = response.sort((a, b) => new Date(b.dateModification).getTime() - new Date(a.dateModification).getTime());
 
+        
         this.rowNumber = 1;
 
 
@@ -269,6 +259,9 @@ export class ConsultationVehiculeListeComponent implements OnInit, OnDestroy {
           // vehicule: [] as Vehicule[],
           rowMarque: item.codeMarque.libelleMarque,
           rowPays: item.codePays.libellePays,
+          rowEtat: item.codeEtat.libelleEtat,
+          rowTypeEnergie: item.codeTypeEnergie.libelleTypeEnergie,
+          rowTypeVehicule: item.codeTypeVehicule.libelleTypeVehicule,
           rowNumber: this.rowNumber++
         })));
         
@@ -303,9 +296,26 @@ export class ConsultationVehiculeListeComponent implements OnInit, OnDestroy {
   //   });
   // }
 
+
+  popupAjouterBordereauLivraisonBonEntree(): void {
+    const dialogRef = this.matDialog.open(
+      ReceptionVehiculeAjouter1Component,
+      {
+        width: '80%',
+        enterAnimationDuration: '100ms',
+        exitAnimationDuration: '100ms'
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
+
+
   popupDetail(element: any): void {
     const dialogRef = this.matDialog.open(
-      ReceptionVehiculeAjouterComponent,
+      ReceptionVehiculeAjouter1Component,
       {
         width: '80%',
         enterAnimationDuration: '100ms',

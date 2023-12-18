@@ -22,7 +22,7 @@ public class BonEntree {
     @Column(name = "identifiant_b_e", length = 25)
     private String identifiantBE;
 
-    @Column(name = "numero_b_e", length = 100)
+    @Column(name = "numero_b_e", length = 100, unique = true)
     private String numeroBE;
 
     @Column(name = "libelle_bon_entree")
