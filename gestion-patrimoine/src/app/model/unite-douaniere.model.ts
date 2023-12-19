@@ -11,15 +11,22 @@ export class UniteDouaniere {
   public codeTypeUniteDouaniere: TypeUniteDouaniere;
 
 
-  constructor() {
-    this.codeUniteDouaniere = '';
-    this.nomUniteDouaniere = '';
-    this.effectifUniteDouaniere = 0;
-    this.nombreArme =0;
-    this.nombreAutomobile = 0;
-    this.nombreMateriel =0;
-    this.codeTypeUniteDouaniere = new TypeUniteDouaniere() ;
-
+  constructor(
+    codeUniteDouaniere = '',
+    nomUniteDouaniere = '',
+    effectifUniteDouaniere = 0,
+    nombreArme = 0,
+    nombreAutomobile = 0,
+    nombreMateriel = 0,
+    codeTypeUniteDouaniere = new TypeUniteDouaniere()
+  ) {
+    this.codeUniteDouaniere = codeUniteDouaniere;
+    this.nomUniteDouaniere = nomUniteDouaniere;
+    this.effectifUniteDouaniere = effectifUniteDouaniere;
+    this.nombreArme = nombreArme;
+    this.nombreAutomobile = nombreAutomobile;
+    this.nombreMateriel = nombreMateriel;
+    this.codeTypeUniteDouaniere = codeTypeUniteDouaniere;
   }
 
 }

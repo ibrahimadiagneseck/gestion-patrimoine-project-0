@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CustomHttpRespone } from '../model/custom-http-response.model';
 import { TypeObjet } from '../model/type-objet.model';
+import { Agent } from '../model/agent.model';
 
 
 
@@ -24,8 +25,12 @@ export class TypeObjetService {
     return this.httpClient.get<TypeObjet[]>(`${this.urlServeur}/TypeObjets`);
   }
 
-  public ajouterTypeObjet(formData: FormData): Observable<TypeObjet> {
-    return this.httpClient.post<TypeObjet>(`${this.urlServeur}/AjouterTypeObjet`, formData);
+  public ajouterTypeObjet(typeObjet: TypeObjet): Observable<TypeObjet> {
+    return this.httpClient.post<TypeObjet>(`${this.urlServeur}/AjouterTypeObjet`, typeObjet);
+  }
+
+  public ajouterTypeObjetRequestParam(formData: FormData): Observable<TypeObjet> {
+    return this.httpClient.post<TypeObjet>(`${this.urlServeur}/AjouterRequestParamTypeObjet`, formData);
   }
 
   public modifierTypeObjet(formData: FormData): Observable<TypeObjet> {
@@ -43,7 +48,7 @@ export class TypeObjetService {
 
     formData.append('codeTypeObjet', typeObjet.codeTypeObjet);
     formData.append('libelleTypeObjet', typeObjet.libelleTypeObjet);
-    formData.append('codeSection', JSON.stringify(typeObjet.codeSection));
+    formData.append('codeSection', typeObjet.codeSection.codeSection);
 
 
     return formData;

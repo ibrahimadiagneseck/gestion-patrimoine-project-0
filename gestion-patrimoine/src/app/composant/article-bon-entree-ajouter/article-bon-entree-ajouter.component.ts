@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BonEntree } from 'src/app/model/bon-entree.model';
 import { Pays } from 'src/app/model/pays.model';
@@ -13,6 +13,10 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ArticleBonEntreeService } from 'src/app/services/article-bon-entree.service';
+import { Agent } from 'src/app/model/agent.model';
+import { BonEntreeService } from 'src/app/services/bon-entree.service';
+import { TypeObjetService } from 'src/app/services/type-objet.service';
+import { AgentService } from 'src/app/services/agent.service';
 
 @Component({
   selector: 'app-article-bon-entree-ajouter',
@@ -21,29 +25,18 @@ import { ArticleBonEntreeService } from 'src/app/services/article-bon-entree.ser
   templateUrl: './article-bon-entree-ajouter.component.html',
   styleUrl: './article-bon-entree-ajouter.component.css'
 })
-export class ArticleBonEntreeAjouterComponent {
+export class ArticleBonEntreeAjouterComponent implements OnInit, OnDestroy {
 
 
   public bonEntrees: BonEntree[] = [];
   public bonEntree: BonEntree = new BonEntree();
 
-  public payss: Pays[] = [];
-  public pays: Pays = new Pays();
-
-  public uniteDouanieres: UniteDouaniere[] = [];
-  public uniteDouaniere: UniteDouaniere = new UniteDouaniere();
 
   public typeObjets: TypeObjet[] = [];
   public typeObjet: TypeObjet = new TypeObjet();
 
-  public vehicules: Vehicule[] = [];
-  public vehicule: Vehicule = new Vehicule();
-
-  public marqueVehicules: MarqueVehicule[] = [];
-  public marqueVehicule: MarqueVehicule = new MarqueVehicule();
-
-  public typeVehicules: TypeVehicule[] = [];
-  public typeVehicule: TypeVehicule = new TypeVehicule();
+  public agents: Agent[] = [];
+  public agent: Agent = new Agent();
 
   public articleBonEntrees: ArticleBonEntree[] = [];
   public articleBonEntree: ArticleBonEntree = new ArticleBonEntree();
@@ -53,7 +46,9 @@ export class ArticleBonEntreeAjouterComponent {
   private subscriptions: Subscription[] = [];
 
   constructor(
-
+    private bonEntreeService: BonEntreeService,
+    private typeObjetService: TypeObjetService,
+    private agentService: AgentService,
     private articleBonEntreeService: ArticleBonEntreeService,
     private matDialog: MatDialog,
     public dialogRef: MatDialogRef<ArticleBonEntreeAjouterComponent>
@@ -67,23 +62,116 @@ export class ArticleBonEntreeAjouterComponent {
   }
 
   ngOnInit(): void {
-    // this.listeSections();
-    // this.listeBordereauLivraisons();
-    // this.listeAgents();
+    this.listeBonEntrees();
+    this.listeTypeObjets();
+    this.listeAgents();
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listeBonEntrees(): void {
 
+    const subscription = this.bonEntreeService.listeBonEntrees().subscribe({
+      next: (response: BonEntree[]) => {
+        this.bonEntrees = response;
+        // console.log(this.bonEntrees);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listeTypeObjets(): void {
+
+    const subscription = this.typeObjetService.listeTypeObjets().subscribe({
+      next: (response: TypeObjet[]) => {
+        this.typeObjets = response;
+        // console.log(this.typeObjets);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listeAgents(): void {
+
+    const subscription = this.agentService.listeAgents().subscribe({
+      next: (response: Agent[]) => {
+        this.agents = response;
+        // console.log(this.agents);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  // --------------------------------------------------------------------------
+  private clickButton(buttonId: string): void {
+    document.getElementById(buttonId)?.click();
+  }
+
+  // pour executer ajouterBonEntree
+  public submitArticleBonEntreeForm(): void { 
+    this.clickButton('article-bon-entree-form')
+  }
 
   public ajouterArticleBonEntree(articleBonEntreeForm: NgForm): void {
 
-    // const formData = this.bonEntreeService.createBonEntreeFormData(bonEntreeForm.value);
+    // -------------------------------------------------------------------------- METHODE 1
+    // const formData = this.articleBonEntreeService.createArticleBonEntreeFormData(articleBonEntreeForm.value);
+
+    // this.subscriptions.push(this.articleBonEntreeService.ajouterArticleBonEntree(formData).subscribe({
+    //     next: (response: ArticleBonEntree) => {
+    //       console.log(response);
+          
+    //     },
+    //     error: (errorResponse: HttpErrorResponse) => {
+
+    //     }
+    //   })
+    // );
+
+    // -------------------------------------------------------------------------- METHODE 2
+    
+    // BON ENTREE
+    articleBonEntreeForm.value.identifiantBE = this.bonEntrees[0];
+
+    // TYPE OBJET
+    articleBonEntreeForm.value.codeTypeObjet = this.typeObjets[0];
+
+    // AGENT
+    articleBonEntreeForm.value.matriculeAgent = this.agents[0];
 
     console.log(articleBonEntreeForm.value);
-
-    this.subscriptions.push(
-      this.articleBonEntreeService.ajouterArticleBonEntree(articleBonEntreeForm.value).subscribe({
+    
+    
+    this.subscriptions.push(this.articleBonEntreeService.ajouterArticleBonEntree(articleBonEntreeForm.value).subscribe({
         next: (response: ArticleBonEntree) => {
-
+          console.log(response);
+          
         },
         error: (errorResponse: HttpErrorResponse) => {
 
@@ -91,7 +179,7 @@ export class ArticleBonEntreeAjouterComponent {
       })
     );
   }
-
+  // ----------------------------------------------------------------------------------
 
 
 

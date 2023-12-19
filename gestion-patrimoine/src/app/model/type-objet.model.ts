@@ -6,10 +6,14 @@ export class TypeObjet {
   public libelleTypeObjet: string;
   public codeSection: Sections;
 
-  constructor() {
-    this.codeTypeObjet = '';
-    this.libelleTypeObjet = '';
-    this.codeSection = new Sections() ;
+  constructor(
+    codeTypeObjet = '',
+    libelleTypeObjet = '',
+    codeSection = new Sections()
+  ) {
+    this.codeTypeObjet = codeTypeObjet;
+    this.libelleTypeObjet = libelleTypeObjet;
+    this.codeSection = codeSection;
   }
 
 }

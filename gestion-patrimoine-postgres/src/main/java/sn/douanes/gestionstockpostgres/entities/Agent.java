@@ -41,11 +41,11 @@ public class Agent {
 
     @ManyToOne
     @JoinColumn(name = "code_fonction_agent")
-    private FonctionAgent fonctionAgent;
+    private FonctionAgent codeFonctionAgent;
 
     @ManyToOne
     @JoinColumn(name = "code_unite_douaniere")
-    private UniteDouaniere uniteDouaniere;
+    private UniteDouaniere codeUniteDouaniere;
 
     @Id
     @ManyToOne
