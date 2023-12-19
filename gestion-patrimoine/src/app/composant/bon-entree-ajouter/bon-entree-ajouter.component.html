@@ -38,7 +38,7 @@
 
     <div class="row">
         <div class="col-12 text-end">
-            <button type="submit" id="bon-entree-form" hidden class="btn btn-myprimary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour ajouter">
+            <button type="submit" [disabled]="BonEntreeForm.invalid" id="bon-entree-form" hidden class="btn btn-myprimary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour valider">
                 Valider
             </button>
         </div>
