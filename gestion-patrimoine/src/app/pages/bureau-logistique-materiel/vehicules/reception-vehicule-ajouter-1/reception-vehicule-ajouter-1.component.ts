@@ -5,6 +5,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Subscription } from 'rxjs';
 import { ReceptionVehiculeAjouter2Component } from '../reception-vehicule-ajouter-2/reception-vehicule-ajouter-2.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reception-vehicule-ajouter-1',
@@ -18,6 +19,7 @@ export class ReceptionVehiculeAjouter1Component implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
+    private router: Router,
     private matDialog: MatDialog,
     public dialogRef: MatDialogRef<ReceptionVehiculeAjouter1Component>
   ) {}
@@ -47,6 +49,11 @@ export class ReceptionVehiculeAjouter1Component implements OnInit, OnDestroy {
   public submitForm(): void { 
     this.clickButton('bordereau-livraison-form');
     this.clickButton('bon-entree-form');
+  }
+
+  ajouterArticleBonEntree(): void {
+    this.popupFermer();
+    this.router.navigate(['/ajouter-article'])
   }
 
 

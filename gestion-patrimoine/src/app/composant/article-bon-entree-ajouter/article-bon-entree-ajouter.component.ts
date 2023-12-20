@@ -51,7 +51,6 @@ export class ArticleBonEntreeAjouterComponent implements OnInit, OnDestroy {
     private agentService: AgentService,
     private articleBonEntreeService: ArticleBonEntreeService,
     private matDialog: MatDialog,
-    public dialogRef: MatDialogRef<ArticleBonEntreeAjouterComponent>
     // @Inject(MAT_DIALOG_DATA) public data: string,
     // private matDialog: MatDialog
 
@@ -138,10 +137,10 @@ export class ArticleBonEntreeAjouterComponent implements OnInit, OnDestroy {
     this.clickButton('article-bon-entree-form')
   }
 
-  public ajouterArticleBonEntree(articleBonEntreeForm: NgForm): void {
+  public ajouterArticleBonEntree(ArticleBonEntreeForm: NgForm): void {
 
     // -------------------------------------------------------------------------- METHODE 1
-    // const formData = this.articleBonEntreeService.createArticleBonEntreeFormData(articleBonEntreeForm.value);
+    // const formData = this.articleBonEntreeService.createArticleBonEntreeFormData(ArticleBonEntreeForm.value);
 
     // this.subscriptions.push(this.articleBonEntreeService.ajouterArticleBonEntree(formData).subscribe({
     //     next: (response: ArticleBonEntree) => {
@@ -157,18 +156,18 @@ export class ArticleBonEntreeAjouterComponent implements OnInit, OnDestroy {
     // -------------------------------------------------------------------------- METHODE 2
     
     // BON ENTREE
-    articleBonEntreeForm.value.identifiantBE = this.bonEntrees[0];
+    ArticleBonEntreeForm.value.identifiantBE = this.bonEntrees[0];
 
     // TYPE OBJET
-    articleBonEntreeForm.value.codeTypeObjet = this.typeObjets[0];
+    ArticleBonEntreeForm.value.codeTypeObjet = this.typeObjets[0];
 
     // AGENT
-    articleBonEntreeForm.value.matriculeAgent = this.agents[0];
+    ArticleBonEntreeForm.value.matriculeAgent = this.agents[0];
 
-    console.log(articleBonEntreeForm.value);
+    console.log(ArticleBonEntreeForm.value);
     
     
-    this.subscriptions.push(this.articleBonEntreeService.ajouterArticleBonEntree(articleBonEntreeForm.value).subscribe({
+    this.subscriptions.push(this.articleBonEntreeService.ajouterArticleBonEntree(ArticleBonEntreeForm.value).subscribe({
         next: (response: ArticleBonEntree) => {
           console.log(response);
           
@@ -180,13 +179,6 @@ export class ArticleBonEntreeAjouterComponent implements OnInit, OnDestroy {
     );
   }
   // ----------------------------------------------------------------------------------
-
-
-
-  popupFermer(): void {
-    this.dialogRef.close();
-  }
-
 
 
 

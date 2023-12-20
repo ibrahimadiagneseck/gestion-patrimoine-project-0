@@ -11,6 +11,15 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { VehiculeService } from 'src/app/services/vehicule.service';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { TypeEnergie } from 'src/app/model/type-energie.model';
+import { EtatVehicule } from 'src/app/model/etat-vehicule.model';
+import { TypeVehiculeService } from 'src/app/services/type-vehicule.service';
+import { TypeEnergieService } from 'src/app/services/type-energie.service';
+import { EtatVehiculeService } from 'src/app/services/etat-vehicule.service';
+import { MarqueVehiculeService } from 'src/app/services/marque-vehicule.service';
+import { UniteDouaniereService } from 'src/app/services/unite-douaniere.service';
+import { ArticleBonEntreeService } from 'src/app/services/article-bon-entree.service';
+import { MyDate } from 'src/app/model/date.model';
 
 @Component({
   selector: 'app-vehicule-ajouter',
@@ -23,6 +32,12 @@ export class VehiculeAjouterComponent {
 
   public typeVehicules: TypeVehicule[] = [];
   public typeVehicule: TypeVehicule = new TypeVehicule();
+
+  public typeEnergies: TypeEnergie[] = [];
+  public typeEnergie: TypeEnergie = new TypeEnergie();
+
+  public etatVehicules: EtatVehicule[] = [];
+  public etatVehicule: EtatVehicule = new EtatVehicule();
 
   public marqueVehicules: MarqueVehicule[] = [];
   public marqueVehicule: MarqueVehicule = new MarqueVehicule();
@@ -39,6 +54,7 @@ export class VehiculeAjouterComponent {
   public pays: Pays[] = [];
   public LePays: Pays = new Pays();
 
+  
 
 
   private subscriptions: Subscription[] = [];
@@ -46,8 +62,13 @@ export class VehiculeAjouterComponent {
   constructor(
 
     private vehiculeService: VehiculeService,
+    private typeVehiculeService: TypeVehiculeService,
+    private typeEnergieService: TypeEnergieService,
+    private etatVehiculeService: EtatVehiculeService,
+    private marqueVehiculeService: MarqueVehiculeService,
+    private uniteDouaniereService: UniteDouaniereService,
+    private articleBonEntreeService: ArticleBonEntreeService,
     private matDialog: MatDialog,
-    public dialogRef: MatDialogRef<VehiculeAjouterComponent>
     // @Inject(MAT_DIALOG_DATA) public data: string,
     // private matDialog: MatDialog
 
@@ -59,20 +80,206 @@ export class VehiculeAjouterComponent {
 
   ngOnInit(): void {
 
+    this.listeTypeVehiculeServices();
+    this.listeTypeEnergieServices();
+    this.listeEtatVehiculeServices();
+    this.listeMarqueVehiculeServices();
+    this.listeUniteDouaniereServices();
+    this.listeArticleBonEntreeServices();
+
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  public listeTypeVehiculeServices(): void {
+
+    const subscription = this.typeVehiculeService.listeTypeVehicules().subscribe({
+      next: (response: TypeVehicule[]) => {
+        this.typeVehicules = response;
+        // console.log(this.typeVehicules);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listeTypeEnergieServices(): void {
+
+    const subscription = this.typeEnergieService.listeTypeEnergies().subscribe({
+      next: (response: TypeEnergie[]) => {
+        this.typeEnergies = response;
+        // console.log(this.typeEnergies);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listeEtatVehiculeServices(): void {
+
+    const subscription = this.etatVehiculeService.listeEtatVehicules().subscribe({
+      next: (response: EtatVehicule[]) => {
+        this.etatVehicules = response;
+        // console.log(this.etatVehicules);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listeMarqueVehiculeServices(): void {
+
+    const subscription = this.marqueVehiculeService.listeMarqueVehicules().subscribe({
+      next: (response: MarqueVehicule[]) => {
+        this.marqueVehicules = response;
+        // console.log(this.marqueVehicules);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listeUniteDouaniereServices(): void {
+
+    const subscription = this.uniteDouaniereService.listeUniteDouanieres().subscribe({
+      next: (response: UniteDouaniere[]) => {
+        this.uniteDouanieres = response;
+        // console.log(this.uniteDouanieres);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listeArticleBonEntreeServices(): void {
+
+    const subscription = this.articleBonEntreeService.listeArticleBonEntrees().subscribe({
+      next: (response: ArticleBonEntree[]) => {
+        this.articleBonEntrees = response;
+        // console.log(this.articleBonEntrees);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
 
 
-  public ajouterVehicule( vehiculeForm: NgForm): void {
 
-    // const formData = this.bonEntreeService.createBonEntreeFormData(bonEntreeForm.value);
+  // --------------------------------------------------------------------------
+  private clickButton(buttonId: string): void {
+    document.getElementById(buttonId)?.click();
+  }
 
-    console.log(  vehiculeForm.value);
+  // pour executer ajouterBonEntree
+  public submitBonEntreeForm(): void { 
+    this.clickButton('vehicule-form')
+  }
 
-    this.subscriptions.push(
-      this.vehiculeService.ajouterVehicule( vehiculeForm.value).subscribe({
-        next: (response:   Vehicule) => {
+  public ajouterVehicule(VehiculeForm: NgForm): void {
 
+    // -------------------------------------------------------------------------- METHODE 1
+    const formData = this.vehiculeService.createVehiculeFormDate(VehiculeForm.value);
+
+    this.subscriptions.push(this.vehiculeService.ajouterVehiculeRequestParam(formData).subscribe({
+        next: (response: Vehicule) => {
+          console.log(response);
+          
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+
+        }
+      })
+    );
+
+    // -------------------------------------------------------------------------- METHODE 2
+    const dateBL: MyDate = VehiculeForm.value.dateMiseEnCirculation;
+    const formattedDate = this.vehiculeService.formatterMyDate(dateBL);
+
+    // const bordereauLivraisonForm1: NgForm = bordereauLivraisonForm;
+    // bordereauLivraisonForm.control.get('dateBL')?.patchValue(formattedDate);
+    // bordereauLivraisonForm.control.get('dateBL')?.setValue(formattedDate);
+    
+
+    if (formattedDate) {
+      VehiculeForm.value.dateMiseEnCirculation = formattedDate;
+    }
+    
+    // TYPE VEHICULE SERVICE
+    VehiculeForm.value.codeTypeEnergie = this.typeVehicules[0];
+
+    // TYPE ENERGIE SERVICE
+    VehiculeForm.value.codeTypeEnergie = this.typeEnergies[0];
+
+    // ETAT VEHICULE SERVICE
+    VehiculeForm.value.codeEtat = this.etatVehicules[0];
+
+    // MARQUE VEHICULE SERVICE
+    VehiculeForm.value.codeMarque = this.marqueVehicules[0];
+
+    // UNITE DOUANIERE SERVICE
+    VehiculeForm.value.codeUniteDouaniere = this.uniteDouanieres[0];
+
+    // ARTICLE BON ENTREE SERVICE
+    VehiculeForm.value.identifiantBE = this.articleBonEntrees[0];
+
+
+
+    console.log(VehiculeForm.value);
+    
+    
+    this.subscriptions.push(this.vehiculeService.ajouterVehicule(VehiculeForm.value).subscribe({
+        next: (response: Vehicule) => {
+          console.log(response);
+          
         },
         error: (errorResponse: HttpErrorResponse) => {
 
@@ -80,10 +287,7 @@ export class VehiculeAjouterComponent {
       })
     );
   }
-
-  popupFermer(): void {
-    this.dialogRef.close();
-  }
+  // --------------------------------------------------------------------------
 
 
 }
