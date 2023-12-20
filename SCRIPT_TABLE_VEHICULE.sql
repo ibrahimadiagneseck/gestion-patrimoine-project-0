@@ -680,11 +680,11 @@ VALUES
     ('USAGE', 'USAGÉ');
 
 
-INSERT INTO vehicule (numero_serie, numero_immatriculation, identifiant_b_e, code_article_bon_entree, code_etat, code_type_energie, code_pays, numero_carte_grise, date_mise_en_circulation, code_type_vehicule, code_marque, code_unite_douaniere)
+INSERT INTO vehicule (numero_serie, numero_immatriculation, identifiant_b_e, code_article_bon_entree, modele, code_etat, code_type_energie, code_pays, numero_carte_grise, date_mise_en_circulation, code_type_vehicule, code_marque, code_unite_douaniere)
 VALUES 
-    ('123456', 'ABC123', 'BESM202312021143211', 2, 'NEUF', 'ESSENCE', 'US', 'CG123', '2023-01-01', 'TV1', 'TOY', '06Z'),
-    ('789012', 'XYZ789', 'BESG202312031243213', 3, 'NEUF', 'GASOIL', 'JP', 'CG789', '2023-02-02', 'TV2', 'FOR', '06K'),
-    ('345678', 'DEF345', 'BESA202312011043210', 1, 'USAGE', 'HYBRIDE', 'FR', 'CG345', '2023-03-03', 'TV3', 'BMW', '06K');
+    ('123456', 'ABC123', 'BESA202312011043210', 1, 'modele 1', 'NEUF', 'ESSENCE', 'US', 'CG123', '2023-01-01', 'TV1', 'TOY', '06Z'),
+    ('789012', 'XYZ789', 'BESM202312021143211', 2, 'modele 2', 'NEUF', 'GASOIL', 'JP', 'CG789', '2023-02-02', 'TV2', 'FOR', '06K'),
+    ('345678', 'DEF345', 'BESG202312031243213', 3, 'modele 3', 'USAGE', 'HYBRIDE', 'FR', 'CG345', '2023-03-03', 'TV3', 'BMW', '06K');
 
 
 SELECT * FROM fonction_agent;

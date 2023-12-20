@@ -166,6 +166,7 @@ export class ArticleBonEntreeAjouterComponent implements OnInit, OnDestroy {
 
     console.log(ArticleBonEntreeForm.value);
     
+    this.articleBonEntree = ArticleBonEntreeForm.value;
     
     this.subscriptions.push(this.articleBonEntreeService.ajouterArticleBonEntree(ArticleBonEntreeForm.value).subscribe({
         next: (response: ArticleBonEntree) => {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -25,7 +25,7 @@ export class ReceptionVehiculeAjouter2Component implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-
+    
   }
 
 
@@ -56,8 +56,8 @@ export class ReceptionVehiculeAjouter2Component implements OnInit, OnDestroy {
 
   // pour envoyer tous les formulaires
   public submitForm(): void { 
-    this.clickButton('bordereau-livraison-form');
-    this.clickButton('bon-entree-form');
+    this.clickButton('article-bon-entre-form');
+    this.clickButton('vehicule-form');
   }
 
 

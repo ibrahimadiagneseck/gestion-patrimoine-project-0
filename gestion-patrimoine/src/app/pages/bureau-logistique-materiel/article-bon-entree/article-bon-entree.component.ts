@@ -30,20 +30,6 @@ import { Router } from '@angular/router';
 export class ArticleBonEntreeComponent implements OnInit, OnDestroy {
 
 
-  public bonEntrees: BonEntree[] = [];
-  public bonEntree: BonEntree = new BonEntree();
-
-
-  public typeObjets: TypeObjet[] = [];
-  public typeObjet: TypeObjet = new TypeObjet();
-
-  public agents: Agent[] = [];
-  public agent: Agent = new Agent();
-
-  public articleBonEntrees: ArticleBonEntree[] = [];
-  public articleBonEntree: ArticleBonEntree = new ArticleBonEntree();
-
-
 
   private subscriptions: Subscription[] = [];
 

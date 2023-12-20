@@ -20,6 +20,7 @@ import { MarqueVehiculeService } from 'src/app/services/marque-vehicule.service'
 import { UniteDouaniereService } from 'src/app/services/unite-douaniere.service';
 import { ArticleBonEntreeService } from 'src/app/services/article-bon-entree.service';
 import { MyDate } from 'src/app/model/date.model';
+import { PaysService } from 'src/app/services/pays.service';
 
 @Component({
   selector: 'app-vehicule-ajouter',
@@ -68,6 +69,7 @@ export class VehiculeAjouterComponent {
     private marqueVehiculeService: MarqueVehiculeService,
     private uniteDouaniereService: UniteDouaniereService,
     private articleBonEntreeService: ArticleBonEntreeService,
+    private paysService: PaysService,
     private matDialog: MatDialog,
     // @Inject(MAT_DIALOG_DATA) public data: string,
     // private matDialog: MatDialog
@@ -86,6 +88,7 @@ export class VehiculeAjouterComponent {
     this.listeMarqueVehiculeServices();
     this.listeUniteDouaniereServices();
     this.listeArticleBonEntreeServices();
+    this.listePaysServices();
 
   }
 
@@ -200,6 +203,27 @@ export class VehiculeAjouterComponent {
       next: (response: ArticleBonEntree[]) => {
         this.articleBonEntrees = response;
         // console.log(this.articleBonEntrees);
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        // console.log(errorResponse);
+      },
+    });
+
+    this.subscriptions.push(subscription);
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  public listePaysServices(): void {
+
+    const subscription = this.paysService.listePays().subscribe({
+      next: (response: Pays[]) => {
+        this.pays = response;
+        // console.log(this.pays);
         
       },
       error: (errorResponse: HttpErrorResponse) => {
