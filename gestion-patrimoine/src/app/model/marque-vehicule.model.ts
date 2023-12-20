@@ -1,17 +1,16 @@
 
 export class MarqueVehicule {
 
-  public codeMarque:number;
+  public codeMarque: string;
   public libelleMarque: string;
 
 
-
-  constructor() {
-    this.codeMarque = 0;
-    this.libelleMarque = '';
-
-
-
+  constructor(
+    codeMarque = '',
+    libelleMarque = ''
+  ) {
+    this.codeMarque = libelleMarque;
+    this.libelleMarque = libelleMarque;
   }
 
 }

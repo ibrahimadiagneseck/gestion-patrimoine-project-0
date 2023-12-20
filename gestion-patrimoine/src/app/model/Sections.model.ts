@@ -9,12 +9,14 @@ export class Sections {
  ;
 
 
-  constructor() {
-    this.codeSection = '';
-    this.libelleSection = '';
-    this.codeUniteDouaniere = new UniteDouaniere() ;
-
-
+  constructor(
+    codeSection = '',
+    libelleSection = '',
+    codeUniteDouaniere = new UniteDouaniere()
+  ) {
+    this.codeSection = codeSection;
+    this.libelleSection = libelleSection;
+    this.codeUniteDouaniere = codeUniteDouaniere;
   }
 
 }

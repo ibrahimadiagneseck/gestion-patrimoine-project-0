@@ -51,10 +51,9 @@ public class VehiculeServiceImpl implements VehiculeService {
     public Vehicule ajouterVehicule(
             String numeroSerie,
             String numeroImmatriculation,
-            String genre,
             String modele,
-            String etatVehicule,
-            String typeEnergie,
+            EtatVehicule codeEtat,
+            TypeEnergie codeTypeEnergie,
             String numeroCarteGrise,
             Date dateMiseEnCirculation,
             Pays codePays,
@@ -68,10 +67,9 @@ public class VehiculeServiceImpl implements VehiculeService {
 
         vehicule.setNumeroSerie(numeroSerie);
         vehicule.setNumeroImmatriculation(numeroImmatriculation);
-        vehicule.setGenre(genre);
         vehicule.setModele(modele);
-        vehicule.setEtatVehicule(etatVehicule);
-        vehicule.setTypeEnergie(typeEnergie);
+        vehicule.setCodeEtat(codeEtat);
+        vehicule.setCodeTypeEnergie(codeTypeEnergie);
         vehicule.setNumeroCarteGrise(numeroCarteGrise);
         vehicule.setDateMiseEnCirculation(dateMiseEnCirculation);
         vehicule.setCodePays(codePays);

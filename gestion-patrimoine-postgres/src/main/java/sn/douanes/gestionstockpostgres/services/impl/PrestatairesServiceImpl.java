@@ -54,7 +54,8 @@ public class PrestatairesServiceImpl implements PrestatairesService {
             String raisonSociale,
             Integer numeroTelephone,
             String adresseEmail,
-            String adresse
+            String adresse,
+            Set<SecteurActivite> secteursActivite
     ) {
 
         Prestataires prestataires = new Prestataires();
@@ -64,7 +65,6 @@ public class PrestatairesServiceImpl implements PrestatairesService {
         prestataires.setNumeroTelephone(numeroTelephone);
         prestataires.setAdresseEmail(adresseEmail);
         prestataires.setAdresse(adresse);
-
 
         return prestatairesRepository.save(prestataires);
     }

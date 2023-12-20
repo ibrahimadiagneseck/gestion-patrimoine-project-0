@@ -40,10 +40,9 @@ public class VehiculeController {
     public ResponseEntity<Vehicule> ajouterVehicule(
             @RequestParam("numeroSerie") String numeroSerie,
             @RequestParam("numeroImmatriculation") String numeroImmatriculation,
-            @RequestParam("genre") String genre,
             @RequestParam("modele") String modele,
-            @RequestParam("etatVehicule") String etatVehicule,
-            @RequestParam("typeEnergie") String typeEnergie,
+            @RequestParam("codeEtat") EtatVehicule codeEtat,
+            @RequestParam("codeTypeEnergie") TypeEnergie codeTypeEnergie,
             @RequestParam("numeroCarteGrise") String numeroCarteGrise,
             @RequestParam("dateMiseEnCirculation") Date dateMiseEnCirculation,
             @RequestParam("codePays") Pays codePays,
@@ -52,7 +51,7 @@ public class VehiculeController {
             @RequestParam("codeUniteDouaniere") UniteDouaniere codeUniteDouaniere,
             @RequestParam("identifiantBE") ArticleBonEntree identifiantBE
     ) {
-        Vehicule vehicule = vehiculeService.ajouterVehicule(numeroSerie, numeroImmatriculation, genre, modele, etatVehicule, typeEnergie, numeroCarteGrise, dateMiseEnCirculation, codePays, codeTypeVehicule, codeMarque, codeUniteDouaniere, identifiantBE);
+        Vehicule vehicule = vehiculeService.ajouterVehicule(numeroSerie, numeroImmatriculation, modele, codeEtat, codeTypeEnergie, numeroCarteGrise, dateMiseEnCirculation, codePays, codeTypeVehicule, codeMarque, codeUniteDouaniere, identifiantBE);
         return new ResponseEntity<>(vehicule, OK);
     }
 

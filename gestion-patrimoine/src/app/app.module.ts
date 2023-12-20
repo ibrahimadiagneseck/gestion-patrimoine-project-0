@@ -34,6 +34,9 @@ import { NgToastModule } from 'ng-angular-popup';
 import { AccueilComponent } from './pages/accueil/accueil.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { ComposantModule } from './composant/composant.module';
+import { PrestataireSecteurListeComponent } from './pages/prestataire/prestataire-secteur-liste/prestataire-secteur-liste.component';
+import { PrestataireSecteurAjouterComponent } from './pages/prestataire/prestataire-secteur-ajouter/prestataire-secteur-ajouter.component';
+import { PrestataireSecteurDetailComponent } from './pages/prestataire/prestataire-secteur-detail/prestataire-secteur-detail.component';
 
 
 
@@ -71,15 +74,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
     ConnexionComponent,
 
     ErreurComponent,
- 
     
-    // UtilisateurListeComponent,
-    // UtilisateurAjouterComponent,
-    // UtilisateurModifierComponent,
-    // UtilisateurDetailComponent,
-    
-    
-    
+    PrestataireSecteurListeComponent,
+    PrestataireSecteurAjouterComponent,
+    PrestataireSecteurDetailComponent
     
   ],
   imports: [
@@ -103,13 +101,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     //   // customNotifierOptions1 // Custom options in here
     // ),
 
-    
-
     NgbModule, // dropdown
-
-    
-    
-
 
     MatTableModule, MatPaginatorModule,
 

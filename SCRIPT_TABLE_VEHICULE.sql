@@ -1,4 +1,5 @@
 
+-------------------------------------------------------------------------------------------------------------------
 
 
 SELECT * FROM information_schema.tables WHERE table_type = 'BASE TABLE';
@@ -21,8 +22,11 @@ ALTER TABLE article_bon_entree DROP CONSTRAINT IF EXISTS FK_article_bon_entree_b
 ALTER TABLE vehicule DROP CONSTRAINT IF EXISTS FK_vehicule_pays;
 ALTER TABLE vehicule DROP CONSTRAINT IF EXISTS FK_vehicule_article_bon_entree;
 ALTER TABLE vehicule DROP CONSTRAINT IF EXISTS FK_vehicule_type_vehicule;
+ALTER TABLE vehicule DROP CONSTRAINT IF EXISTS FK_vehicule_type_energie;
 ALTER TABLE vehicule DROP CONSTRAINT IF EXISTS FK_vehicule_marque_vehicule;
+ALTER TABLE vehicule DROP CONSTRAINT IF EXISTS FK_vehicule_etat_vehicule;
 ALTER TABLE vehicule DROP CONSTRAINT IF EXISTS FK_vehicule_unite_douaniere;
+
 
 ALTER TABLE agent DROP CONSTRAINT IF EXISTS FK_agent_fonction_agent;
 ALTER TABLE agent DROP CONSTRAINT IF EXISTS FK_agent_unite_douaniere;
@@ -44,7 +48,9 @@ DROP TABLE IF EXISTS prestataires_secteur;
 DROP TABLE IF EXISTS secteur_activite;
 DROP TABLE IF EXISTS prestataires;
 DROP TABLE IF EXISTS type_vehicule;
+DROP TABLE IF EXISTS type_energie;
 DROP TABLE IF EXISTS marque_vehicule;
+DROP TABLE IF EXISTS etat_vehicule;
 DROP TABLE IF EXISTS unite_douaniere;
 DROP TABLE IF EXISTS sections;
 DROP TABLE IF EXISTS type_unite_douaniere;
@@ -85,10 +91,22 @@ CREATE TABLE marque_vehicule (
     PRIMARY KEY (code_marque)
 );
 
+CREATE TABLE etat_vehicule (
+    code_etat VARCHAR(10),
+    libelle_etat VARCHAR(10),
+    PRIMARY KEY (code_etat)
+);
+
 CREATE TABLE type_vehicule (
     code_type_vehicule VARCHAR(25),
     libelle_type_vehicule VARCHAR(100),
     PRIMARY KEY (code_type_vehicule)
+);
+
+CREATE TABLE type_energie (
+    code_type_energie VARCHAR(20),
+    libelle_type_energie VARCHAR(20),
+    PRIMARY KEY (code_type_energie)
 );
 
 CREATE TABLE prestataires (
@@ -163,7 +181,7 @@ CREATE TABLE agent (
 
 CREATE TABLE bordereau_livraison ( -- exemple : BLSA202311121243214 (SA+heure en Timestamp)
     identifiant_b_l VARCHAR(25),
-    numero_b_l VARCHAR(100),
+    numero_b_l VARCHAR(100) UNIQUE,
     description_b_l VARCHAR(512),
     lieu_de_livraison VARCHAR(255),
     date_b_l DATE,
@@ -182,7 +200,7 @@ CREATE TABLE bordereau_livraison ( -- exemple : BLSA202311121243214 (SA+heure en
 
 
 CREATE TABLE bon_entree ( -- exemple : BESG202311121243214 (SG+heure en Timestamp)
-    identifiant_b_e VARCHAR(25),
+    identifiant_b_e VARCHAR(25) UNIQUE,
     numero_b_e VARCHAR(100),
     libelle_bon_entree VARCHAR(255),
     date_bon_entree DATE,
@@ -221,10 +239,9 @@ CREATE TABLE vehicule (
     numero_immatriculation VARCHAR(20),
     identifiant_b_e VARCHAR(25),
     code_article_bon_entree INT,
-    genre VARCHAR(50),
     modele VARCHAR(50),
-    etat_vehicule VARCHAR(10),
-    type_energie VARCHAR(20),
+    code_etat VARCHAR(10),
+    code_type_energie VARCHAR(20),
     code_pays VARCHAR(3),
     numero_carte_grise VARCHAR(30),
     date_mise_en_circulation DATE,
@@ -235,7 +252,9 @@ CREATE TABLE vehicule (
     CONSTRAINT FK_vehicule_pays FOREIGN KEY (code_pays) REFERENCES pays(code_pays),
     CONSTRAINT FK_vehicule_article_bon_entree FOREIGN KEY (identifiant_b_e, code_article_bon_entree) REFERENCES article_bon_entree(identifiant_b_e, code_article_bon_entree),
     CONSTRAINT FK_vehicule_type_vehicule FOREIGN KEY (code_type_vehicule) REFERENCES type_vehicule(code_type_vehicule),
+    CONSTRAINT FK_vehicule_type_energie FOREIGN KEY (code_type_energie) REFERENCES type_energie(code_type_energie),
     CONSTRAINT FK_vehicule_marque_vehicule FOREIGN KEY (code_marque) REFERENCES marque_vehicule(code_marque),
+    CONSTRAINT FK_vehicule_etat_vehicule FOREIGN KEY (code_etat) REFERENCES etat_vehicule(code_etat),
     CONSTRAINT FK_vehicule_unite_douaniere FOREIGN KEY (code_unite_douaniere) REFERENCES unite_douaniere(code_unite_douaniere)
 );
 
@@ -248,23 +267,29 @@ CREATE TABLE vehicule (
 
 INSERT INTO secteur_activite (code_secteur_activite, libelle_secteur_activite)
 VALUES 
-    ('SEC1', 'Secteur 1'),
-    ('SEC2', 'Secteur 2'),
-    ('SEC3', 'Secteur 3');
+    ('IT', 'Technologies de l''information'),
+    ('Finance', 'Services financiers'),
+    ('Sante', 'Soins de santé'),
+    ('Fabrique', 'Fabrication'),
+    ('Education', 'Éducation'),
+    ('Hotellerie', 'Hôtellerie et restauration'),
+    ('Energie', 'Énergie'),
+    ('Menuisier', 'Menuisier');
+
 
 
 INSERT INTO prestataires (ninea, raison_sociale, numero_telephone, adresse_email, adresse)
 VALUES 
-    ('NIN1', 'Prestataire 1', 123456789, 'email1@example.com', 'Address 1'),
-    ('NIN2', 'Prestataire 2', 987654321, 'email2@example.com', 'Address 2'),
-    ('NIN3', 'Prestataire 3', 555555555, 'email3@example.com', 'Address 3');
+    ('005177614', 'cabinet alpha de consultance et de genie-civil-sarl', 123456789, 'email1@example.com', 'Address 1'),
+    ('005174222', 'transfert des technologies-sarl', 987654321, 'email2@example.com', 'Address 2'),
+    ('005192373', 'entreprise senegalaise de prefabrication-sarl', 555555555, 'email3@example.com', 'Address 3');
 
 
 INSERT INTO prestataires_secteur (ninea, code_secteur_activite)
 VALUES 
-    ('NIN1', 'SEC1'),
-    ('NIN2', 'SEC2'),
-    ('NIN3', 'SEC3');
+    ('005177614', 'IT'),
+    ('005174222', 'Finance'),
+    ('005192373', 'Sante');
 
 
 INSERT INTO type_unite_douaniere (code_type_unite_douaniere, libelle_type_unite_douaniere)
@@ -313,9 +338,9 @@ VALUES
 
 INSERT INTO bordereau_livraison (identifiant_b_l, numero_b_l, description_b_l, lieu_de_livraison, date_b_l, conformite_b_l, nom_livreur, code_section, ninea, matricule_agent, date_enregistrement, code_corps_agent)
 VALUES 
-    ('BLSA202312011043210', '001', 'Description BL 1', 'Lieu 1', '2023-12-01', 'OUI', 'Livreur 1', 'SA', 'NIN1', 'MAT001', CURRENT_TIMESTAMP, 'CP1'),
-    ('BLSM202312021143211', '002', 'Description BL 2', 'Lieu 2', '2023-12-02', 'OUI', 'Livreur 2', 'SM', 'NIN2', 'MAT002', CURRENT_TIMESTAMP, 'CP2'),
-    ('BLSG202312031243213', '003', 'Description BL 3', 'Lieu 3', '2023-12-03', 'NON', 'Livreur 3', 'SG', 'NIN3', 'MAT003', CURRENT_TIMESTAMP, 'CP3');
+    ('BLSA202312011043210', '001', 'Description BL 1', 'Lieu 1', '2023-12-01', 'OUI', 'Livreur 1', 'SA', '005177614', 'MAT001', CURRENT_TIMESTAMP, 'CP1'),
+    ('BLSM202312021143211', '002', 'Description BL 2', 'Lieu 2', '2023-12-02', 'OUI', 'Livreur 2', 'SM', '005174222', 'MAT002', CURRENT_TIMESTAMP, 'CP2'),
+    ('BLSG202312031243213', '003', 'Description BL 3', 'Lieu 3', '2023-12-03', 'NON', 'Livreur 3', 'SG', '005192373', 'MAT003', CURRENT_TIMESTAMP, 'CP3');
 
 
 INSERT INTO bon_entree (identifiant_b_e, numero_b_e, libelle_bon_entree, date_bon_entree, observation_bon_entree, identifiant_b_l)
@@ -598,31 +623,77 @@ VALUES
 
 
 INSERT INTO type_vehicule (code_type_vehicule, libelle_type_vehicule)
-VALUES ('TV1', 'Type 1'),
-       ('TV2', 'Type 2'),
-       ('TV3', 'Type 3');
+VALUES ('TV1', 'VP'),
+       ('TV2', 'PICK-UP'),
+       ('TV3', 'BUS'),
+       ('TV4', 'CAMIONNETTE'),
+       ('TV5', '4x4');
+
+
+INSERT INTO type_energie (code_type_energie, libelle_type_energie)
+VALUES ('ESSENCE', 'ESSENCE'),
+       ('GASOIL', 'GASOIL'),
+       ('ELECTRIQUE', 'ELECTRIQUE'),
+       ('HYBRIDE', 'HYBRIDE');
 
 
 INSERT INTO marque_vehicule (code_marque, libelle_marque)
-VALUES ('MRQ1', 'Marque 1'),
-       ('MRQ2', 'Marque 2'),
-       ('MRQ3', 'Marque 3');
-
-
-INSERT INTO vehicule (numero_serie, numero_immatriculation, identifiant_b_e, code_article_bon_entree, genre, modele, etat_vehicule, type_energie, code_pays, numero_carte_grise, date_mise_en_circulation, code_type_vehicule, code_marque, code_unite_douaniere)
 VALUES 
-    ('123456', 'ABC123', 'BESM202312021143211', 2, 'Car', 'Model 1', 'Good', 'Gasoline', 'US', 'CG123', '2023-01-01', 'TV1', 'MRQ1', '06Z'),
-    ('789012', 'XYZ789', 'BESG202312031243213', 3, 'Truck', 'Model 2', 'Excellent', 'Diesel', 'JP', 'CG789', '2023-02-02', 'TV2', 'MRQ2', '06K'),
-    ('345678', 'DEF345', 'BESA202312011043210', 1, 'Motorcycle', 'Model 3', 'Fair', 'Electric', 'FR', 'CG345', '2023-03-03', 'TV3', 'MRQ3', '06K');
+    ('ALF', 'Alfa Romeo'),
+    ('AST', 'Aston Martin'),
+    ('AUD', 'Audi'),
+    ('BEN', 'Bentley'),
+    ('BMW', 'BMW'),
+    ('CAD', 'Cadillac'),
+    ('CHE', 'Chevrolet'),
+    ('CIT', 'Citroën'),
+    ('FIAT', 'Fiat'),
+    ('FOR', 'Ford'),
+    ('HON', 'Honda'),
+    ('HYU', 'Hyundai'),
+    ('JAG', 'Jaguar'),
+    ('JEE', 'Jeep'),
+    ('KIA', 'Kia'),
+    ('LAN', 'Land Rover'),
+    ('LEX', 'Lexus'),
+    ('MAS', 'Maserati'),
+    ('MAZ', 'Mazda'),
+    ('MCL', 'McLaren'),
+    ('MER', 'Mercedes'),
+    ('MIN', 'MINI'),
+    ('NISS', 'Nissan'),
+    ('OPE', 'Opel'),
+    ('POR', 'Porsche'),
+    ('REN', 'Renault'),
+    ('ROL', 'Rolls-Royce'),
+    ('SSA', 'SSANGYONG'),
+    ('SUB', 'Subaru'),
+    ('TES', 'Tesla'),
+    ('TOY', 'Toyota'),
+    ('VOL', 'Volkswagen'),
+    ('VOLV', 'Volvo');
 
 
+INSERT INTO etat_vehicule (code_etat, libelle_etat)
+VALUES 
+    ('NEUF', 'NEUF'),
+    ('USAGE', 'USAGÉ');
+
+
+INSERT INTO vehicule (numero_serie, numero_immatriculation, identifiant_b_e, code_article_bon_entree, code_etat, code_type_energie, code_pays, numero_carte_grise, date_mise_en_circulation, code_type_vehicule, code_marque, code_unite_douaniere)
+VALUES 
+    ('123456', 'ABC123', 'BESM202312021143211', 2, 'NEUF', 'ESSENCE', 'US', 'CG123', '2023-01-01', 'TV1', 'TOY', '06Z'),
+    ('789012', 'XYZ789', 'BESG202312031243213', 3, 'NEUF', 'GASOIL', 'JP', 'CG789', '2023-02-02', 'TV2', 'FOR', '06K'),
+    ('345678', 'DEF345', 'BESA202312011043210', 1, 'USAGE', 'HYBRIDE', 'FR', 'CG345', '2023-03-03', 'TV3', 'BMW', '06K');
 
 
 SELECT * FROM fonction_agent;
 SELECT * FROM corps_agent;
 SELECT * FROM type_unite_douaniere;
 SELECT * FROM marque_vehicule;
+SELECT * FROM etat_vehicule;
 SELECT * FROM type_vehicule;
+SELECT * FROM type_energie;
 SELECT * FROM prestataires;
 SELECT * FROM secteur_activite;
 SELECT * FROM prestataires_secteur;

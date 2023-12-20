@@ -12,8 +12,8 @@ import autoTable from 'jspdf-autotable';
 import { BonEntree } from 'src/app/model/bon-entree.model';
 import { ArticleBonEntree } from 'src/app/model/article-bon-entree.model';
 import { ArticleBonEntreeService } from 'src/app/services/article-bon-entree.service';
-import { ReceptionVehiculeAjouterComponent } from '../reception-vehicule-ajouter/reception-vehicule-ajouter.component';
 import { BonEntreeService } from 'src/app/services/bon-entree.service';
+import { ReceptionVehiculeAjouter1Component } from '../reception-vehicule-ajouter-1/reception-vehicule-ajouter-1.component';
 
 @Component({
   selector: 'app-reception-vehicule-liste',
@@ -326,12 +326,11 @@ export class ReceptionVehiculeListeComponent implements OnInit, OnDestroy {
 
   
 
-  popupAjouter(): void {
+  popupAjouterBordereauLivraisonBonEntree(): void {
     const dialogRef = this.matDialog.open(
-      ReceptionVehiculeAjouterComponent,
+      ReceptionVehiculeAjouter1Component,
       {
         width: '80%',
-        height: 'auto',
         enterAnimationDuration: '100ms',
         exitAnimationDuration: '100ms'
       }
@@ -344,7 +343,7 @@ export class ReceptionVehiculeListeComponent implements OnInit, OnDestroy {
 
   popupDetail(element: any): void {
     const dialogRef = this.matDialog.open(
-      ReceptionVehiculeAjouterComponent,
+      ReceptionVehiculeAjouter1Component,
       {
         width: '80%',
         enterAnimationDuration: '100ms',

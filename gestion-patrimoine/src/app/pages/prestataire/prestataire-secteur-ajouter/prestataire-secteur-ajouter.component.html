@@ -1,24 +1,13 @@
 <div class="card shadow">
 
     <div class="card-header text-center fw-bold bg-myprimary fs-5">
-        Ajouter
+        Ajouter Prestataire
     </div>
 
     <div class="card-body">
-        <div class="text-center fw-bolder bg-myprimary mt-1" role="alert">
-            Bordereau Livraison
-        </div>
 
         <div class="container px-3 py-2">
-            <app-bordereau-livraison-ajouter></app-bordereau-livraison-ajouter>
-        </div>
-
-        <div class="text-center fw-bolder bg-myprimary mt-1" role="alert">
-            Bon d'Entrée
-        </div>
-
-        <div class="container px-3 py-2">
-            <app-bon-entree-ajouter></app-bon-entree-ajouter>
+            <app-prestataire-ajouter></app-prestataire-ajouter>
         </div>
 
         <div class="container px-3 py-2">
@@ -26,10 +15,6 @@
                 <div class="col-12 text-end">
                     <button (click)="submitForm()" type="button" class="btn btn-myprimary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour ajouter">
                         Valider
-                    </button>
-    
-                    <button type="button" disabled class="btn btn-mysecondary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour retourner">
-                        Ajouter article
                     </button>
         
                     <button (click)="popupFermer()" type="button" class="btn btn-mysecondary fw-bold mx-2" data-bs-toggle="tooltip" title="cliquer ici pour retourner">

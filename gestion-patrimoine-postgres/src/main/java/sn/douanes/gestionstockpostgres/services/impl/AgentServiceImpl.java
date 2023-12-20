@@ -54,8 +54,8 @@ public class AgentServiceImpl implements AgentService {
             String nomAgent,
             String prenomAgent,
             Integer numeroTelephoneAgent,
-            FonctionAgent fonctionAgent,
-            UniteDouaniere uniteDouaniere,
+            FonctionAgent codeFonctionAgent,
+            UniteDouaniere codeUniteDouaniere,
             CorpsAgent codeCorpsAgent
     ) {
 
@@ -66,8 +66,8 @@ public class AgentServiceImpl implements AgentService {
         agent.setNomAgent(nomAgent);
         agent.setPrenomAgent(prenomAgent);
         agent.setNumeroTelephoneAgent(numeroTelephoneAgent);
-        agent.setFonctionAgent(fonctionAgent);
-        agent.setUniteDouaniere(uniteDouaniere);
+        agent.setCodeFonctionAgent(codeFonctionAgent);
+        agent.setCodeUniteDouaniere(codeUniteDouaniere);
         agent.setCodeCorpsAgent(codeCorpsAgent);
 
         return agentRepository.save(agent);

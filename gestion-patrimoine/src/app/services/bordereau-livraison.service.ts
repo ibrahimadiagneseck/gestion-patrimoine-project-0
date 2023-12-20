@@ -16,7 +16,7 @@ export class BordereauLivraisonService {
 
   constructor(
     private httpClient: HttpClient
-    ) {}
+  ) {}
 
 
   public listeBordereauLivraisons(): Observable<BordereauLivraison[]> {

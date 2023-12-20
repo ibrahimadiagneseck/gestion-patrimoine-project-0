@@ -25,7 +25,7 @@ export class BonEntreeService {
     }
 
     // Filtrer la liste de bonEntrees en fonction du terme de recherche
-    const filteredBonEntrees = listeBonEntrees.filter((bonEntree) =>
+    const filteredBonEntrees: BonEntree[] = listeBonEntrees.filter((bonEntree) =>
       bonEntree.numeroBE.toString().includes(term.toLowerCase()) || bonEntree.libelleBonEntree.toLowerCase().includes(term.toLowerCase())
     );
 

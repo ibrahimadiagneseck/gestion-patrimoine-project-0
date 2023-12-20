@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs';
 import { Vehicule } from '../model/vehicule.model';
 import { environment } from 'src/environments/environment';
 import { CustomHttpRespone } from '../model/custom-http-response.model';
+import { MyDate } from '../model/date.model';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -90,23 +92,37 @@ export class VehiculeService {
 
     const formData = new FormData();
 
+    const formattedDate = this.formatterMyDate(vehicule.dateMiseEnCirculation);
+
     formData.append('numeroSerie', vehicule.numeroSerie);
     formData.append('numeroImmatriculation', vehicule.numeroImmatriculation);
-    formData.append('identifiantBE', JSON.stringify(vehicule.identifiantBE));
-    formData.append('genre', vehicule.genre);
+    formData.append('identifiantBE', vehicule.identifiantBE.identifiantBE.identifiantBE);
     formData.append('modele', vehicule.modele);
-    formData.append('etatVehicule', vehicule.etatVehicule);
-    formData.append('typeEnergie', vehicule.typeEnergie);
-    formData.append('codePays', JSON.stringify(vehicule.codePays));
+    formData.append('codeEtat', vehicule.codeEtat.codeEtat);
+    formData.append('codeTypeEnergie', vehicule.codeTypeEnergie.codeTypeEnergie);
+    formData.append('codePays', vehicule.codePays.codePays);
     formData.append('numeroCarteGrise', vehicule.numeroCarteGrise);
-    formData.append('dateMiseEnCirculation', JSON.stringify(vehicule.dateMiseEnCirculation));
-    formData.append('codeTypeVehicule', JSON.stringify(vehicule.codeTypeVehicule));
-    formData.append('codeMarque', JSON.stringify(vehicule.codeMarque));
-    formData.append('codeUniteDouaniere', JSON.stringify(vehicule.codeUniteDouaniere));
+    formData.append('dateMiseEnCirculation', formattedDate);
+    formData.append('codeTypeVehicule', vehicule.codeTypeVehicule.codeTypeVehicule);
+    formData.append('codeMarque', vehicule.codeMarque.codeMarque);
+    formData.append('codeUniteDouaniere', vehicule.codeUniteDouaniere.codeUniteDouaniere);
 
     return formData;
   }
 
+  public formatterMyDate(myDate: MyDate): string  {
+    if (!myDate || !myDate.year || !myDate.month || !myDate.day) {
+        return ''; 
+    }
+  
+    const { year, month, day } = myDate;
+    const date = new Date(year, month - 1, day);
+  
+    const datePipe = new DatePipe('en-US');
+    const formattedDate = datePipe.transform(date, 'yyyy-MM-dd') || '';
+    return formattedDate;
+  }
+  
 
 }
 // ----------------------------------------------------------------------------

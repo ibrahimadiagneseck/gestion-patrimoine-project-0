@@ -22,10 +22,10 @@ public class TypeVehicule {
     // @GeneratedValue(strategy = GenerationType.AUTO)
     // @Column(name = "code_type_vehicule", nullable = false, updatable = false)
     // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name = "code_type_vehicule", length = 25)
+    @Column(name = "code_type_vehicule", length = 20)
     private String codeTypeVehicule;
 
-    @Column(name = "libelle_type_vehicule", length = 100)
+    @Column(name = "libelle_type_vehicule", length = 20)
     private String libelleTypeVehicule;
 
 }

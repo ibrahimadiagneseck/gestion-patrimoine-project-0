@@ -28,17 +28,16 @@ public class Vehicule {
     private String numeroImmatriculation;
 
 
-    @Column(name = "genre", length = 50)
-    private String genre;
-
     @Column(name = "modele", length = 50)
     private String modele;
 
-    @Column(name = "etat_vehicule", length = 10)
-    private String etatVehicule;
+    @ManyToOne
+    @JoinColumn(name = "code_etat")
+    private EtatVehicule codeEtat;
 
-    @Column(name = "type_energie", length = 20)
-    private String typeEnergie;
+    @ManyToOne
+    @JoinColumn(name = "code_type_energie")
+    private TypeEnergie codeTypeEnergie;
 
 
     @Column(name = "numero_carte_grise", length = 30)

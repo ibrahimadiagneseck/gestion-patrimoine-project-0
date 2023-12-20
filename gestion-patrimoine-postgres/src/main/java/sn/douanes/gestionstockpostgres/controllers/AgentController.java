@@ -41,11 +41,11 @@ public class AgentController {
             @RequestParam("nomAgent") String nomAgent,
             @RequestParam("prenomAgent") String prenomAgent,
             @RequestParam("numeroTelephoneAgent") Integer numeroTelephoneAgent,
-            @RequestParam("fonctionAgent") FonctionAgent fonctionAgent,
-            @RequestParam("uniteDouaniere") UniteDouaniere uniteDouaniere,
+            @RequestParam("codeFonctionAgent") FonctionAgent codeFonctionAgent,
+            @RequestParam("codeUniteDouaniere") UniteDouaniere codeUniteDouaniere,
             @RequestParam("codeCorpsAgent") CorpsAgent codeCorpsAgent
     ) {
-        Agent agent = agentService.ajouterAgent(matriculeAgent, codeAgent, nomAgent, prenomAgent, numeroTelephoneAgent, fonctionAgent, uniteDouaniere, codeCorpsAgent);
+        Agent agent = agentService.ajouterAgent(matriculeAgent, codeAgent, nomAgent, prenomAgent, numeroTelephoneAgent, codeFonctionAgent, codeUniteDouaniere, codeCorpsAgent);
         return new ResponseEntity<>(agent, OK);
     }
 

@@ -1,23 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDialogRef } from '@angular/material/dialog';
-import { NotificationService } from 'src/app/services/notification.service';
-import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Subscription } from 'rxjs';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-reception-vehicule-ajouter',
+  selector: 'app-prestataire-secteur-ajouter',
   // standalone: true,
   // imports: [CommonModule],
-  templateUrl: './reception-vehicule-ajouter.component.html',
-  styleUrl: './reception-vehicule-ajouter.component.css'
+  templateUrl: './prestataire-secteur-ajouter.component.html',
+  styleUrl: './prestataire-secteur-ajouter.component.css'
 })
-export class ReceptionVehiculeAjouterComponent implements OnInit, OnDestroy {
+export class PrestataireSecteurAjouterComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
   constructor(
-    public dialogRef: MatDialogRef<ReceptionVehiculeAjouterComponent>
+    public dialogRef: MatDialogRef<PrestataireSecteurAjouterComponent>
   ) {}
 
 
@@ -43,8 +41,7 @@ export class ReceptionVehiculeAjouterComponent implements OnInit, OnDestroy {
 
   // pour envoyer tous les formulaires
   public submitForm(): void { 
-    this.clickButton('bordereau-livraison-form');
-    this.clickButton('bon-entree-form');
+    this.clickButton('prestataire-form');
   }
 
 

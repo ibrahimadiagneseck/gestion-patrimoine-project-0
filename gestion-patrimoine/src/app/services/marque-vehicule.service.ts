@@ -40,7 +40,7 @@ export class MarqueVehiculeService {
 
     const formData = new FormData();
 
-    formData.append('codeMarque', marqueVehicule.codeMarque.toString());
+    formData.append('codeMarque', marqueVehicule.codeMarque);
     formData.append('libelleMarque', marqueVehicule.libelleMarque);
 
     return formData;

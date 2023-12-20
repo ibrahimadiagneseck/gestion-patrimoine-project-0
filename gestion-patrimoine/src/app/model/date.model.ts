@@ -5,10 +5,14 @@ export class MyDate {
     public month: number;
     public day: number;
   
-    constructor() {
-      this.year = 0;
-      this.month = 0
-      this.day = 0;
+    constructor(
+      year = 0,
+      month = 0,
+      day = 0
+    ) {
+      this.year = year;
+      this.month = month;
+      this.day = day;
     }
   
 }

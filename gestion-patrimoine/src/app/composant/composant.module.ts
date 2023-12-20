@@ -21,6 +21,12 @@ import { BonEntreeAjouterComponent } from './bon-entree-ajouter/bon-entree-ajout
 import { ArticleBonEntreeAjouterComponent } from './article-bon-entree-ajouter/article-bon-entree-ajouter.component';
 import { BordereauLivraisonAjouterComponent } from './bordereau-livraison-ajouter/bordereau-livraison-ajouter.component';
 import { VehiculeAjouterComponent } from './vehicule-ajouter/vehicule-ajouter.component';
+import { PrestataireAjouterComponent } from './prestataire-ajouter/prestataire-ajouter.component';
+import { PopupSecteurActiviteComponent } from './popup-secteur-activite/popup-secteur-activite.component';
+import { BonEntreeDetailComponent } from './bon-entree-detail/bon-entree-detail.component';
+import { ArticleBonEntreeDetailComponent } from './article-bon-entree-detail/article-bon-entree-detail.component';
+import { BordereauLivraisonDetailComponent } from './bordereau-livraison-detail/bordereau-livraison-detail.component';
+import { VehiculeDetailComponent } from './vehicule-detail/vehicule-detail.component';
 
 
 
@@ -33,10 +39,21 @@ import { VehiculeAjouterComponent } from './vehicule-ajouter/vehicule-ajouter.co
     EnteteComponent,
     MenuComponent,
     PopupConfirmationSupprimerComponent,
+
     BonEntreeAjouterComponent,
+    BonEntreeDetailComponent,
+
     ArticleBonEntreeAjouterComponent,
+    ArticleBonEntreeDetailComponent,
+
     BordereauLivraisonAjouterComponent,
-    VehiculeAjouterComponent
+    BordereauLivraisonDetailComponent,
+
+    VehiculeAjouterComponent,
+    VehiculeDetailComponent,
+
+    PrestataireAjouterComponent,
+    PopupSecteurActiviteComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,10 +77,21 @@ import { VehiculeAjouterComponent } from './vehicule-ajouter/vehicule-ajouter.co
     EnteteComponent,
     MenuComponent,
     PopupConfirmationSupprimerComponent,
+
     BonEntreeAjouterComponent,
+    BonEntreeDetailComponent,
+
     ArticleBonEntreeAjouterComponent,
+    ArticleBonEntreeDetailComponent,
+
     BordereauLivraisonAjouterComponent,
-    VehiculeAjouterComponent
+    BordereauLivraisonDetailComponent,
+
+    VehiculeAjouterComponent,
+    VehiculeDetailComponent,
+
+    PrestataireAjouterComponent,
+    PopupSecteurActiviteComponent,
   ]
 })
 export class ComposantModule { }

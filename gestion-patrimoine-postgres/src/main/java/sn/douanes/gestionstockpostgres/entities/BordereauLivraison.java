@@ -23,7 +23,7 @@ public class BordereauLivraison {
     @Column(name = "identifiant_b_l", length = 25)
     private String identifiantBL;
 
-    @Column(name = "numero_b_l", length = 100)
+    @Column(name = "numero_b_l", length = 100, unique = true)
     private String numeroBL;
 
     @Column(name = "description_b_l", length = 512)
